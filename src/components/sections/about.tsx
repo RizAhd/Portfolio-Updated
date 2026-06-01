@@ -1,19 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/section-heading';
-import StackFeatureSection from '@/components/ui/stack-feature-section';
-import { profile, stats, contact, skillGroups } from '@/data/portfolio';
-
-// Initials for the orbit hub, from the real profile name.
-const initials = profile.name
-  .split(' ')
-  .map((w) => w[0])
-  .join('')
-  .slice(0, 2)
-  .toUpperCase();
-
-// Orbit chips: a representative spread of the real tech stack (one or two items
-// from each skill group), so the animation shows what Riflan actually works in.
-const orbitStack = skillGroups.flatMap((g) => g.items.slice(0, 3)).slice(0, 15);
+import { profile, stats } from '@/data/portfolio';
 
 export const About = () => (
   <section id="about" className="w-full bg-background px-6 py-24 md:px-12 md:py-32">
