@@ -10,8 +10,8 @@ interface ThemeToggleProps {
 }
 
 // Round icon button that flips between light and dark. The active icon
-// cross-fades/rotates in via Framer Motion. Styling uses plain white/translucent
-// tokens because it lives over the always-dark shader hero.
+// cross-fades/rotates in via Framer Motion. Styling uses theme tokens so it
+// reads correctly on both light and dark backgrounds.
 export const ThemeToggle = ({ theme, onToggle, className }: ThemeToggleProps) => {
   const isDark = theme === 'dark';
   return (
@@ -21,7 +21,7 @@ export const ThemeToggle = ({ theme, onToggle, className }: ThemeToggleProps) =>
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
       title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
       className={cn(
-        'relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20',
+        'relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-border bg-foreground/5 text-foreground backdrop-blur-sm transition-colors hover:bg-foreground/10',
         className
       )}
     >

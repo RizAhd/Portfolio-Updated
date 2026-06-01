@@ -57,7 +57,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-medium tracking-widest text-white/60 transition-colors hover:text-white"
+              className="text-sm font-medium tracking-widest text-foreground/60 transition-colors hover:text-foreground"
             >
               {link.label}
             </a>
@@ -69,7 +69,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
           transition={{ duration: 0.5 }}
           className="flex items-center gap-4"
         >
-          <span className="hidden items-center gap-2 text-xs font-medium tracking-widest text-white/70 sm:flex">
+          <span className="hidden items-center gap-2 text-xs font-medium tracking-widest text-foreground/70 sm:flex">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
@@ -95,7 +95,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45 }}
-          className="mt-4 text-6xl font-extrabold leading-[0.95] tracking-tighter text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)] md:text-8xl lg:text-9xl"
+          className="mt-4 text-6xl font-extrabold leading-[0.95] tracking-tighter text-foreground md:text-8xl lg:text-9xl"
         >
           Riflan
           <br />
@@ -106,7 +106,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-6 max-w-md text-sm leading-relaxed text-white/80 md:text-base"
+          className="mt-6 max-w-md text-sm leading-relaxed text-foreground/80 md:text-base"
         >
           {profile.shortBio}
         </motion.p>
