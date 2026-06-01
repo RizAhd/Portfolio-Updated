@@ -85,12 +85,12 @@ export const Contact = () => (
     </div>
 
     {/* Full-width footer with an interactive wave divider. */}
-    <footer className="relative mt-24 w-full overflow-hidden text-foreground">
+    <footer className="relative mt-16 w-full overflow-hidden text-foreground">
       {/* Interactive wave line — bends toward the cursor, springs back. */}
-      <WavePath className="mb-16 text-foreground/40" />
+      <WavePath className="mb-10 text-foreground/40" />
 
-      <div className="px-6 pb-12 md:px-12">
-        <div className="flex flex-col items-center gap-8 text-center">
+      <div className="px-6 pb-8 md:px-12">
+        <div className="flex flex-col items-center gap-5 text-center">
           <a href="#home" className="text-2xl font-bold tracking-wider">
             riflan<span className="text-yellow-500">.</span>
           </a>
@@ -126,7 +126,7 @@ export const Contact = () => (
             ))}
           </div>
 
-          <span className="mt-4 text-xs text-muted-foreground">
+          <span className="mt-2 text-xs text-muted-foreground">
             © {profile.year} {profile.name}. All rights reserved.
           </span>
         </div>
