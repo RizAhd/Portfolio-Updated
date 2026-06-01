@@ -149,3 +149,30 @@
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Infinite-slider marquee keyframes. The track holds two identical copies of
+   the children separated by --slider-gap; translating by exactly one copy +
+   one gap (-50% - gap/2) lands the second copy where the first started, so the
+   loop is seamless with no start/end. */
+@keyframes infinite-slider-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }
+}
+@keyframes infinite-slider-x-reverse {
+  from { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }
+  to { transform: translateX(0); }
+}
+@keyframes infinite-slider-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
+}
+@keyframes infinite-slider-y-reverse {
+  from { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group\/slider > div {
+    animation: none !important;
+  }
+}
