@@ -19,10 +19,9 @@ const socialLinks = [
 interface ShaderHeroProps {
   className?: string;
   theme: Theme;
-  onToggleTheme: () => void;
 }
 
-export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps) => {
+export const ShaderHero = ({ className, theme }: ShaderHeroProps) => {
   return (
     <section
       id="home"
