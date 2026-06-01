@@ -52,6 +52,9 @@ export function InfiniteSlider({
             animationDuration: 'var(--slider-duration)',
             animationTimingFunction: 'linear',
             animationIterationCount: 'infinite',
+            // Start mid-cycle so the strip is already in motion / full on the
+            // very first frame, instead of appearing to "begin" from an edge.
+            animationDelay: `calc(var(--slider-duration) * -0.5)`,
             willChange: 'transform',
           } as React.CSSProperties
         }
