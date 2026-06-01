@@ -14,7 +14,7 @@ function App() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <main className="min-h-screen bg-background text-foreground antialiased">
+    <main className="min-h-screen overflow-x-clip bg-background text-foreground antialiased">
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <ShaderHero theme={theme} />
       <TechMarquee />
