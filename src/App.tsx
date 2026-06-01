@@ -3,6 +3,7 @@ import { About } from '@/components/sections/about'
 import { Projects } from '@/components/sections/projects'
 import { Skills } from '@/components/sections/skills'
 import { Resume } from '@/components/sections/resume'
+import { Education } from '@/components/sections/education'
 import { Contact } from '@/components/sections/contact'
 import { useTheme } from '@/hooks/use-theme'
 
@@ -16,6 +17,7 @@ function App() {
       <Projects />
       <Skills />
       <Resume />
+      <Education />
       <Contact />
     </main>
   )

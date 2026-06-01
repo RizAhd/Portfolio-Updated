@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/section-heading';
-import { experience, education, languages } from '@/data/portfolio';
+import { experience, languages } from '@/data/portfolio';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -11,7 +11,7 @@ const fadeUp = {
 export const Resume = () => (
   <section id="resume" className="w-full bg-secondary px-6 py-24 md:px-12 md:py-32">
     <div className="mx-auto max-w-7xl">
-      <SectionHeading kicker="Background" title="Experience & Education" />
+      <SectionHeading kicker="Background" title="Experience & Languages" />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
         {/* Experience */}
@@ -50,30 +50,8 @@ export const Resume = () => (
           </div>
         </div>
 
-        {/* Education + Languages */}
+        {/* Languages */}
         <div className="space-y-12">
-          <div>
-            <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-              Education
-            </h3>
-            <div className="space-y-4">
-              {education.map((edu) => (
-                <motion.div
-                  key={edu.qualification}
-                  {...fadeUp}
-                  transition={{ duration: 0.5 }}
-                  className="rounded-2xl border border-border bg-card p-5"
-                >
-                  <h4 className="text-sm font-bold text-foreground">{edu.qualification}</h4>
-                  <p className="mt-1 text-sm text-foreground/70">{edu.institution}</p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                    {edu.period}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
           <div>
             <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
               Languages

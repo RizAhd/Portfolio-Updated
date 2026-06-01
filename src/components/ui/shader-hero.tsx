@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 import { Mail, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ShaderAnimation } from '@/components/ui/shader-animation';
+import { DottedSurface } from '@/components/ui/dotted-surface';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
 import { profile, contact, navLinks } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
 
-// Full-screen shader-background hero: the animated WebGL shader fills the
-// viewport, with nav, name, tagline, status, and socials overlaid in light
-// text on top. Replaces the light portrait hero as the page intro.
+// Full-screen hero: an animated Three.js dotted-surface fills the viewport,
+// with nav, name, tagline, status, and socials overlaid in light text on top.
+// Replaces the WebGL shader background as the page intro.
 
 const socialLinks = [
   { icon: GithubIcon, href: contact.github, label: 'GitHub' },
@@ -32,12 +32,15 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
         className
       )}
     >
-      {/* Animated shader background — fills the whole section */}
-      <div className="absolute inset-0 z-0">
-        <ShaderAnimation className="h-full" />
-      </div>
-      {/* Subtle dark scrim so overlaid text stays legible over bright streaks */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-black/30" />
+      {/* Animated dotted-surface background — scoped to this section (absolute,
+          not the component's default fixed) so it stays behind the hero only.
+          Always rendered with the dark palette since the hero is dark. */}
+      <DottedSurface theme="dark" className="absolute inset-0 z-0" />
+      {/* Soft radial glow for depth, matching the component's demo treatment. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 size-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(250,204,21,0.08),transparent_55%)] blur-2xl"
+      />
 
       {/* Header */}
       <header className="relative z-30 flex w-full max-w-7xl items-center justify-between">

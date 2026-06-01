@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, ArrowUpRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
+import { HandWrittenTitle } from '@/components/ui/hand-writing-text';
 import { profile, contact } from '@/data/portfolio';
 
 const links = [
@@ -12,33 +13,40 @@ const links = [
 export const Contact = () => (
   <section id="contact" className="w-full bg-background px-6 py-24 md:px-12 md:py-32">
     <div className="mx-auto max-w-7xl">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center text-center"
-      >
+      <div className="flex flex-col items-center text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
           Get In Touch
         </span>
-        <h2 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">
-          Let&apos;s build something together
-          <span className="text-yellow-500">.</span>
-        </h2>
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/70">
+
+        {/* Animated hand-written heading — uses this site's real contact copy. */}
+        <HandWrittenTitle
+          title="Let's build something together."
+          subtitle="Get in touch"
+        />
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="-mt-8 max-w-xl text-base leading-relaxed text-foreground/70"
+        >
           {profile.status} — open to internships and collaborations in software
           engineering, AI, and full-stack development.
-        </p>
+        </motion.p>
 
-        <a
+        <motion.a
           href={`mailto:${contact.email}`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
         >
           Say Hello
           <ArrowUpRight className="h-4 w-4" />
-        </a>
-      </motion.div>
+        </motion.a>
+      </div>
 
       <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {links.map((link, i) => (
