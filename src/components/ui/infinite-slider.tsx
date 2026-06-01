@@ -42,13 +42,17 @@ export function InfiniteSlider({
       }
     >
       <div
-        className="flex w-max [animation:var(--anim)_var(--slider-duration)_linear_infinite] group-hover/slider:[animation-duration:var(--slider-duration-hover)]"
+        className="flex w-max group-hover/slider:[animation-duration:var(--slider-duration-hover)]"
         style={
           {
             gap: `${gap}px`,
             flexDirection: horizontal ? 'row' : 'column',
-            '--anim': anim,
             '--slider-gap': `${gap}px`,
+            animationName: anim,
+            animationDuration: 'var(--slider-duration)',
+            animationTimingFunction: 'linear',
+            animationIterationCount: 'infinite',
+            willChange: 'transform',
           } as React.CSSProperties
         }
       >
