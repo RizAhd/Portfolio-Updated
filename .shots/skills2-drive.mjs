@@ -64,7 +64,6 @@ async function shoot(c, path) {
   const expectItems = ["TypeScript", "React Native", "Pinecone", "Zapier", "WebSocket", "MySQL"];
   const foundItems = expectItems.filter((s) => skillsText.includes(s));
   // The prompt's testimonial data must NOT appear.
-  const promptLeak = ["Briana Patton", "Operations Manager", "ERP", "randomuser.me"].filter((s) => skillsText.includes(s) || document);
   const leak = ["Briana Patton", "Operations Manager", "this ERP", "randomuser"].filter((s) => skillsText.toLowerCase().includes(s.toLowerCase()));
   const hasAvatarImg = await evalJs(c, `!!document.querySelector('#skills img[src*="randomuser"]')`);
 
