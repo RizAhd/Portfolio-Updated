@@ -18,7 +18,7 @@ const socials = [
 ];
 
 export const Contact = () => (
-  <section id="contact" className="w-full bg-background py-24 md:py-32">
+  <section id="contact" className="w-full bg-background pt-24 md:pt-32">
     <div className="mx-auto max-w-7xl px-6 md:px-12">
       <div className="flex flex-col items-center text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
