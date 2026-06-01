@@ -42,7 +42,7 @@ export function InfiniteSlider({
       }
     >
       <div
-        className="flex w-max group-hover/slider:[animation-duration:var(--slider-duration-hover)]"
+        className="flex w-max group-hover/slider:animation-duration-(--slider-duration-hover)"
         style={
           {
             gap: `${gap}px`,
