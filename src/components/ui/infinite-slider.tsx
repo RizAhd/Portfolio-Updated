@@ -48,6 +48,7 @@ export function InfiniteSlider({
             gap: `${gap}px`,
             flexDirection: horizontal ? 'row' : 'column',
             '--anim': anim,
+            '--slider-gap': `${gap}px`,
           } as React.CSSProperties
         }
       >
