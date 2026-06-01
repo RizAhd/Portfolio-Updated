@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { LogoCloud } from '@/components/ui/logo-cloud-4';
 
 // Riflan's known languages, frameworks, AI/data, databases & tools, shown as
