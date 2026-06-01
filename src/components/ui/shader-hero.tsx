@@ -8,8 +8,8 @@ import { profile, contact, navLinks } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
 
 // Full-screen hero: an animated Three.js dotted-surface fills the viewport,
-// with nav, name, tagline, status, and socials overlaid in light text on top.
-// Replaces the WebGL shader background as the page intro.
+// with nav, name, tagline, status, and socials overlaid on top. Fully
+// theme-aware — background, dots, and text all follow the light/dark toggle.
 
 const socialLinks = [
   { icon: GithubIcon, href: contact.github, label: 'GitHub' },
