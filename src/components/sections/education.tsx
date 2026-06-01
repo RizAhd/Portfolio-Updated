@@ -13,7 +13,7 @@ const palettes = [
 ] as const;
 
 export const Education = () => (
-  <section id="education">
+  <section id="education" className="w-full overflow-x-clip">
     <FlowArt aria-label="Education">
       {education.map((edu, i) => {
         const p = palettes[i % palettes.length];
