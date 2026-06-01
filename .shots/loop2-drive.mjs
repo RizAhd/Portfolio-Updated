@@ -45,6 +45,9 @@ async function shoot(c, path) {
   await c.send("Page.enable");
   await c.send("Runtime.enable");
   await c.send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
+  // Normal users default to no-preference; headless defaults to reduce, which
+  // our a11y rule intentionally honors. Emulate a normal user for this check.
+  await c.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
 
   // Wait for the track (the animated flex.w-max).
   let ok = false;
