@@ -1,0 +1,24 @@
+import { ShaderHero } from '@/components/ui/shader-hero'
+import { About } from '@/components/sections/about'
+import { Projects } from '@/components/sections/projects'
+import { Skills } from '@/components/sections/skills'
+import { Resume } from '@/components/sections/resume'
+import { Contact } from '@/components/sections/contact'
+import { useTheme } from '@/hooks/use-theme'
+
+function App() {
+  const { theme, toggleTheme } = useTheme()
+
+  return (
+    <main className="min-h-screen bg-background text-foreground antialiased">
+      <ShaderHero theme={theme} onToggleTheme={toggleTheme} />
+      <About />
+      <Projects />
+      <Skills />
+      <Resume />
+      <Contact />
+    </main>
+  )
+}
+
+export default App
