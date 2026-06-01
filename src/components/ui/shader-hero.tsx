@@ -116,7 +116,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.75 }}
-          className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-2.5 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+          className="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-foreground/5 px-6 py-2.5 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-foreground/10"
         >
           Explore my work
           <ArrowDown className="h-4 w-4" />
@@ -138,7 +138,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="text-white/60 transition-colors hover:text-white"
+              className="text-foreground/60 transition-colors hover:text-foreground"
             >
               <link.icon className="h-5 w-5" />
             </a>
@@ -148,7 +148,7 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="text-sm font-medium text-white/80"
+          className="text-sm font-medium text-foreground/80"
         >
           {profile.location}
         </motion.div>
