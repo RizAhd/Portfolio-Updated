@@ -2,9 +2,8 @@ import { motion } from 'framer-motion';
 import { Mail, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DottedSurface } from '@/components/ui/dotted-surface';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
-import { profile, contact, navLinks } from '@/data/portfolio';
+import { profile, contact } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
 
 // Full-screen hero: an animated Three.js dotted-surface fills the viewport,
