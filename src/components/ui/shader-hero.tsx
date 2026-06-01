@@ -28,14 +28,14 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
     <section
       id="home"
       className={cn(
-        'relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-black p-6 font-sans text-white md:p-12',
+        'relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-background p-6 font-sans text-foreground md:p-12',
         className
       )}
     >
       {/* Animated dotted-surface background — scoped to this section (absolute,
-          not the component's default fixed) so it stays behind the hero only.
-          Always rendered with the dark palette since the hero is dark. */}
-      <DottedSurface theme="dark" className="absolute inset-0 z-0" />
+          not the component's default fixed). Follows the live theme so the dots
+          are dark on a light page and light on a dark page. */}
+      <DottedSurface theme={theme} className="absolute inset-0 z-0" />
       {/* Soft radial glow for depth, matching the component's demo treatment. */}
       <div
         aria-hidden="true"
