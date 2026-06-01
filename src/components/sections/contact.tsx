@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { Mail, ArrowUpRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text';
-import { profile, contact } from '@/data/portfolio';
+import { WavePath } from '@/components/ui/wave-path';
+import { profile, contact, navLinks } from '@/data/portfolio';
 
 const links = [
   { icon: Mail, label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
@@ -10,9 +11,15 @@ const links = [
   { icon: LinkedinIcon, label: 'LinkedIn', value: 'linkedin.com/in/riflan', href: contact.linkedin },
 ];
 
+const socials = [
+  { icon: GithubIcon, label: 'GitHub', href: contact.github },
+  { icon: LinkedinIcon, label: 'LinkedIn', href: contact.linkedin },
+  { icon: Mail, label: 'Email', href: `mailto:${contact.email}` },
+];
+
 export const Contact = () => (
-  <section id="contact" className="w-full bg-background px-6 py-24 md:px-12 md:py-32">
-    <div className="mx-auto max-w-7xl">
+  <section id="contact" className="w-full bg-background py-24 md:py-32">
+    <div className="mx-auto max-w-7xl px-6 md:px-12">
       <div className="flex flex-col items-center text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
           Get In Touch
@@ -75,12 +82,55 @@ export const Contact = () => (
         ))}
       </div>
 
-      <footer className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row">
-        <span>
-          © {profile.year} {profile.name}. All rights reserved.
-        </span>
-        <span>Designed &amp; built in {profile.location}.</span>
-      </footer>
     </div>
+
+    {/* Full-width footer with an interactive wave divider. */}
+    <footer className="relative mt-24 w-full overflow-hidden text-foreground">
+      {/* Interactive wave line — bends toward the cursor, springs back. */}
+      <WavePath className="mb-16 text-foreground/40" />
+
+      <div className="px-6 pb-12 md:px-12">
+        <div className="flex flex-col items-center gap-8 text-center">
+          <a href="#home" className="text-2xl font-bold tracking-wider">
+            riflan<span className="text-yellow-500">.</span>
+          </a>
+
+          <p className="max-w-md text-sm text-muted-foreground">
+            {profile.tagline}
+          </p>
+
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs font-medium tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-5">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <s.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+
+          <span className="mt-4 text-xs text-muted-foreground">
+            © {profile.year} {profile.name}. All rights reserved.
+          </span>
+        </div>
+      </div>
+    </footer>
   </section>
 );
