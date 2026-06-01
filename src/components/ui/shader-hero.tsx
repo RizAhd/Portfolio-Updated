@@ -42,42 +42,21 @@ export const ShaderHero = ({ className, theme, onToggleTheme }: ShaderHeroProps)
         className="pointer-events-none absolute left-1/2 top-1/2 z-0 size-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(250,204,21,0.08),transparent_55%)] blur-2xl"
       />
 
-      {/* Header */}
-      <header className="relative z-30 flex w-full max-w-7xl items-center justify-between">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-xl font-bold tracking-wider"
-        >
-          riflan<span className="text-yellow-400">.</span>
-        </motion.div>
-        <div className="hidden items-center space-x-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium tracking-widest text-foreground/60 transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-        <motion.div
+      {/* Header — just the live-status pill; nav + logo + theme toggle live in
+          the sticky Navbar that overlays the top of the page. */}
+      <header className="relative z-30 mt-16 flex w-full max-w-7xl items-center justify-end sm:mt-20">
+        <motion.span
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-4"
+          className="flex items-center gap-2 text-xs font-medium tracking-widest text-foreground/70"
         >
-          <span className="hidden items-center gap-2 text-xs font-medium tracking-widest text-foreground/70 sm:flex">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
-            </span>
-            {profile.status.toUpperCase()}
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
           </span>
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-        </motion.div>
+          {profile.status.toUpperCase()}
+        </motion.span>
       </header>
 
       {/* Center content — name + tagline overlaid on the shader */}
