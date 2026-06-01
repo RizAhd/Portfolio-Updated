@@ -126,7 +126,7 @@ export const Contact = () => (
             ))}
           </div>
 
-          <span className="mt-1 text-xs text-muted-foreground">
+          <span className="text-xs text-muted-foreground">
             © {profile.year} {profile.name}. All rights reserved.
           </span>
         </div>
