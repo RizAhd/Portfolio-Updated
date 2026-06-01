@@ -170,9 +170,3 @@
   from { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
   to { transform: translateY(0); }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .group\/slider > div {
-    animation: none !important;
-  }
-}
