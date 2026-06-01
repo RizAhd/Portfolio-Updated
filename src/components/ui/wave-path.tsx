@@ -13,11 +13,6 @@ export function WavePath({ className, ...props }: WavePathProps) {
 	let time = Math.PI / 2;
 	let reqId: number | null = null;
 
-	useEffect(() => {
-		setPath(progress);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	const setPath = (progress: number) => {
 		const width = window.innerWidth;
 		if (path.current) {
@@ -28,6 +23,14 @@ export function WavePath({ className, ...props }: WavePathProps) {
 			);
 		}
 	};
+
+	useEffect(() => {
+		setPath(progress);
+		const onResize = () => setPath(progress);
+		window.addEventListener('resize', onResize);
+		return () => window.removeEventListener('resize', onResize);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 
