@@ -49,21 +49,6 @@ export const TechMarquee = () => (
     id="tech"
     className="relative w-full overflow-hidden bg-background py-16 md:py-20"
   >
-    <motion.h2
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5 }}
-      className="mb-8 px-4 text-center"
-    >
-      <span className="block text-sm font-semibold uppercase tracking-[0.25em] text-yellow-600">
-        Languages &amp; Tools
-      </span>
-      <span className="mt-2 block text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-        Technologies I work with
-      </span>
-    </motion.h2>
-
     <LogoCloud logos={techLogos} />
   </section>
 );
