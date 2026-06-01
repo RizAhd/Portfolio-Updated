@@ -184,13 +184,14 @@ export const skillGroups: SkillGroup[] = [
 
 export const experience: ExperienceItem[] = [
   {
-    role: 'React Native Mobile Developer & AI Trainee — Intern',
+    role: 'AI Automation Engineer — Intern',
     company: 'Innov8Smart',
     period: 'Feb 2026 – Present',
     points: [
-      'Developing cross-platform mobile applications using React Native.',
-      'Working on AI-related projects, including API integration and intelligent features.',
-      'Collaborating with the team on real-time functionality, UI improvements, and backend integration.',
+      'Building AI-powered automation workflows using n8n, Zapier, and Make to streamline repetitive business processes.',
+      'Automating marketing operations — lead capture, email/social campaigns, and CRM sync — with AI-driven content and decisioning.',
+      'Integrating AI tools and APIs (LLMs, OpenAI) into workflows for smart routing, summarization, and data enrichment.',
+      'Researching and evaluating AI tools and automation platforms to design efficient, scalable solutions for the team.',
     ],
   },
 ];
