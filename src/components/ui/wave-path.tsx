@@ -2,41 +2,42 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useRef, useEffect } from 'react';
 
-// Interactive wave divider (adapted for Vite — "use client" dropped). The line
-// bends toward the cursor as you move over it and springs back when you leave.
+// Interactive wave divider (adapted for Vite — "use client" dropped, and the
+// original module-level mutable `let`s are held in refs so React's compiler
+// rules are satisfied). The line bends toward the cursor as you move over it
+// and springs back when you leave.
 type WavePathProps = React.ComponentProps<'div'>;
 
 export function WavePath({ className, ...props }: WavePathProps) {
 	const path = useRef<SVGPathElement>(null);
-	let progress = 0;
-	let x = 0.5;
-	let time = Math.PI / 2;
-	let reqId: number | null = null;
+	const progress = useRef(0);
+	const x = useRef(0.5);
+	const time = useRef(Math.PI / 2);
+	const reqId = useRef<number | null>(null);
 
-	const setPath = (progress: number) => {
+	const setPath = (value: number) => {
 		const width = window.innerWidth;
 		if (path.current) {
 			path.current.setAttributeNS(
 				null,
 				'd',
-				`M0 100 Q${width * x} ${100 + progress * 0.6}, ${width} 100`,
+				`M0 100 Q${width * x.current} ${100 + value * 0.6}, ${width} 100`,
 			);
 		}
 	};
 
 	useEffect(() => {
-		setPath(progress);
-		const onResize = () => setPath(progress);
+		setPath(progress.current);
+		const onResize = () => setPath(progress.current);
 		window.addEventListener('resize', onResize);
 		return () => window.removeEventListener('resize', onResize);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
+	const lerp = (a: number, b: number, t: number) => a * (1 - t) + b * t;
 
 	const manageMouseEnter = () => {
-		if (reqId) {
-			cancelAnimationFrame(reqId);
+		if (reqId.current) {
+			cancelAnimationFrame(reqId.current);
 			resetAnimation();
 		}
 	};
@@ -45,9 +46,9 @@ export function WavePath({ className, ...props }: WavePathProps) {
 		const { movementY, clientX } = e;
 		if (path.current) {
 			const pathBound = path.current.getBoundingClientRect();
-			x = (clientX - pathBound.left) / pathBound.width;
-			progress += movementY;
-			setPath(progress);
+			x.current = (clientX - pathBound.left) / pathBound.width;
+			progress.current += movementY;
+			setPath(progress.current);
 		}
 	};
 
@@ -56,20 +57,20 @@ export function WavePath({ className, ...props }: WavePathProps) {
 	};
 
 	const animateOut = () => {
-		const newProgress = progress * Math.sin(time);
-		progress = lerp(progress, 0, 0.025);
-		time += 0.2;
+		const newProgress = progress.current * Math.sin(time.current);
+		progress.current = lerp(progress.current, 0, 0.025);
+		time.current += 0.2;
 		setPath(newProgress);
-		if (Math.abs(progress) > 0.75) {
-			reqId = requestAnimationFrame(animateOut);
+		if (Math.abs(progress.current) > 0.75) {
+			reqId.current = requestAnimationFrame(animateOut);
 		} else {
 			resetAnimation();
 		}
 	};
 
 	const resetAnimation = () => {
-		time = Math.PI / 2;
-		progress = 0;
+		time.current = Math.PI / 2;
+		progress.current = 0;
 	};
 
 	return (
@@ -78,9 +79,9 @@ export function WavePath({ className, ...props }: WavePathProps) {
 				onMouseEnter={manageMouseEnter}
 				onMouseMove={manageMouseMove}
 				onMouseLeave={manageMouseLeave}
-				className="relative -top-5 z-10 h-10 w-full hover:-top-[150px] hover:h-[300px]"
+				className="relative -top-5 z-10 h-10 w-full hover:-top-37.5 hover:h-75"
 			/>
-			<svg className="absolute -top-[100px] h-[300px] w-full">
+			<svg className="absolute -top-25 h-75 w-full">
 				<path ref={path} className="fill-none stroke-current" strokeWidth={2} />
 			</svg>
 		</div>
