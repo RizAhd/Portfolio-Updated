@@ -1,3 +1,4 @@
+import { Navbar } from '@/components/navbar'
 import { ShaderHero } from '@/components/ui/shader-hero'
 import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <main className="min-h-screen bg-background text-foreground antialiased">
+      <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <ShaderHero theme={theme} onToggleTheme={toggleTheme} />
       <TechMarquee />
       <About />
