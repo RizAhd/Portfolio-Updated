@@ -16,12 +16,12 @@ type LogoCloudProps = React.ComponentProps<"div"> & {
 // `dark:brightness-0 dark:invert` filter is removed so colored language/tech
 // logos keep their brand colors in both themes, icons render larger since these
 // are square glyphs rather than wide wordmarks, and the strip spans the full
-// screen width (no centered max-width cap) with wider edge fades.
+// screen width (no centered max-width cap) with wider edge fades. The bordered
+// gradient backdrop is dropped so logos sit on a clean background, and the
+// slider loops seamlessly.
 export function LogoCloud({ logos }: LogoCloudProps) {
   return (
-    <div className="relative w-full bg-linear-to-r from-secondary via-transparent to-secondary py-6">
-      <div className="-translate-x-1/2 -top-px pointer-events-none absolute left-1/2 w-screen border-t" />
-
+    <div className="relative w-full py-6">
       <InfiniteSlider gap={48} reverse duration={32} durationOnHover={120}>
         {logos.map((logo) => (
           <img
@@ -45,8 +45,6 @@ export function LogoCloud({ logos }: LogoCloudProps) {
         className="pointer-events-none absolute top-0 right-0 h-full w-[15vw] min-w-[80px] max-w-[280px]"
         direction="right"
       />
-
-      <div className="-translate-x-1/2 -bottom-px pointer-events-none absolute left-1/2 w-screen border-b" />
     </div>
   );
 }
