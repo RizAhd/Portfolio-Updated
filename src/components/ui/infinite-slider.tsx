@@ -1,11 +1,12 @@
 import { cn } from '@/lib/utils';
-import { useMotionValue, animate, motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import useMeasure from 'react-use-measure';
+import { Children } from 'react';
 
-// Infinite marquee slider (ibelick) — adapted for Vite ("use client" dropped).
-// Smoothly loops its children horizontally (or vertically), with an optional
-// speed change on hover.
+// Infinite marquee slider — CSS-keyframe based so it's full from the first
+// frame and loops perfectly with no visible start/end and no measure-delay
+// snap. The track holds two identical copies of the children and translates by
+// exactly -50% (or +50% reversed), so when one copy scrolls out the other has
+// already taken its place. Same props as before (gap, duration, reverse,
+// durationOnHover) so callers don't change.
 type InfiniteSliderProps = {
   children: React.ReactNode;
   gap?: number;
@@ -25,85 +26,40 @@ export function InfiniteSlider({
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentDuration, setCurrentDuration] = useState(duration);
-  const [ref, { width, height }] = useMeasure();
-  const translation = useMotionValue(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    let controls;
-    const size = direction === 'horizontal' ? width : height;
-    const contentSize = size + gap;
-    const from = reverse ? -contentSize / 2 : 0;
-    const to = reverse ? 0 : -contentSize / 2;
-
-    if (isTransitioning) {
-      controls = animate(translation, [translation.get(), to], {
-        ease: 'linear',
-        duration:
-          currentDuration * Math.abs((translation.get() - to) / contentSize),
-        onComplete: () => {
-          setIsTransitioning(false);
-          setKey((prevKey) => prevKey + 1);
-        },
-      });
-    } else {
-      controls = animate(translation, [from, to], {
-        ease: 'linear',
-        duration: currentDuration,
-        repeat: Infinity,
-        repeatType: 'loop',
-        repeatDelay: 0,
-        onRepeat: () => {
-          translation.set(from);
-        },
-      });
-    }
-
-    return controls?.stop;
-  }, [
-    key,
-    translation,
-    currentDuration,
-    width,
-    height,
-    gap,
-    isTransitioning,
-    direction,
-    reverse,
-  ]);
-
-  const hoverProps = durationOnHover
-    ? {
-        onHoverStart: () => {
-          setIsTransitioning(true);
-          setCurrentDuration(durationOnHover);
-        },
-        onHoverEnd: () => {
-          setIsTransitioning(true);
-          setCurrentDuration(duration);
-        },
-      }
-    : {};
+  const horizontal = direction === 'horizontal';
+  const axis = horizontal ? 'x' : 'y';
+  // Reverse flips which direction the -50% travel goes.
+  const anim = `infinite-slider-${axis}${reverse ? '-reverse' : ''}`;
 
   return (
-    <div className={cn('overflow-hidden', className)}>
-      <motion.div
-        className='flex w-max'
-        style={{
-          ...(direction === 'horizontal'
-            ? { x: translation }
-            : { y: translation }),
-          gap: `${gap}px`,
-          flexDirection: direction === 'horizontal' ? 'row' : 'column',
-        }}
-        ref={ref}
-        {...hoverProps}
+    <div
+      className={cn('group/slider overflow-hidden', className)}
+      style={
+        {
+          '--slider-duration': `${duration}s`,
+          '--slider-duration-hover': `${durationOnHover ?? duration}s`,
+        } as React.CSSProperties
+      }
+    >
+      <div
+        className="flex w-max [animation:var(--anim)_var(--slider-duration)_linear_infinite] group-hover/slider:[animation-duration:var(--slider-duration-hover)]"
+        style={
+          {
+            gap: `${gap}px`,
+            flexDirection: horizontal ? 'row' : 'column',
+            '--anim': anim,
+          } as React.CSSProperties
+        }
       >
-        {children}
-        {children}
-      </motion.div>
+        {/* Two identical copies → translating -50% loops seamlessly. The track
+            is full of content from frame one, so there is no start/end. */}
+        <div className="flex shrink-0" style={{ gap: `${gap}px`, flexDirection: horizontal ? 'row' : 'column' }}>
+          {children}
+        </div>
+        <div className="flex shrink-0" style={{ gap: `${gap}px`, flexDirection: horizontal ? 'row' : 'column' }} aria-hidden="true">
+          {Children.toArray(children)}
+        </div>
+      </div>
     </div>
   );
 }
