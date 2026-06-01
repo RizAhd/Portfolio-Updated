@@ -16,7 +16,7 @@ function App() {
   return (
     <main className="min-h-screen bg-background text-foreground antialiased">
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
-      <ShaderHero theme={theme} onToggleTheme={toggleTheme} />
+      <ShaderHero theme={theme} />
       <TechMarquee />
       <About />
       <Projects />
