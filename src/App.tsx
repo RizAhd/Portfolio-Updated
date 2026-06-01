@@ -1,4 +1,5 @@
 import { ShaderHero } from '@/components/ui/shader-hero'
+import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
 import { Projects } from '@/components/sections/projects'
 import { Skills } from '@/components/sections/skills'
@@ -14,6 +15,7 @@ function App() {
   return (
     <main className="min-h-screen bg-background text-foreground antialiased">
       <ShaderHero theme={theme} onToggleTheme={toggleTheme} />
+      <TechMarquee />
       <About />
       <Projects />
       <Skills />
