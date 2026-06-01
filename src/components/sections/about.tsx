@@ -40,26 +40,6 @@ export const About = () => (
           ))}
         </motion.div>
       </div>
-
-      {/* Orbiting tech-stack feature — real bio + real stack from portfolio data. */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5 }}
-        className="mt-16"
-      >
-        <StackFeatureSection
-          heading="Build with me"
-          description={profile.shortBio}
-          ctaLabel="View my GitHub"
-          ctaHref={contact.github}
-          secondaryLabel="Get in touch"
-          secondaryHref="#contact"
-          centerLabel={initials}
-          items={orbitStack}
-        />
-      </motion.div>
     </div>
   </section>
 );
