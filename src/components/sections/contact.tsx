@@ -85,12 +85,12 @@ export const Contact = () => (
     </div>
 
     {/* Full-width footer with an interactive wave divider. */}
-    <footer className="relative mt-4 w-full overflow-hidden text-foreground">
+    <footer className="relative mt-5 w-full overflow-hidden text-foreground">
       {/* Interactive wave line — bends toward the cursor, springs back. */}
-      <WavePath className="mb-3 text-foreground/40" />
+      <WavePath className="mb-5 text-foreground/40" />
 
-      <div className="px-6 pb-3 md:px-12">
-        <div className="flex flex-col items-center gap-2 text-center">
+      <div className="px-6 pb-5 md:px-12">
+        <div className="flex flex-col items-center gap-3 text-center">
           <a href="#home" className="text-2xl font-bold tracking-wider">
             riflan<span className="text-yellow-500">.</span>
           </a>
