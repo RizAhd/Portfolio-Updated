@@ -14,7 +14,6 @@ export const Resume = () => (
       <SectionHeading kicker="Background" title="Experience & Languages" />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-        {}
         <div className="lg:col-span-2">
           <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
             Experience
