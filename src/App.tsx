@@ -6,11 +6,6 @@ import { About } from '@/components/sections/about'
 import { useTheme } from '@/hooks/use-theme'
 import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
 
-// Below-the-fold sections are code-split so the initial bundle (and main-thread
-// parse cost) is much smaller. Heavy deps — GSAP (Education), the Projects
-// scroll frame, the marquee/columns — load on demand as the user scrolls down.
-// Each lazy chunk renders identically once loaded; a min-height placeholder
-// keeps layout stable so there is no shift.
 const Projects = lazy(() =>
   import('@/components/sections/projects').then((m) => ({ default: m.Projects }))
 )
@@ -30,8 +25,6 @@ const Contact = lazy(() =>
   import('@/components/sections/contact').then((m) => ({ default: m.Contact }))
 )
 
-// Invisible, zero-visual placeholder that reserves vertical space so deferred
-// sections don't cause a layout shift before their chunk arrives.
 const SectionFallback = () => <div aria-hidden className="min-h-screen w-full" />
 
 function App() {

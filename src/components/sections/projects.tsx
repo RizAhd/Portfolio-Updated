@@ -20,7 +20,7 @@ export const Projects = () => (
         </div>
       }
     >
-      {/* The frame is a fixed-height viewport; projects scroll inside it. */}
+      {}
       <div className="h-full w-full overflow-y-auto px-1 py-1 md:px-2">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (

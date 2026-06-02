@@ -11,9 +11,6 @@ interface NavbarProps {
   onToggleTheme: () => void;
 }
 
-// Sticky glassmorphism navbar. Links get an animated underline that wipes in
-// from the left on hover; on mobile the links collapse into a hamburger that
-// opens a glass overlay menu. Becomes more opaque once the page is scrolled.
 export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -25,7 +22,6 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => {
@@ -43,7 +39,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
             : 'border-white/10 bg-background/30'
         )}
       >
-        {/* Logo */}
+        {}
         <a
           href="#home"
           onClick={() => setOpen(false)}
@@ -52,7 +48,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
           riflan<span className="text-yellow-500">.</span>
         </a>
 
-        {/* Desktop links with animated underline */}
+        {}
         <ul className="hidden items-center gap-7 md:flex lg:gap-9">
           {navLinks.map((link) => (
             <li key={link.label}>
@@ -61,14 +57,14 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
                 className="group relative inline-block py-1 text-xs font-medium tracking-widest text-foreground/70 transition-colors hover:text-foreground"
               >
                 {link.label}
-                {/* Underline wipes in from the left on hover. */}
+                {}
                 <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-yellow-500 transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Right side: toggle + mobile hamburger */}
+        {}
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
@@ -83,7 +79,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
         </div>
       </nav>
 
-      {/* Mobile glass overlay menu */}
+      {}
       <AnimatePresence>
         {open && (
           <motion.div

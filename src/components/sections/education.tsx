@@ -1,10 +1,6 @@
 import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
 import { education } from '@/data/portfolio';
 
-// Education as a pinned scroll-story: each qualification is a full-screen panel
-// that pins and rotates up into place as you scroll. Panels follow the theme
-// tokens so they flip with the light/dark toggle, alternating between the page
-// background, the card surface, and a brand-yellow accent panel.
 const palettes = [
   { background: 'var(--background)', color: 'var(--foreground)', rule: 'var(--border)', sub: 'var(--muted-foreground)' },
   { background: '#facc15', color: '#0a0a0a', rule: 'rgba(0,0,0,0.5)', sub: 'rgba(0,0,0,0.7)' },

@@ -3,9 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 
-// GSAP scroll-story (adapted from a Next.js component for Vite — the original
-// "use client" directive is dropped). Each <FlowSection> pins as you scroll and
-// the next one rotates up from 30° into place, stacking the panels.
 gsap.registerPlugin(ScrollTrigger);
 
 function cx(...parts: Array<string | undefined | false | null>): string {

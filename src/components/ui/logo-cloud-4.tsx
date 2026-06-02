@@ -12,13 +12,6 @@ type LogoCloudProps = React.ComponentProps<"div"> & {
   logos: Logo[];
 };
 
-// Infinite logo marquee. Adapted from the original wordmark cloud: the
-// `dark:brightness-0 dark:invert` filter is removed so colored language/tech
-// logos keep their brand colors in both themes, icons render larger since these
-// are square glyphs rather than wide wordmarks, and the strip spans the full
-// screen width (no centered max-width cap) with wider edge fades. The bordered
-// gradient backdrop is dropped so logos sit on a clean background, and the
-// slider loops seamlessly.
 export function LogoCloud({ logos }: LogoCloudProps) {
   return (
     <div className="relative w-full py-6">

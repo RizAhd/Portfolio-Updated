@@ -1,6 +1,3 @@
-// lucide-react v1 dropped brand glyphs (GitHub, LinkedIn) over trademark
-// concerns, so we ship small inline SVGs that match lucide's API (className +
-// standard SVG props) for the few brands we link to.
 type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const GithubIcon = (props: IconProps) => (

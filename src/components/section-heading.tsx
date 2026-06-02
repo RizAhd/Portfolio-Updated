@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
 
-// Shared section heading: a small kicker label + large title, used across
-// every section so the page reads consistently.
 export const SectionHeading = ({
   kicker,
   title,

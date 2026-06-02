@@ -1,9 +1,6 @@
 import { cn } from '@/lib/utils';
 import { type HTMLMotionProps, motion } from 'framer-motion';
 
-// Progressive (layered) blur mask (ibelick) — adapted for Vite: imports
-// framer-motion instead of motion/react (same library). Stacks N blurred
-// layers behind a gradient mask so edges fade smoothly.
 const GRADIENT_ANGLES = {
   top: 0,
   right: 90,

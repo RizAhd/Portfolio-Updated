@@ -1,6 +1,3 @@
-// Central, typed content source for the portfolio.
-// All sections consume from here so copy/links live in one place.
-
 export interface Project {
   no: string;
   title: string;

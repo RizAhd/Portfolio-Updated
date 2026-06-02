@@ -2,10 +2,6 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useRef, useEffect } from 'react';
 
-// Interactive wave divider (adapted for Vite — "use client" dropped, and the
-// original module-level mutable `let`s are held in refs so React's compiler
-// rules are satisfied). The line bends toward the cursor as you move over it
-// and springs back when you leave.
 type WavePathProps = React.ComponentProps<'div'>;
 
 export function WavePath({ className, ...props }: WavePathProps) {

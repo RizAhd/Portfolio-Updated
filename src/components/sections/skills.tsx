@@ -13,19 +13,16 @@ import { SectionHeading } from '@/components/section-heading';
 import { TestimonialsColumn, type ColumnCard } from '@/components/ui/testimonials-columns-1';
 import { skillGroups } from '@/data/portfolio';
 
-// A lucide icon per skill category (in skillGroups order).
 const categoryIcons: LucideIcon[] = [
-  Code2, // Programming Languages
-  Boxes, // Frameworks & Libraries
-  BrainCircuit, // AI & Data Science
-  Database, // Databases & Tools
-  Radio, // Real-Time & Networking
-  Workflow, // AI Automation
-  Sparkles, // Other Skills
+  Code2,
+  Boxes,
+  BrainCircuit,
+  Database,
+  Radio,
+  Workflow,
+  Sparkles,
 ];
 
-// Map each real skill group into a scrolling card: category as the name, the
-// item count as the role, and the items themselves as the card body.
 const cards: ColumnCard[] = skillGroups.map((group, i) => ({
   text: group.items.join(' · '),
   name: group.category,

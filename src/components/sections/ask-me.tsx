@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PromptBox } from '@/components/ui/chatgpt-prompt-input';
 
-// "How Can I Help You" — a ChatGPT-style prompt box. Responsive: the heading
-// scales down on small screens and the box width is capped on large ones. The
-// submit handler just acknowledges locally (no backend) so it never errors.
 export const AskMe = () => {
   const [sent, setSent] = useState(false);
 

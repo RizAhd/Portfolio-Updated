@@ -1,13 +1,10 @@
 import { LogoCloud } from '@/components/ui/logo-cloud-4';
 
-// Riflan's known languages, frameworks, AI/data, databases & tools, shown as
-// an infinite logo marquee. Logos are official devicon SVGs (plus a couple of
-// simpleicons for tools devicon lacks) — every URL is CDN-verified to resolve.
 const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons';
 const SI = 'https://cdn.simpleicons.org';
 
 const techLogos = [
-  // Programming languages
+
   { src: `${DEVICON}/java/java-original.svg`, alt: 'Java' },
   { src: `${DEVICON}/javascript/javascript-original.svg`, alt: 'JavaScript' },
   { src: `${DEVICON}/typescript/typescript-original.svg`, alt: 'TypeScript' },

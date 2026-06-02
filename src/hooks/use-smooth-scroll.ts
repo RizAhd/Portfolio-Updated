@@ -5,11 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Buttery-smooth scrolling via Lenis, driven by GSAP's ticker and synced to
-// ScrollTrigger so the pinned/scrubbed Education scroll-story stays perfectly
-// in step (no jitter). Anchor clicks (#about etc.) are routed through Lenis so
-// in-page nav scrolls smoothly too. Disabled when the user prefers reduced
-// motion — falls back to the browser's native scroll, identical visuals.
 export function useSmoothScroll() {
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -23,17 +18,14 @@ export function useSmoothScroll() {
       smoothWheel: true,
     });
 
-    // Keep ScrollTrigger in sync with Lenis' virtual scroll position.
     lenis.on('scroll', ScrollTrigger.update);
 
-    // Drive Lenis from GSAP's ticker (single rAF loop, no double scheduling).
     const raf = (time: number) => {
       lenis.raf(time * 1000);
     };
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    // Route same-page anchor links through Lenis for smooth section jumps.
     const onAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest(
         'a[href^="#"]'

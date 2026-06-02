@@ -3,11 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import type { Theme } from '@/hooks/use-theme';
 
-// Animated dotted-surface background (adapted from a Next.js component for Vite):
-// a grid of Three.js points rippling on sine waves. The original pulled the
-// theme from `next-themes`; here it takes a `theme` prop so it integrates with
-// this app's own useTheme hook. Defaults to a fixed, page-wide layer, but the
-// position can be overridden via className (the hero scopes it to its section).
 type DottedSurfaceProps = Omit<React.ComponentProps<'div'>, 'ref'> & {
 	theme?: Theme;
 };
@@ -31,7 +26,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		const AMOUNTX = 40;
 		const AMOUNTY = 60;
 
-		// Scene setup
 		const scene = new THREE.Scene();
 		scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
 
@@ -48,26 +42,22 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			antialias: true,
 			powerPreference: 'high-performance',
 		});
-		// Cap the device pixel ratio: phones report DPR up to 3, which renders
-		// 9x the pixels for no visible gain on an 8px point field. Cap at 2 to
-		// slash GPU work while looking identical.
+
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setClearColor(scene.fog.color, 0);
 
 		container.appendChild(renderer.domElement);
 
-		// Create particles
 		const positions: number[] = [];
 		const colors: number[] = [];
 
-		// Create geometry for all particles
 		const geometry = new THREE.BufferGeometry();
 
 		for (let ix = 0; ix < AMOUNTX; ix++) {
 			for (let iy = 0; iy < AMOUNTY; iy++) {
 				const x = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
-				const y = 0; // Will be animated
+				const y = 0;
 				const z = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
 
 				positions.push(x, y, z);
@@ -85,7 +75,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		);
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-		// Create material
 		const material = new THREE.PointsMaterial({
 			size: 8,
 			vertexColors: true,
@@ -94,25 +83,19 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			sizeAttenuation: true,
 		});
 
-		// Create points object
 		const points = new THREE.Points(geometry, material);
 		scene.add(points);
 
 		let count = 0;
 		let animationId = 0;
 
-		// Only render when the canvas is actually on-screen and the tab is
-		// visible — otherwise the rAF loop would burn GPU/main-thread forever
-		// after the hero scrolls away. Visuals are unchanged while visible.
 		let onScreen = true;
 		let tabVisible = !document.hidden;
 		const isActive = () => onScreen && tabVisible;
 
-		// Animation function
 		const animate = () => {
 			animationId = requestAnimationFrame(animate);
 
-			// Skip the heavy per-frame work entirely while off-screen/hidden.
 			if (!isActive()) return;
 
 			const positionAttribute = geometry.attributes.position;
@@ -123,7 +106,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 					const index = i * 3;
 
-					// Animate Y position with sine waves
 					positions[index + 1] =
 						Math.sin((ix + count) * 0.3) * 50 +
 						Math.sin((iy + count) * 0.5) * 50;
@@ -138,7 +120,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			count += 0.1;
 		};
 
-		// Pause when the canvas leaves the viewport.
 		const io = new IntersectionObserver(
 			(entries) => {
 				onScreen = entries[0]?.isIntersecting ?? true;
@@ -147,13 +128,11 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		);
 		io.observe(container);
 
-		// Pause when the tab is backgrounded.
 		const handleVisibility = () => {
 			tabVisible = !document.hidden;
 		};
 		document.addEventListener('visibilitychange', handleVisibility);
 
-		// Handle window resize
 		const handleResize = () => {
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
@@ -162,10 +141,8 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 
 		window.addEventListener('resize', handleResize);
 
-		// Start animation
 		animate();
 
-		// Store references
 		sceneRef.current = {
 			scene,
 			camera,
@@ -175,7 +152,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			count,
 		};
 
-		// Cleanup function
 		return () => {
 			window.removeEventListener('resize', handleResize);
 			document.removeEventListener('visibilitychange', handleVisibility);
@@ -184,7 +160,6 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			if (sceneRef.current) {
 				cancelAnimationFrame(sceneRef.current.animationId);
 
-				// Clean up Three.js objects
 				sceneRef.current.scene.traverse((object) => {
 					if (object instanceof THREE.Points) {
 						object.geometry.dispose();

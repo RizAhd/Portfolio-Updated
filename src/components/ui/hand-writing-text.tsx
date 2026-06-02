@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
 
-// Animated hand-written title: an SVG path "draws" itself on view, with the
-// title/subtitle fading in over it. Adapted from a Next.js component for Vite
-// (the original "use client" directive is dropped). Uses dark: classes so it
-// follows this app's light/dark theme automatically.
 interface HandWrittenTitleProps {
     title?: string;
     subtitle?: string;

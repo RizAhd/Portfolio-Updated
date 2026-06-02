@@ -1,10 +1,6 @@
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion, type MotionValue } from "framer-motion";
 
-// Scroll-driven 3D "device frame" container (adapted from Aceternity UI for
-// Vite — the original "use client" / next/image bits aren't used here). As the
-// container scrolls into view the card un-tilts on the X axis and settles to
-// scale 1, with the title translating up. Children render inside the frame.
 export const ContainerScroll = ({
   titleComponent,
   children,

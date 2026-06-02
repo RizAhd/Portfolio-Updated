@@ -9,9 +9,6 @@ interface ThemeToggleProps {
   className?: string;
 }
 
-// Round icon button that flips between light and dark. The active icon
-// cross-fades/rotates in via Framer Motion. Styling uses theme tokens so it
-// reads correctly on both light and dark backgrounds.
 export const ThemeToggle = ({ theme, onToggle, className }: ThemeToggleProps) => {
   const isDark = theme === 'dark';
   return (

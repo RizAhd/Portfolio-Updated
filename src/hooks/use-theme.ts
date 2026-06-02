@@ -4,8 +4,6 @@ export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
 
-// Resolve the initial theme once, before first paint, from (in order):
-// an explicit saved choice, then the OS preference, defaulting to dark.
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark';
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -15,9 +13,6 @@ function getInitialTheme(): Theme {
     : 'dark';
 }
 
-// App-wide light/dark theme. Toggling adds/removes the `.dark` class on
-// <html>, which drives the CSS variables in index.css, and persists the
-// user's choice to localStorage.
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 

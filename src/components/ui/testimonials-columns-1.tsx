@@ -2,10 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
-// Auto-scrolling vertical column of cards (adapted from a testimonials marquee
-// for Vite: "use client" dropped, imports framer-motion instead of motion/react).
-// Each card supports either an avatar image OR a lucide icon badge — this site
-// uses the icon variant to show skill groups rather than people.
 export interface ColumnCard {
   text: React.ReactNode;
   name: string;
