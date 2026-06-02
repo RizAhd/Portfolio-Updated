@@ -46,8 +46,12 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		const renderer = new THREE.WebGLRenderer({
 			alpha: true,
 			antialias: true,
+			powerPreference: 'high-performance',
 		});
-		renderer.setPixelRatio(window.devicePixelRatio);
+		// Cap the device pixel ratio: phones report DPR up to 3, which renders
+		// 9x the pixels for no visible gain on an 8px point field. Cap at 2 to
+		// slash GPU work while looking identical.
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setClearColor(scene.fog.color, 0);
 
