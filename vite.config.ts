@@ -15,4 +15,20 @@ export default defineConfig(({ command }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Split heavy libraries into their own long-lived, cacheable chunks so the
+    // initial parse is smaller and updates to app code don't bust vendor cache.
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ["three"],
+          gsap: ["gsap", "@gsap/react"],
+          motion: ["framer-motion"],
+          "react-vendor": ["react", "react-dom"],
+        },
+      },
+    },
+    // These libs are large but intentional; silence the size warning noise.
+    chunkSizeWarningLimit: 1200,
+  },
 }))
