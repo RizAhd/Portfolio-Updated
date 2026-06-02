@@ -178,6 +178,8 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		// Cleanup function
 		return () => {
 			window.removeEventListener('resize', handleResize);
+			document.removeEventListener('visibilitychange', handleVisibility);
+			io.disconnect();
 
 			if (sceneRef.current) {
 				cancelAnimationFrame(sceneRef.current.animationId);
