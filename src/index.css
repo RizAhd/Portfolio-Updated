@@ -148,7 +148,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Slim scrollbar for the prompt-box textarea (chatgpt-prompt-input). */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
