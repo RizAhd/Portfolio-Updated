@@ -30,6 +30,7 @@ export function LogoCloud({ logos }: LogoCloudProps) {
             className="pointer-events-none h-8 w-auto select-none md:h-10"
             key={`logo-${logo.alt}`}
             loading="lazy"
+            decoding="async"
             src={logo.src}
           />
         ))}
