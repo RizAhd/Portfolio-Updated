@@ -163,10 +163,6 @@ html.lenis body {
   background: transparent;
 }
 
-/* Infinite-slider marquee keyframes. The track holds two identical copies of
-   the children separated by --slider-gap; translating by exactly one copy +
-   one gap (-50% - gap/2) lands the second copy where the first started, so the
-   loop is seamless with no start/end. */
 @keyframes infinite-slider-x {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }
