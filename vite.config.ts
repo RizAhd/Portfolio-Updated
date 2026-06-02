@@ -20,11 +20,13 @@ export default defineConfig(({ command }) => ({
     // initial parse is smaller and updates to app code don't bust vendor cache.
     rollupOptions: {
       output: {
-        manualChunks: {
-          three: ["three"],
-          gsap: ["gsap", "@gsap/react"],
-          motion: ["framer-motion"],
-          "react-vendor": ["react", "react-dom"],
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return undefined
+          if (id.includes("/three/")) return "three"
+          if (id.includes("/gsap/") || id.includes("/@gsap/")) return "gsap"
+          if (id.includes("/framer-motion/") || id.includes("/motion-")) return "motion"
+          if (id.includes("/react/") || id.includes("/react-dom/")) return "react-vendor"
+          return undefined
         },
       },
     },
