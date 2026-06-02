@@ -1,12 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Children } from 'react';
 
-// Infinite marquee slider — CSS-keyframe based so it's full from the first
-// frame and loops perfectly with no visible start/end and no measure-delay
-// snap. The track holds two identical copies of the children and translates by
-// exactly -50% (or +50% reversed), so when one copy scrolls out the other has
-// already taken its place. Same props as before (gap, duration, reverse,
-// durationOnHover) so callers don't change.
 type InfiniteSliderProps = {
   children: React.ReactNode;
   gap?: number;
@@ -28,7 +22,7 @@ export function InfiniteSlider({
 }: InfiniteSliderProps) {
   const horizontal = direction === 'horizontal';
   const axis = horizontal ? 'x' : 'y';
-  // Reverse flips which direction the -50% travel goes.
+
   const anim = `infinite-slider-${axis}${reverse ? '-reverse' : ''}`;
 
   return (
