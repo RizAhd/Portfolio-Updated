@@ -101,9 +101,19 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 		let count = 0;
 		let animationId = 0;
 
+		// Only render when the canvas is actually on-screen and the tab is
+		// visible — otherwise the rAF loop would burn GPU/main-thread forever
+		// after the hero scrolls away. Visuals are unchanged while visible.
+		let onScreen = true;
+		let tabVisible = !document.hidden;
+		const isActive = () => onScreen && tabVisible;
+
 		// Animation function
 		const animate = () => {
 			animationId = requestAnimationFrame(animate);
+
+			// Skip the heavy per-frame work entirely while off-screen/hidden.
+			if (!isActive()) return;
 
 			const positionAttribute = geometry.attributes.position;
 			const positions = positionAttribute.array as Float32Array;
@@ -127,6 +137,21 @@ export function DottedSurface({ className, theme = 'dark', ...props }: DottedSur
 			renderer.render(scene, camera);
 			count += 0.1;
 		};
+
+		// Pause when the canvas leaves the viewport.
+		const io = new IntersectionObserver(
+			(entries) => {
+				onScreen = entries[0]?.isIntersecting ?? true;
+			},
+			{ threshold: 0 },
+		);
+		io.observe(container);
+
+		// Pause when the tab is backgrounded.
+		const handleVisibility = () => {
+			tabVisible = !document.hidden;
+		};
+		document.addEventListener('visibilitychange', handleVisibility);
 
 		// Handle window resize
 		const handleResize = () => {
