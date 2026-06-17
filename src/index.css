@@ -148,7 +148,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Film-grain texture for the Prisma hero's noise overlay. */
 .noise-overlay {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
@@ -185,3 +184,4 @@ html.lenis body {
   from { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
   to { transform: translateY(0); }
 }
+/* Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/ */
