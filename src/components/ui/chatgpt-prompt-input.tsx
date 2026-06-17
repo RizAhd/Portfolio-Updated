@@ -93,7 +93,6 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                 </>
               )}
 
-              {/* Right-aligned buttons container */}
               <div className="ml-auto flex items-center gap-2">
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -123,3 +122,4 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
   }
 );
 PromptBox.displayName = "PromptBox";
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

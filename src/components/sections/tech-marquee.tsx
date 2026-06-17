@@ -23,7 +23,6 @@ const techLogos = [
   { src: `${DEVICON}/matplotlib/matplotlib-original.svg`, alt: 'Matplotlib' },
   { src: `${DEVICON}/scikitlearn/scikitlearn-original.svg`, alt: 'scikit-learn' },
   { src: `${DEVICON}/jupyter/jupyter-original.svg`, alt: 'Jupyter' },
-  // Databases & tools
   { src: `${DEVICON}/mysql/mysql-original.svg`, alt: 'MySQL' },
   { src: `${DEVICON}/appwrite/appwrite-original.svg`, alt: 'Appwrite' },
   { src: `${DEVICON}/git/git-original.svg`, alt: 'Git' },
@@ -32,7 +31,6 @@ const techLogos = [
   { src: `${DEVICON}/netbeans/netbeans-original.svg`, alt: 'NetBeans' },
   { src: `${DEVICON}/androidstudio/androidstudio-original.svg`, alt: 'Android Studio' },
   { src: `${DEVICON}/postman/postman-original.svg`, alt: 'Postman' },
-  // Real-time & AI automation
   { src: `${DEVICON}/socketio/socketio-original.svg`, alt: 'Socket.IO' },
   { src: `${SI}/n8n`, alt: 'n8n' },
   { src: `${SI}/zapier`, alt: 'Zapier' },
@@ -46,3 +44,4 @@ export const TechMarquee = () => (
     <LogoCloud logos={techLogos} />
   </section>
 );
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

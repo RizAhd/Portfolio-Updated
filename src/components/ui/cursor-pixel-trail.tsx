@@ -2,14 +2,6 @@ import { GooeyFilter } from "@/components/ui/gooey-filter"
 import { PixelTrail } from "@/components/ui/pixel-trail"
 import { useScreenSize } from "@/hooks/use-screen-size"
 
-/**
- * Site-wide gooey pixel-trail cursor effect. Renders a fixed, full-viewport
- * overlay that floats above all content but never blocks interaction
- * (pointer-events: none) and follows the real cursor via a window listener.
- *
- * Disabled below `md` — it's a pointer-device effect and skipping it keeps
- * touch devices from mounting a large idle pixel grid.
- */
 export const CursorPixelTrail = () => {
   const screenSize = useScreenSize()
 
@@ -34,3 +26,4 @@ export const CursorPixelTrail = () => {
     </>
   )
 }
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

@@ -83,3 +83,4 @@ export function WavePath({ className, ...props }: WavePathProps) {
 		</div>
 	);
 }
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

@@ -5,7 +5,6 @@ import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
 import { useScreenSize } from "@/hooks/use-screen-size";
 
-/* ---------------- WordsPullUp ---------------- */
 interface WordsPullUpProps {
   text: string;
   className?: string;
@@ -42,7 +41,6 @@ export const WordsPullUp = ({ text, className = "", showAsterisk = false, style 
   );
 };
 
-/* ---------------- WordsPullUpMultiStyle ---------------- */
 interface Segment {
   text: string;
   className?: string;
@@ -83,13 +81,8 @@ export const WordsPullUpMultiStyle = ({ segments, className = "", style }: Words
   );
 };
 
-/* ---------------- Hero ---------------- */
-// Design accent (cream). Kept explicit instead of the theme `primary` token,
-// which flips black/white between light & dark and would break the CTA on a
-// hero that always sits on a dark image.
 const CREAM = "#E1E0CC";
 
-// Source background video — the 3D figure animation from the component.
 const HERO_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
 

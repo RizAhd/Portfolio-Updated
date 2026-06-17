@@ -53,8 +53,6 @@ export function InfiniteSlider({
           } as React.CSSProperties
         }
       >
-        {/* Two identical copies → translating -50% loops seamlessly. The track
-            is full of content from frame one, so there is no start/end. */}
         <div className="flex shrink-0" style={{ gap: `${gap}px`, flexDirection: horizontal ? 'row' : 'column' }}>
           {children}
         </div>
@@ -65,3 +63,4 @@ export function InfiniteSlider({
     </div>
   );
 }
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/
