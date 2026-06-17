@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { profile } from "@/data/portfolio";
+import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
 
 /* ---------------- WordsPullUp ---------------- */
 interface WordsPullUpProps {
@@ -95,18 +96,23 @@ const HERO_IMAGE =
   "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2400&auto=format&fit=crop";
 
 const PrismaHero = () => {
+  // Scroll-driven parallax: the background blurs, fades & zooms as you scroll past the hero.
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useParallaxScroll(videoRef);
+
   return (
     <section id="home" className="relative h-screen w-full p-2 sm:p-3">
       <div className="relative h-full w-full overflow-hidden rounded-2xl bg-black md:rounded-[2rem]">
 
         {/* Background video — the 3D figure animation (poster = fallback still) */}
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
           poster={HERO_IMAGE}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover will-change-transform"
           src={HERO_VIDEO}
         />
 
