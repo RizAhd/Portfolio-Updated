@@ -30,7 +30,6 @@ const cards: ColumnCard[] = skillGroups.map((group, i) => ({
   icon: categoryIcons[i % categoryIcons.length],
 }));
 
-// Split 7 groups across three columns (3 / 2 / 2) for the marquee.
 const firstColumn = cards.slice(0, 3);
 const secondColumn = cards.slice(3, 5);
 const thirdColumn = cards.slice(5, 7);
@@ -63,3 +62,4 @@ export const Skills = () => (
     </div>
   </section>
 );
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

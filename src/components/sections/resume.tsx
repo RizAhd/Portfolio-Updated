@@ -49,7 +49,6 @@ export const Resume = () => (
           </div>
         </div>
 
-        {/* Languages */}
         <div className="space-y-12">
           <div>
             <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
@@ -80,3 +79,4 @@ export const Resume = () => (
     </div>
   </section>
 );
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

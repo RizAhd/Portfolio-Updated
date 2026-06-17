@@ -13,13 +13,11 @@ const techLogos = [
   { src: `${DEVICON}/kotlin/kotlin-original.svg`, alt: 'Kotlin' },
   { src: `${DEVICON}/html5/html5-original.svg`, alt: 'HTML5' },
   { src: `${DEVICON}/css3/css3-original.svg`, alt: 'CSS3' },
-  // Frameworks & libraries
   { src: `${DEVICON}/react/react-original.svg`, alt: 'React' },
   { src: `${DEVICON}/flask/flask-original.svg`, alt: 'Flask' },
   { src: `${DEVICON}/tailwindcss/tailwindcss-original.svg`, alt: 'Tailwind CSS' },
   { src: `${DEVICON}/nodejs/nodejs-original.svg`, alt: 'Node.js' },
   { src: `${DEVICON}/express/express-original.svg`, alt: 'Express' },
-  // AI & data science
   { src: `${DEVICON}/pandas/pandas-original.svg`, alt: 'Pandas' },
   { src: `${DEVICON}/numpy/numpy-original.svg`, alt: 'NumPy' },
   { src: `${DEVICON}/matplotlib/matplotlib-original.svg`, alt: 'Matplotlib' },
