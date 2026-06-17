@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
 
@@ -91,27 +91,26 @@ const CREAM = "#E1E0CC";
 // Source background video — the 3D figure animation from the component.
 const HERO_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
-// Poster / fallback still, shown until the video loads (or if it ever fails).
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2400&auto=format&fit=crop";
 
 const PrismaHero = () => {
   // Scroll-driven parallax: the background blurs, fades & zooms as you scroll past the hero.
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [loaded, setLoaded] = useState(false);
   useParallaxScroll(videoRef);
 
   return (
-    <section id="home" className="relative h-screen w-full p-2 sm:p-3">
-      <div className="relative h-full w-full overflow-hidden rounded-2xl bg-black md:rounded-[2rem]">
+    <section id="home" className="relative h-screen w-full">
+      <div className="relative h-full w-full overflow-hidden bg-black">
 
-        {/* Background video — the 3D figure animation (poster = fallback still) */}
+        {/* Background video — full-bleed, edge to edge */}
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          poster={HERO_IMAGE}
+          onLoadedData={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
           className="absolute inset-0 h-full w-full object-cover will-change-transform"
           src={HERO_VIDEO}
         />
@@ -121,6 +120,15 @@ const PrismaHero = () => {
 
         {/* Gradient overlay */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+
+        {/* Load cover — solid black until the video can play, then fades out.
+            Replaces the poster so there's no flash of a different image. */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 ${
+            loaded ? "opacity-0" : "opacity-100"
+          }`}
+        />
 
         {/* Hero content (site navbar is the global fixed one, so no nav here) */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 sm:px-6 md:px-10 md:pb-6">

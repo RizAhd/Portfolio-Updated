@@ -25,9 +25,10 @@ export const Education = () => (
       </p>
     </div>
 
-    {/* Scroll-driven stacking cards */}
-    <ContainerScroll className="h-[300vh]">
-      <div className="sticky top-0 flex h-svh w-full items-center justify-center">
+    {/* Scroll-driven stacking cards — height tuned to 3 cards so there's no
+        long empty stretch before the next section. */}
+    <ContainerScroll className="h-[180vh]">
+      <div className="sticky top-0 flex h-svh w-full items-center justify-center pb-8">
         <CardsContainer className="mx-auto h-80 w-[min(92vw,440px)]">
           {education.map((edu, i) => (
             <CardTransformed
