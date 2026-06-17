@@ -24,7 +24,7 @@ export const Education = () => (
       </p>
     </div>
 
-    <ContainerScroll className="h-[115vh]">
+    <ContainerScroll className="h-[105vh]">
       <div className="sticky top-0 flex h-svh w-full items-center justify-center">
         <CardsContainer className="mx-auto h-80 w-[min(92vw,440px)]">
           {education.map((edu, i) => (
@@ -34,7 +34,7 @@ export const Education = () => (
               index={i + 1}
               role="article"
               aria-label={edu.qualification}
-              className="items-start justify-between gap-4 border-border bg-card text-card-foreground !p-6 sm:!p-8"
+              className="items-start justify-between gap-4 border-border bg-card text-card-foreground shadow-2xl shadow-black/10 p-6! sm:p-8!"
             >
               <div className="flex w-full items-start justify-between gap-3">
                 <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-yellow-500/15 text-3xl">

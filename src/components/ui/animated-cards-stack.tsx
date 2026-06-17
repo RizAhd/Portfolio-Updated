@@ -9,6 +9,7 @@ import {
   motion,
   useMotionTemplate,
   useScroll,
+  useSpring,
   useTransform,
 } from "framer-motion"
 
@@ -64,9 +65,17 @@ export const ContainerScroll: React.FC<
     target: scrollRef,
     offset: ["start center", "end end"],
   })
+  // Smooth the raw scroll progress so the cards ease instead of tracking every
+  // jittery scroll delta 1:1 — this is what makes the motion feel fluid.
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 28,
+    mass: 0.4,
+    restDelta: 0.0005,
+  })
 
   return (
-    <ContainerScrollContext.Provider value={{ scrollYProgress }}>
+    <ContainerScrollContext.Provider value={{ scrollYProgress: smoothProgress }}>
       <div
         ref={scrollRef}
         className={cn("relative min-h-svh w-full", className)}
@@ -133,25 +142,15 @@ export const CardTransformed = React.forwardRef<
       index * incrementZ
     }px) translateY(${y}) rotate(${rotate}deg)`
 
-    const dx = useTransform(scrollYProgress, rotateRange, [4, 0])
-    const dy = useTransform(scrollYProgress, rotateRange, [4, 12])
-    const blur = useTransform(scrollYProgress, rotateRange, [2, 24])
-    const alpha = useTransform(scrollYProgress, rotateRange, [0.15, 0.2])
-    // Always call the hook (don't call it conditionally), then pick the value.
-    const shadow = useMotionTemplate`drop-shadow(${dx}px ${dy}px ${blur}px rgba(0,0,0,${alpha}))`
-    const filter = variant === "dark" ? "none" : shadow
-
     const cardStyle = {
       top: index * incrementY,
       transform,
       backfaceVisibility: "hidden" as const,
       zIndex: (arrayLength - index) * incrementZ,
-      filter,
       ...style,
     }
     return (
       <motion.div
-        layout="position"
         ref={ref}
         style={cardStyle}
         className={cn(cardVariants({ variant, className }))}
