@@ -34,7 +34,7 @@ export const Projects = () => (
                 <span className="text-sm font-bold tracking-widest text-yellow-600">
                   {project.no}
                 </span>
-                <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+                <ArrowUpRight className="h-5 w-5 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
 
               <h3 className="mt-4 break-words text-base font-bold text-foreground">{project.title}</h3>
