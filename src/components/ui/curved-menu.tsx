@@ -1,12 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Mail } from "lucide-react";
 
 import { navLinks, contact } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 
-const MENU_SLIDE_ANIMATION = {
+const MENU_SLIDE_ANIMATION: Variants = {
   initial: { x: "calc(100% + 100px)" },
   enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
   exit: {
@@ -73,7 +73,7 @@ const Curve = () => {
   const initialPath = `M100 0 L200 0 L200 ${h} L100 ${h} Q-100 ${h / 2} 100 0`;
   const targetPath = `M100 0 L200 0 L200 ${h} L100 ${h} Q100 ${h / 2} 100 0`;
 
-  const curve = {
+  const curve: Variants = {
     initial: { d: initialPath },
     enter: { d: targetPath, transition: { duration: 1, ease: [0.76, 0, 0.24, 1] } },
     exit: { d: initialPath, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
