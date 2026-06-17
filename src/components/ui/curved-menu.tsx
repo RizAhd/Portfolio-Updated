@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Mail, X } from "lucide-react";
 
 import { navLinks, contact } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
@@ -27,15 +27,15 @@ const NavLink = ({ heading, href, index, onClose }: NavLinkProps) => {
     <motion.div
       initial="initial"
       whileHover="whileHover"
-      className="group relative flex items-center border-b border-black/10 py-4 uppercase"
+      className="group relative flex items-center border-b border-border py-4 uppercase"
     >
       <a href={href} onClick={onClose} className="block w-full">
         <div className="relative flex items-start">
-          <span className="mr-3 text-xl font-thin text-black/40">{index}.</span>
+          <span className="mr-3 text-xl font-thin text-muted-foreground">{index}.</span>
           <motion.span
             variants={{ initial: { x: 0 }, whileHover: { x: -10 } }}
             transition={{ type: "spring", staggerChildren: 0.04, delayChildren: 0.1 }}
-            className="block text-3xl font-extralight text-black transition-colors duration-300 group-hover:text-yellow-600"
+            className="block text-3xl font-extralight text-foreground transition-colors duration-300 group-hover:text-yellow-500"
           >
             {heading.split("").map((letter, i) => (
               <motion.span
@@ -55,7 +55,7 @@ const NavLink = ({ heading, href, index, onClose }: NavLinkProps) => {
 };
 
 const MenuFooter = () => (
-  <div className="flex w-full items-center gap-4 border-t border-black/10 px-6 py-5 text-black">
+  <div className="flex w-full items-center gap-4 border-t border-border px-6 py-5 text-foreground">
     <a
       href={contact.github}
       target="_blank"
@@ -96,7 +96,7 @@ const Curve = () => {
   };
 
   return (
-    <svg className="absolute top-0 -left-[99px] h-full w-[100px] stroke-none" style={{ fill: "#ffffff" }}>
+    <svg className="absolute top-0 -left-[99px] h-full w-[100px] fill-background stroke-none">
       <motion.path variants={curve} initial="initial" animate="enter" exit="exit" />
     </svg>
   );
@@ -125,11 +125,20 @@ export function CurvedMobileMenu({ open, onClose }: CurvedMobileMenuProps) {
             initial="initial"
             animate="enter"
             exit="exit"
-            className="fixed right-0 top-0 z-40 h-[100dvh] w-[82vw] max-w-sm bg-white md:hidden"
+            className="fixed right-0 top-0 z-40 h-[100dvh] w-[82vw] max-w-sm bg-background md:hidden"
           >
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close menu"
+              className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-foreground/10"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
             <div className="flex h-full flex-col justify-between pt-20">
               <div className="px-8">
-                <div className="mb-3 border-b border-black/15 pb-2 text-[11px] uppercase tracking-[0.25em] text-black/40">
+                <div className="mb-3 border-b border-border pb-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
                   Navigation
                 </div>
                 <nav>

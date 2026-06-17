@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navbar } from '@/components/navbar'
 import { CursorPixelTrail } from '@/components/ui/cursor-pixel-trail'
+import { MobileNotice } from '@/components/ui/mobile-notice'
 import { PrismaHero } from '@/components/ui/prisma-hero'
 import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-background text-foreground antialiased">
+      <MobileNotice />
       <CursorPixelTrail />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <PrismaHero />

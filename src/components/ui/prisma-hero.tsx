@@ -90,7 +90,7 @@ const PrismaHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
   const screenSize = useScreenSize();
-  const showVideo = !screenSize.lessThan("md");
+  const showVideo = !screenSize.lessThan("lg");
   useParallaxScroll(videoRef);
 
   return (
