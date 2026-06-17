@@ -36,7 +36,7 @@ export function MobileNotice() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-background px-8 text-center">
+    <div className="fixed inset-0 z-100 flex flex-col items-center justify-center gap-8 bg-background px-8 text-center">
       <OrbitalLoader />
 
       <div className="max-w-sm space-y-3">
