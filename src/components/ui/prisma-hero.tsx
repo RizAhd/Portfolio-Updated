@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useRef, useState } from "react";
 import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
@@ -157,13 +157,16 @@ const PrismaHero = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="group inline-flex items-center gap-2 self-start rounded-full py-1 pl-5 pr-1 text-sm font-medium text-black transition-all hover:gap-3 sm:text-base"
+                className="group relative inline-flex h-12 w-fit cursor-pointer items-center self-start overflow-hidden rounded-full p-1 ps-6 pe-14 text-sm font-medium text-black transition-[padding] duration-500 hover:ps-14 hover:pe-6 sm:text-base"
                 style={{ backgroundColor: CREAM }}
               >
-                View my work
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110 sm:h-10 sm:w-10">
-                  <ArrowRight className="h-4 w-4" style={{ color: CREAM }} />
-                </span>
+                <span className="relative z-10">View my work</span>
+                <div
+                  className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-black transition-all duration-500 group-hover:right-[calc(100%-44px)] group-hover:rotate-45"
+                  style={{ color: CREAM }}
+                >
+                  <ArrowUpRight size={16} />
+                </div>
               </motion.a>
 
             </div>
