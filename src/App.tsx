@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { ArrowDown } from 'lucide-react'
 import { Navbar } from '@/components/navbar'
+import { CursorPixelTrail } from '@/components/ui/cursor-pixel-trail'
 import { PromptingIsAllYouNeed } from '@/components/ui/animated-hero-section'
 import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-background text-foreground antialiased">
+      <CursorPixelTrail />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <section
         id="home"
