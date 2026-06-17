@@ -87,7 +87,10 @@ export const WordsPullUpMultiStyle = ({ segments, className = "", style }: Words
 // hero that always sits on a dark image.
 const CREAM = "#E1E0CC";
 
-// Reliable Unsplash background (replaces the demo's external video URL).
+// Source background video — the 3D figure animation from the component.
+const HERO_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
+// Poster / fallback still, shown until the video loads (or if it ever fails).
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2400&auto=format&fit=crop";
 
@@ -96,12 +99,15 @@ const PrismaHero = () => {
     <section id="home" className="relative h-screen w-full p-2 sm:p-3">
       <div className="relative h-full w-full overflow-hidden rounded-2xl bg-black md:rounded-[2rem]">
 
-        {/* Background image (swap for a <video> here if you want motion) */}
-        <img
-          src={HERO_IMAGE}
-          alt=""
-          aria-hidden="true"
+        {/* Background video — the 3D figure animation (poster = fallback still) */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={HERO_IMAGE}
           className="absolute inset-0 h-full w-full object-cover"
+          src={HERO_VIDEO}
         />
 
         {/* Noise overlay (see .noise-overlay in index.css) */}
