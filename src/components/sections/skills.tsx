@@ -36,11 +36,11 @@ const secondColumn = cards.slice(3, 5);
 const thirdColumn = cards.slice(5, 7);
 
 export const Skills = () => (
-  <section id="skills" className="w-full bg-background px-6 py-24 md:px-12 md:py-32">
+  <section id="skills" className="w-full bg-background px-4 py-16 sm:px-6 sm:py-24 md:px-12 md:py-32">
     <div className="mx-auto max-w-7xl">
       <SectionHeading kicker="What I Use" title="Skills" />
 
-      <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+      <div className="flex justify-center gap-4 sm:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[560px] sm:max-h-[640px] md:max-h-[740px] overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -68,7 +68,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10 md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10 md:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -91,7 +91,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -16, opacity: 0 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="mt-24 flex flex-col items-center gap-2 px-6"
+              className="mt-24 flex max-h-[calc(100dvh-7rem)] w-full max-w-sm flex-col items-center gap-2 overflow-y-auto px-6 pb-8"
               onClick={(e) => e.stopPropagation()}
             >
               {navLinks.map((link, i) => (

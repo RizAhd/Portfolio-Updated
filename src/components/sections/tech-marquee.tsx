@@ -43,7 +43,7 @@ const techLogos = [
 export const TechMarquee = () => (
   <section
     id="tech"
-    className="relative w-full overflow-hidden bg-background py-16 md:py-20"
+    className="relative w-full overflow-x-hidden bg-background py-10 sm:py-14 md:py-20"
   >
     <LogoCloud logos={techLogos} />
   </section>

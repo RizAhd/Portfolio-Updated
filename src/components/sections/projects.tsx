@@ -10,10 +10,10 @@ export const Projects = () => (
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
             Selected Work
           </span>
-          <h2 className="text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-6xl">
             Projects<span className="text-yellow-500">.</span>
           </h2>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-foreground/60">
+          <p className="mt-2 max-w-md px-4 text-sm leading-relaxed text-foreground/60 sm:px-0">
             Scroll through {projects.length} things I&apos;ve built — full-stack apps,
             AI assistants, mobile, and machine-learning projects.
           </p>
@@ -28,7 +28,7 @@ export const Projects = () => (
               href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-2xl border border-border bg-card p-5 transition-colors hover:border-yellow-500/60"
+              className="group flex min-w-0 flex-col rounded-2xl border border-border bg-card p-4 transition-colors hover:border-yellow-500/60 sm:p-5"
             >
               <div className="flex items-start justify-between">
                 <span className="text-sm font-bold tracking-widest text-yellow-600">
@@ -37,8 +37,8 @@ export const Projects = () => (
                 <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
 
-              <h3 className="mt-4 text-base font-bold text-foreground">{project.title}</h3>
-              <p className="mt-2 grow text-sm leading-relaxed text-foreground/70">
+              <h3 className="mt-4 break-words text-base font-bold text-foreground">{project.title}</h3>
+              <p className="mt-2 grow break-words text-sm leading-relaxed text-foreground/70">
                 {project.description}
               </p>
 

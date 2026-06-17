@@ -12,12 +12,12 @@ export const SectionHeading = ({
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-80px' }}
     transition={{ duration: 0.5 }}
-    className="mb-12 flex flex-col gap-2"
+    className="mb-8 flex flex-col gap-2 sm:mb-12"
   >
-    <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
+    <span className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-yellow-600 sm:text-xs sm:tracking-[0.25em]">
       {kicker}
     </span>
-    <h2 className="text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
+    <h2 className="text-[clamp(1.875rem,7vw,3rem)] font-extrabold leading-tight tracking-tight text-balance text-foreground">
       {title}
     </h2>
   </motion.div>

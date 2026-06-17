@@ -18,8 +18,8 @@ const socials = [
 ];
 
 export const Contact = () => (
-  <section id="contact" className="w-full bg-background pt-24 md:pt-32">
-    <div className="mx-auto max-w-7xl px-6 md:px-12">
+  <section id="contact" className="w-full bg-background pt-20 sm:pt-24 md:pt-32">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12">
       <div className="flex flex-col items-center text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600">
           Get In Touch
@@ -36,7 +36,7 @@ export const Contact = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
-          className="-mt-8 max-w-xl text-base leading-relaxed text-foreground/70"
+          className="-mt-8 max-w-xl text-sm leading-relaxed text-foreground/70 sm:text-base"
         >
           {profile.status} — open to internships and collaborations in software
           engineering, AI, and full-stack development.
@@ -55,7 +55,7 @@ export const Contact = () => (
         </motion.a>
       </div>
 
-      <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-3">
         {links.map((link, i) => (
           <motion.a
             key={link.label}
@@ -66,18 +66,18 @@ export const Contact = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.45, delay: i * 0.08 }}
-            className="group flex items-center justify-between rounded-2xl border border-border bg-card p-5 transition-colors hover:border-yellow-500/60"
+            className="group flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-yellow-500/60"
           >
-            <div className="flex items-center gap-3">
-              <link.icon className="h-5 w-5 text-yellow-600" />
-              <div className="text-left">
+            <div className="flex min-w-0 items-center gap-3">
+              <link.icon className="h-5 w-5 shrink-0 text-yellow-600" />
+              <div className="min-w-0 text-left">
                 <div className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
                   {link.label}
                 </div>
-                <div className="text-sm font-medium text-foreground">{link.value}</div>
+                <div className="truncate text-sm font-medium text-foreground">{link.value}</div>
               </div>
             </div>
-            <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
           </motion.a>
         ))}
       </div>
@@ -89,7 +89,7 @@ export const Contact = () => (
       {/* Interactive wave line — bends toward the cursor, springs back. */}
       <WavePath className="mb-5 text-foreground/40" />
 
-      <div className="px-6 pb-5 md:px-12">
+      <div className="px-4 pb-5 sm:px-6 md:px-12">
         <div className="flex flex-col items-center gap-3 text-center">
           <a href="#home" className="text-2xl font-bold tracking-wider">
             riflan<span className="text-yellow-500">.</span>
@@ -99,7 +99,7 @@ export const Contact = () => (
             {profile.tagline}
           </p>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}

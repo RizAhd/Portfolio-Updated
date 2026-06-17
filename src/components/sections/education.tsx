@@ -26,9 +26,9 @@ export const Education = () => (
             <hr className="my-[2vw] border-none border-t" style={{ borderColor: p.rule }} />
 
             <div>
-              <h2 className="text-[clamp(2.25rem,8vw,9rem)] font-extrabold uppercase leading-[0.85] tracking-tight">
+              <h2 className="text-[clamp(2rem,8vw,9rem)] font-extrabold uppercase leading-[0.9] tracking-tight sm:leading-[0.85]">
                 {edu.qualification.split(/\s+/).map((word, w) => (
-                  <span key={w} className="block">
+                  <span key={w} className="block break-words hyphens-auto">
                     {word}
                   </span>
                 ))}
@@ -37,9 +37,9 @@ export const Education = () => (
 
             <hr className="my-[2vw] border-none border-t" style={{ borderColor: p.rule }} />
 
-            <div className="mt-auto flex flex-wrap items-end justify-between gap-4">
+            <div className="mt-auto flex flex-wrap items-end justify-between gap-3 sm:gap-4">
               <p
-                className="max-w-[40ch] text-[clamp(1rem,2.5vw,2rem)] font-medium leading-tight"
+                className="max-w-full text-[clamp(0.95rem,2.5vw,2rem)] font-medium leading-tight break-words sm:max-w-[40ch]"
                 style={{ color: p.sub }}
               >
                 {edu.institution}

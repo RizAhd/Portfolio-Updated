@@ -16,9 +16,9 @@ export const AskMe = () => {
   return (
     <section
       id="ask"
-      className="w-full bg-secondary px-4 py-24 sm:px-6 md:px-12 md:py-32"
+      className="w-full bg-secondary px-4 py-16 sm:px-6 sm:py-24 md:px-12 md:py-32"
     >
-      <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-8 md:gap-10">
+      <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-6 sm:gap-8 md:gap-10">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export const AskMe = () => {
         </motion.form>
 
         {sent && (
-          <p className="text-center text-sm text-muted-foreground" role="status">
+          <p className="max-w-full text-balance text-center text-sm text-muted-foreground" role="status">
             Thanks! For a real reply, reach me via the{' '}
             <a href="#contact" className="font-medium text-yellow-600 underline-offset-4 hover:underline">
               contact section
