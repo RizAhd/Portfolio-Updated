@@ -7,7 +7,6 @@ import { About } from '@/components/sections/about'
 import { useTheme } from '@/hooks/use-theme'
 import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
 
-const HeroScroll = lazy(() => import('@/components/ui/hero-scroll-animation'))
 const Projects = lazy(() =>
   import('@/components/sections/projects').then((m) => ({ default: m.Projects }))
 )
@@ -44,7 +43,6 @@ function App() {
       <TechMarquee />
       <About />
       <Suspense fallback={<SectionFallback />}>
-        <HeroScroll />
         <Projects />
         <Quote />
         <Skills />
