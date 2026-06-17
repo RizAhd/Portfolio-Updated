@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
 import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
+import { useScreenSize } from "@/hooks/use-screen-size";
 
 /* ---------------- WordsPullUp ---------------- */
 interface WordsPullUpProps {
@@ -93,42 +94,38 @@ const HERO_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
 
 const PrismaHero = () => {
-  // Scroll-driven parallax: the background blurs, fades & zooms as you scroll past the hero.
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const screenSize = useScreenSize();
+  // Skip the heavy background video on phones (big load/UX win); show the
+  // gradient base instead. Desktop gets the video, faded in once it can play.
+  const showVideo = !screenSize.lessThan("md");
   useParallaxScroll(videoRef);
 
   return (
     <section id="home" className="relative h-screen w-full">
-      <div className="relative h-full w-full overflow-hidden bg-black">
+      <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#1c1610] via-black to-[#06060a]">
 
-        {/* Background video — full-bleed, edge to edge */}
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          onLoadedData={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
-          className="absolute inset-0 h-full w-full object-cover will-change-transform"
-          src={HERO_VIDEO}
-        />
+        {showVideo && (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onLoadedData={() => setLoaded(true)}
+            onError={() => setLoaded(true)}
+            className={`absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-700 ${
+              loaded ? "opacity-100" : "opacity-0"
+            }`}
+            src={HERO_VIDEO}
+          />
+        )}
 
-        {/* Noise overlay (see .noise-overlay in index.css) */}
         <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
 
-        {/* Gradient overlay */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
-
-        {/* Load cover — solid black until the video can play, then fades out.
-            Replaces the poster so there's no flash of a different image. */}
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 ${
-            loaded ? "opacity-0" : "opacity-100"
-          }`}
-        />
 
         {/* Hero content (site navbar is the global fixed one, so no nav here) */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 sm:px-6 md:px-10 md:pb-6">
