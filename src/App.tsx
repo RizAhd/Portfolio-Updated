@@ -1,8 +1,7 @@
 import { lazy, Suspense } from 'react'
-import { ArrowDown } from 'lucide-react'
 import { Navbar } from '@/components/navbar'
 import { CursorPixelTrail } from '@/components/ui/cursor-pixel-trail'
-import { PromptingIsAllYouNeed } from '@/components/ui/animated-hero-section'
+import { PrismaHero } from '@/components/ui/prisma-hero'
 import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
 import { useTheme } from '@/hooks/use-theme'
@@ -40,20 +39,7 @@ function App() {
     <main className="min-h-screen overflow-x-clip bg-background text-foreground antialiased">
       <CursorPixelTrail />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
-      <section
-        id="home"
-        className="relative min-h-screen w-full overflow-hidden bg-black"
-      >
-        <PromptingIsAllYouNeed line1="RIFLAN" line2="MOHAMED" />
-        <a
-          href="#about"
-          aria-label="Scroll to about section"
-          className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 text-xs font-medium uppercase tracking-[0.3em] text-white/60 transition-colors hover:text-white"
-        >
-          Scroll
-          <ArrowDown className="h-4 w-4 animate-bounce" />
-        </a>
-      </section>
+      <PrismaHero />
       <TechMarquee />
       <About />
       <Suspense fallback={<SectionFallback />}>
