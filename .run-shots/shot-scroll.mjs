@@ -55,14 +55,21 @@ ws.addEventListener("message", (ev) => {
 await send("Page.enable")
 await send("Runtime.enable")
 await send("Page.navigate", { url: URL })
-await new Promise((r) => setTimeout(r, 4500)) // load + lazy chunks
-const found = await send("Runtime.evaluate", {
-  expression: `(function(){var e=document.querySelector(${JSON.stringify(
-    SELECTOR
-  )});if(e){e.scrollIntoView({behavior:'instant',block:'center'});return true;}return false;})()`,
+await new Promise((r) => setTimeout(r, 8000)) // load + lazy chunks (one shared Suspense)
+const check = await send("Runtime.evaluate", {
+  expression: `(function(){
+    var e=document.querySelector(${JSON.stringify(SELECTOR)});
+    var hasText=document.body.innerText.toLowerCase().indexOf('perseverance')>-1;
+    if(e){
+      var top=e.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({top:top,behavior:'instant'});
+      e.scrollIntoView({behavior:'instant',block:'center'});
+    }
+    return JSON.stringify({found:!!e, hasText:hasText});
+  })()`,
 })
-console.log("selector found:", found?.result?.value)
-await new Promise((r) => setTimeout(r, 1800)) // settle scroll + animations
+console.log("dom check:", check?.result?.value)
+await new Promise((r) => setTimeout(r, 2200)) // settle scroll + animations
 const shot = await send("Page.captureScreenshot", { format: "png" })
 if (shot?.data) {
   fs.writeFileSync(OUT, Buffer.from(shot.data, "base64"))
