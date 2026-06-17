@@ -55,14 +55,30 @@ const NavLink = ({ heading, href, index, onClose }: NavLinkProps) => {
 };
 
 const MenuFooter = () => (
-  <div className="flex w-full items-center gap-8 border-t border-black/10 px-8 py-6 text-black">
-    <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+  <div className="flex w-full items-center gap-4 border-t border-black/10 px-6 py-5 text-black">
+    <a
+      href={contact.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub"
+      className="-m-2.5 inline-flex items-center justify-center p-2.5"
+    >
       <GithubIcon className="h-5 w-5 transition-opacity hover:opacity-60" />
     </a>
-    <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <a
+      href={contact.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+      className="-m-2.5 inline-flex items-center justify-center p-2.5"
+    >
       <LinkedinIcon className="h-5 w-5 transition-opacity hover:opacity-60" />
     </a>
-    <a href={`mailto:${contact.email}`} aria-label="Email">
+    <a
+      href={`mailto:${contact.email}`}
+      aria-label="Email"
+      className="-m-2.5 inline-flex items-center justify-center p-2.5"
+    >
       <Mail className="h-5 w-5 transition-opacity hover:opacity-60" />
     </a>
   </div>
