@@ -62,6 +62,12 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
         </ul>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <a
+            href="#contact"
+            className="hidden rounded-full bg-yellow-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black transition-colors hover:bg-yellow-400 md:inline-flex"
+          >
+            Let&apos;s talk
+          </a>
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             type="button"
