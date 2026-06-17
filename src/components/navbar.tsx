@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { CurvedMobileMenu } from '@/components/ui/curved-menu';
 import { navLinks } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
 
@@ -75,46 +75,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
         </div>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-0 z-40 flex flex-col bg-background/80 backdrop-blur-xl md:hidden"
-            onClick={() => setOpen(false)}
-          >
-            <motion.ul
-              initial={{ y: -16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -16, opacity: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="mt-24 flex max-h-[calc(100dvh-7rem)] w-full max-w-sm flex-col items-center gap-2 overflow-y-auto px-6 pb-8"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05 }}
-                  className="w-full"
-                >
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block w-full rounded-xl border border-border bg-card/60 px-5 py-4 text-center text-sm font-semibold tracking-widest text-foreground transition-colors hover:border-yellow-500/60 hover:text-yellow-600"
-                  >
-                    {link.label}
-                  </a>
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <CurvedMobileMenu open={open} onClose={() => setOpen(false)} />
     </header>
   );
 };
