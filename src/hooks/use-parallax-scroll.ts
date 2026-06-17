@@ -5,8 +5,6 @@ interface ParallaxOptions {
   zoom?: number;
 }
 
-// Scroll-driven parallax: blurs and subtly zooms the referenced element as the
-// page scrolls. rAF-throttled and disabled for reduced-motion users.
 export function useParallaxScroll<T extends HTMLElement>(
   ref: RefObject<T | null>,
   { maxBlur = 12, zoom = 0.08 }: ParallaxOptions = {},

@@ -22,10 +22,9 @@ export function useDimensions(
 
     const debouncedUpdateDimensions = () => {
       clearTimeout(timeoutId)
-      timeoutId = setTimeout(updateDimensions, 250) // Wait 250ms after resize ends
+      timeoutId = setTimeout(updateDimensions, 250)
     }
 
-    // Initial measurement
     updateDimensions()
 
     window.addEventListener("resize", debouncedUpdateDimensions)
@@ -38,3 +37,4 @@ export function useDimensions(
 
   return dimensions
 }
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

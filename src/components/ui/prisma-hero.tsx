@@ -90,8 +90,6 @@ const PrismaHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
   const screenSize = useScreenSize();
-  // Skip the heavy background video on phones (big load/UX win); show the
-  // gradient base instead. Desktop gets the video, faded in once it can play.
   const showVideo = !screenSize.lessThan("md");
   useParallaxScroll(videoRef);
 
@@ -120,7 +118,6 @@ const PrismaHero = () => {
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
 
-        {/* Hero content (site navbar is the global fixed one, so no nav here) */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 sm:px-6 md:px-10 md:pb-6">
           <div className="grid grid-cols-12 items-end gap-4">
 
@@ -178,3 +175,4 @@ const PrismaHero = () => {
 };
 
 export { PrismaHero };
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

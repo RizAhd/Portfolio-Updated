@@ -230,3 +230,4 @@ export const stats = [
   { value: '12', label: 'Projects' },
   { value: '3', label: 'Certifications' },
 ];
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/
