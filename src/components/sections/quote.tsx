@@ -1,7 +1,6 @@
 import DotPattern from '@/components/ui/dot-pattern-1';
 import { Typewriter } from '@/components/ui/typewriter';
 
-// Six punchy quotes from some of the best minds — cycled with a typewriter effect.
 const QUOTES = [
   'Stay hungry. Stay foolish. — Steve Jobs',
   'The best way to predict the future is to invent it. — Alan Kay',
@@ -11,18 +10,12 @@ const QUOTES = [
   'First, solve the problem. Then, write the code. — John Johnson',
 ];
 
-/**
- * Quote band — a dot-pattern framed card where a typewriter cycles through
- * famous quotes (gold accent, light/dark-safe). A reserved min-height keeps
- * the layout from jumping as lines type and delete.
- */
 export const Quote = () => (
   <section id="quote" className="w-full bg-background py-12 sm:py-16 md:py-24">
     <div className="mx-auto max-w-4xl px-4 sm:px-6">
       <div className="relative flex flex-col items-center border border-yellow-500/50">
         <DotPattern width={6} height={6} className="fill-yellow-500/15 md:fill-yellow-500/25" />
 
-        {/* corner markers */}
         <div className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-yellow-500" />
         <div className="absolute -bottom-1.5 -left-1.5 h-3 w-3 bg-yellow-500" />
         <div className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-yellow-500" />

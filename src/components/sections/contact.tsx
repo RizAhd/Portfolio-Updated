@@ -25,7 +25,6 @@ export const Contact = () => (
           Get In Touch
         </span>
 
-        {/* Animated hand-written heading — uses this site's real contact copy. */}
         <HandWrittenTitle
           title="Let's build something together."
           subtitle="Get in touch"
@@ -84,9 +83,7 @@ export const Contact = () => (
 
     </div>
 
-    {/* Full-width footer with an interactive wave divider. */}
     <footer className="relative mt-5 w-full overflow-hidden text-foreground">
-      {/* Interactive wave line — bends toward the cursor, springs back. */}
       <WavePath className="mb-5 text-foreground/40" />
 
       <div className="px-4 pb-5 sm:px-6 md:px-12">
@@ -134,3 +131,4 @@ export const Contact = () => (
     </footer>
   </section>
 );
+// Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/
