@@ -1,59 +1,64 @@
-import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
+import {
+  CardTransformed,
+  CardsContainer,
+  ContainerScroll,
+} from '@/components/ui/animated-cards-stack';
 import { education } from '@/data/portfolio';
 
-const palettes = [
-  { background: 'var(--background)', color: 'var(--foreground)', rule: 'var(--border)', sub: 'var(--muted-foreground)' },
-  { background: '#facc15', color: '#0a0a0a', rule: 'rgba(0,0,0,0.5)', sub: 'rgba(0,0,0,0.7)' },
-  { background: 'var(--card)', color: 'var(--card-foreground)', rule: 'var(--border)', sub: 'var(--muted-foreground)' },
-  { background: 'var(--secondary)', color: 'var(--secondary-foreground)', rule: 'var(--border)', sub: 'var(--muted-foreground)' },
-] as const;
+// One icon per education entry (BSc · Diploma ML&AI · Diploma English).
+const ICONS = ['🎓', '🤖', '🗣️'];
 
 export const Education = () => (
-  <section id="education" className="w-full overflow-x-clip">
-    <FlowArt aria-label="Education">
-      {education.map((edu, i) => {
-        const p = palettes[i % palettes.length];
-        const num = String(i + 1).padStart(2, '0');
-        return (
-          <FlowSection
-            key={edu.qualification}
-            aria-label={edu.qualification}
-            style={{ backgroundColor: p.background, color: p.color }}
-          >
-            <p className="text-xs font-bold uppercase tracking-[0.2em]">
-              {num} — Education
-            </p>
-            <hr className="my-[2vw] border-none border-t" style={{ borderColor: p.rule }} />
+  <section
+    id="education"
+    className="w-full overflow-x-clip bg-background px-4 pt-16 sm:px-6 sm:pt-20 md:px-12"
+  >
+    <div className="mx-auto max-w-2xl text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-600 sm:text-sm">
+        Background
+      </p>
+      <h2 className="mt-2 text-[clamp(1.875rem,7vw,3rem)] font-extrabold tracking-tight text-foreground">
+        Education<span className="text-yellow-500">.</span>
+      </h2>
+      <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-foreground/60 sm:text-base">
+        Scroll to flip through where I&apos;ve studied.
+      </p>
+    </div>
 
-            <div>
-              <h2 className="text-[clamp(2rem,8vw,9rem)] font-extrabold uppercase leading-[0.9] tracking-tight sm:leading-[0.85]">
-                {edu.qualification.split(/\s+/).map((word, w) => (
-                  <span key={w} className="block break-words hyphens-auto">
-                    {word}
-                  </span>
-                ))}
-              </h2>
-            </div>
+    {/* Scroll-driven stacking cards */}
+    <ContainerScroll className="h-[300vh]">
+      <div className="sticky top-0 flex h-svh w-full items-center justify-center">
+        <CardsContainer className="mx-auto h-80 w-[min(92vw,440px)]">
+          {education.map((edu, i) => (
+            <CardTransformed
+              key={edu.qualification}
+              arrayLength={education.length}
+              index={i + 1}
+              role="article"
+              aria-label={edu.qualification}
+              className="items-start justify-between gap-4 border-border bg-card text-card-foreground !p-6 sm:!p-8"
+            >
+              <div className="flex w-full items-start justify-between gap-3">
+                <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-yellow-500/15 text-3xl">
+                  {ICONS[i % ICONS.length]}
+                </div>
+                <span className="pt-1 text-right text-xs font-bold uppercase tracking-widest text-yellow-600 sm:text-sm">
+                  {edu.period}
+                </span>
+              </div>
 
-            <hr className="my-[2vw] border-none border-t" style={{ borderColor: p.rule }} />
-
-            <div className="mt-auto flex flex-wrap items-end justify-between gap-3 sm:gap-4">
-              <p
-                className="max-w-full text-[clamp(0.95rem,2.5vw,2rem)] font-medium leading-tight break-words sm:max-w-[40ch]"
-                style={{ color: p.sub }}
-              >
-                {edu.institution}
-              </p>
-              <p
-                className="text-[clamp(0.9rem,1.6vw,1.25rem)] font-bold uppercase tracking-widest"
-                style={{ color: p.sub }}
-              >
-                {edu.period}
-              </p>
-            </div>
-          </FlowSection>
-        );
-      })}
-    </FlowArt>
+              <div className="w-full">
+                <h3 className="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">
+                  {edu.qualification}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+                  {edu.institution}
+                </p>
+              </div>
+            </CardTransformed>
+          ))}
+        </CardsContainer>
+      </div>
+    </ContainerScroll>
   </section>
 );
