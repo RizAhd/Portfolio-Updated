@@ -208,7 +208,7 @@ export const ReviewStars = React.forwardRef<HTMLDivElement, ReviewProps>(
                 fill="url(#half)"
               />
             </svg>
-          ))}
+          )}
           {[...Array(emptyStars)].map((_, index) => (
             <svg
               key={`empty-${index}`}
