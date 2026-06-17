@@ -6,16 +6,14 @@ import { OrbitalLoader } from "@/components/ui/orbital-loader";
 import { useScreenSize } from "@/hooks/use-screen-size";
 
 const STORAGE_KEY = "desktop-notice-dismissed";
-const COUNTDOWN_FROM = 3;
 
 // Full-screen notice shown only on phones & tablets (< lg): an orbital loader
-// plus a disclaimer recommending desktop. A 3-2-1 countdown auto-opens the
-// site, or the user can skip with the button. Theme-aware, remembered per session.
+// plus a disclaimer recommending desktop. Dismissed with the button and
+// remembered per session. Theme-aware (background/foreground).
 export function MobileNotice() {
   const screenSize = useScreenSize();
   const [mounted, setMounted] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const [count, setCount] = useState(COUNTDOWN_FROM);
 
   useEffect(() => {
     setMounted(true);
@@ -26,9 +24,9 @@ export function MobileNotice() {
     }
   }, []);
 
-  const visible = mounted && !dismissed && screenSize.lessThan("lg");
+  if (!mounted || dismissed || !screenSize.lessThan("lg")) return null;
 
-  const dismiss = () => {
+  const handleContinue = () => {
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
@@ -36,19 +34,6 @@ export function MobileNotice() {
     }
     setDismissed(true);
   };
-
-  // Tick the countdown down once a second; auto-open at zero.
-  useEffect(() => {
-    if (!visible) return;
-    if (count <= 0) {
-      dismiss();
-      return;
-    }
-    const id = setTimeout(() => setCount((c) => c - 1), 1000);
-    return () => clearTimeout(id);
-  }, [visible, count]);
-
-  if (!visible) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-background px-8 text-center">
@@ -65,15 +50,9 @@ export function MobileNotice() {
         </p>
       </div>
 
-      <p className="text-xs text-muted-foreground" aria-live="polite">
-        Opening automatically in{" "}
-        <span className="font-semibold tabular-nums text-yellow-500">{count}</span>
-        s&hellip;
-      </p>
-
       <button
         type="button"
-        onClick={dismiss}
+        onClick={handleContinue}
         className="rounded-full bg-yellow-500 px-6 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-yellow-400"
       >
         Continue anyway
