@@ -1,9 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
-import { useScreenSize } from "@/hooks/use-screen-size";
 
 interface WordsPullUpProps {
   text: string;
@@ -89,30 +88,44 @@ const HERO_VIDEO =
 const PrismaHero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
-  const screenSize = useScreenSize();
-  const showVideo = !screenSize.lessThan("lg");
   useParallaxScroll(videoRef);
+
+  // Mobile-autoplay: force the muted DOM property (React doesn't always set it,
+  // which silently blocks autoplay) and explicitly call play() — iOS/Android
+  // require muted + playsInline + an explicit play() to autoplay a video.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.setAttribute("muted", "");
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+    tryPlay();
+    v.addEventListener("canplay", tryPlay, { once: true });
+    return () => v.removeEventListener("canplay", tryPlay);
+  }, []);
 
   return (
     <section id="home" className="relative h-screen w-full">
       <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#1c1610] via-black to-[#06060a]">
 
-        {showVideo && (
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            onLoadedData={() => setLoaded(true)}
-            onError={() => setLoaded(true)}
-            className={`absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-700 ${
-              loaded ? "opacity-100" : "opacity-0"
-            }`}
-            src={HERO_VIDEO}
-          />
-        )}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onLoadedData={() => setLoaded(true)}
+          onCanPlay={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
+          className={`absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-700 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          src={HERO_VIDEO}
+        />
 
         <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
 
