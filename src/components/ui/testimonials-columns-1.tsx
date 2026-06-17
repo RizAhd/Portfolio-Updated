@@ -45,7 +45,7 @@ export const TestimonialsColumn = (props: {
                         height={40}
                         src={image}
                         alt={name}
-                        className="h-10 w-10 rounded-full"
+                        className="h-10 w-10 rounded-full object-cover"
                       />
                     ) : Icon ? (
                       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500/15 text-yellow-600">

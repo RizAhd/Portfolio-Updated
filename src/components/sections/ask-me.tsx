@@ -66,13 +66,22 @@ export const AskMe = () => {
         </motion.div>
 
         {sent && (
-          <p className="max-w-full text-balance text-center text-sm text-muted-foreground" role="status">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-full text-balance text-center text-sm text-muted-foreground"
+            role="status"
+          >
             Thanks! For a real reply, reach me via the{' '}
-            <a href="#contact" className="font-medium text-yellow-600 underline-offset-4 hover:underline">
+            <a
+              href="#contact"
+              className="font-medium text-yellow-600 underline-offset-4 transition-colors hover:underline"
+            >
               contact section
             </a>{' '}
             below.
-          </p>
+          </motion.p>
         )}
       </div>
     </section>

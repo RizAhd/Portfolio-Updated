@@ -41,6 +41,7 @@ export const Skills = () => (
 
       <div className="flex justify-center gap-4 sm:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[560px] sm:max-h-[640px] md:max-h-[740px] overflow-hidden">
         <motion.div
+          className="w-full max-w-xs"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

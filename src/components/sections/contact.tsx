@@ -116,7 +116,7 @@ export const Contact = () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="-m-2 p-2 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <s.icon className="h-5 w-5" />
               </a>
