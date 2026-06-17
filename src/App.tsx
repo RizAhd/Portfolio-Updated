@@ -11,6 +11,9 @@ import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
 const Projects = lazy(() =>
   import('@/components/sections/projects').then((m) => ({ default: m.Projects }))
 )
+const Quote = lazy(() =>
+  import('@/components/sections/quote').then((m) => ({ default: m.Quote }))
+)
 const Skills = lazy(() =>
   import('@/components/sections/skills').then((m) => ({ default: m.Skills }))
 )
@@ -55,6 +58,7 @@ function App() {
       <About />
       <Suspense fallback={<SectionFallback />}>
         <Projects />
+        <Quote />
         <Skills />
         <Resume />
         <Education />
