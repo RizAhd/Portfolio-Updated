@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { profile } from "@/data/portfolio";
 import { useParallaxScroll } from "@/hooks/use-parallax-scroll";
 import { useScreenSize } from "@/hooks/use-screen-size";
+import { TextScramble } from "@/components/ui/text-scramble";
 
 interface WordsPullUpProps {
   text: string;
@@ -123,10 +124,10 @@ const PrismaHero = () => {
 
             <div className="col-span-12 min-w-0 lg:col-span-8">
               <h1
-                className="break-words font-medium leading-[0.85] tracking-[-0.07em] text-[clamp(2.75rem,21vw,5rem)] sm:text-[20vw] md:text-[17vw] lg:text-[14vw] xl:text-[13vw]"
+                className="break-words font-medium leading-[0.9] text-[clamp(2.5rem,18vw,4.5rem)] sm:text-[17vw] md:text-[15vw] lg:text-[12vw] xl:text-[11vw]"
                 style={{ color: CREAM }}
               >
-                <WordsPullUp text="Riflan Mohamed" showAsterisk />
+                <TextScramble text="Riflan Mohamed" autoPlay className="font-mono uppercase tracking-tight" />
               </h1>
             </div>
 
