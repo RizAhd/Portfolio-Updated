@@ -61,6 +61,14 @@ export const navLinks = [
 export const projects: Project[] = [
   {
     no: '01',
+    title: 'Loki — AI Voice Assistant',
+    description:
+      'Hands-free, wake-word voice assistant for Windows — speech is transcribed, reasoned over by Claude with live MCP tool access, and spoken back, all driving a real-time browser waveform. Multilingual (English, Sinhala, Tamil).',
+    stack: ['Python', 'Claude', 'MCP', 'LiveKit', 'OpenAI', 'FastMCP', 'WebSocket', 'aiohttp'],
+    repo: 'https://github.com/RizAhd/Loki-AI-Personal-Assitant',
+  },
+  {
+    no: '02',
     title: 'Replate — Food Rescue App',
     description:
       'Complete full-stack, Firebase-connected food-rescue platform — connecting surplus food with people in need.',
@@ -68,7 +76,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Replate',
   },
   {
-    no: '02',
+    no: '03',
     title: 'PingMe — Real-Time Chat',
     description:
       'Full-stack real-time chat application with authentication and WebSocket messaging across web & mobile.',
@@ -76,7 +84,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/PingMe-Real-time-Chat-Application',
   },
   {
-    no: '03',
+    no: '04',
     title: 'Universal Research Assistant',
     description:
       'API-orchestration research chatbot that answers from multiple verified sources with citations and live summaries.',
@@ -84,7 +92,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/reasearch-asistant',
   },
   {
-    no: '04',
+    no: '05',
     title: 'Medi Guide Chatbot',
     description:
       'AI medical assistant — symptom checking, real-time conversational guidance, and personalized recommendations.',
@@ -92,7 +100,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Medi-Guide-Chat-Bot',
   },
   {
-    no: '05',
+    no: '06',
     title: 'Qiera — Real Estate App',
     description:
       'Real-estate mobile application — property search, listings, profiles, and a polished responsive UI.',
@@ -100,7 +108,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Qiera',
   },
   {
-    no: '06',
+    no: '07',
     title: 'Cinemax — Movie App',
     description:
       'Movie-discovery app with TMDB data, real-time features, and a sleek native UI with gradients & blur.',
@@ -108,7 +116,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/cinemax-movie-app',
   },
   {
-    no: '07',
+    no: '08',
     title: 'Heart Disease Prediction',
     description:
       'Machine-learning model predicting heart-disease risk — built as a Diploma in ML & AI project.',
@@ -116,7 +124,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Heart-Disease-Prediction',
   },
   {
-    no: '08',
+    no: '09',
     title: 'Booksy — Java Web App',
     description:
       'Java web application with Servlets & Hibernate, a MySQL backend, and PayHere payment integration.',
@@ -124,7 +132,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Booksy',
   },
   {
-    no: '09',
+    no: '10',
     title: 'Bluemoon Private Limited',
     description:
       'Corporate website for Bluemoon Private Limited — clean, responsive marketing front-end.',
@@ -132,14 +140,14 @@ export const projects: Project[] = [
     repo: 'https://github.com/RizAhd/Bluemoon-Private-limited-Website',
   },
   {
-    no: '10',
+    no: '11',
     title: 'Momento — To-Do App',
     description: 'Full-stack productivity to-do application with a relational backend.',
     stack: ['Java', 'JavaScript', 'React Native', 'MySQL', 'CSS'],
     repo: 'https://github.com/RizAhd/momento-todo-app',
   },
   {
-    no: '11',
+    no: '12',
     title: 'Z Gen Cinema Reservation',
     description:
       'Cinema reservation system — movie scheduling, cashier handling, and ticketing. Contributed as a junior developer.',
@@ -219,6 +227,6 @@ export const languages: LanguageItem[] = [
 
 export const stats = [
   { value: '8', label: 'Languages' },
-  { value: '11', label: 'Projects' },
+  { value: '12', label: 'Projects' },
   { value: '3', label: 'Certifications' },
 ];
