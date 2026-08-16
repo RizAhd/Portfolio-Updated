@@ -5,6 +5,7 @@ import { Mail, X } from "lucide-react";
 
 import { navLinks, contact } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
+import { DownloadCvButton } from "@/components/ui/download-cv-button";
 
 const MENU_SLIDE_ANIMATION: Variants = {
   initial: { x: "calc(100% + 100px)" },
@@ -153,7 +154,17 @@ export function CurvedMobileMenu({ open, onClose }: CurvedMobileMenuProps) {
                   ))}
                 </nav>
               </div>
-              <MenuFooter />
+              <div>
+                {/* The navbar's CV button is md+ only, so surface it here too. */}
+                <div className="px-8 pb-6">
+                  <DownloadCvButton
+                    href="/Riflan_Mohamed_CV_AI_Engineer.pdf"
+                    fileName="Riflan_Mohamed_CV_AI_Engineer.pdf"
+                    className="w-full justify-center px-5 py-2.5 text-sm"
+                  />
+                </div>
+                <MenuFooter />
+              </div>
             </div>
             <Curve />
           </motion.div>

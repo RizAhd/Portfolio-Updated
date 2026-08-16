@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { CurvedMobileMenu } from '@/components/ui/curved-menu';
+import { DownloadCvButton } from '@/components/ui/download-cv-button';
 import { navLinks } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
 
@@ -62,9 +63,15 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
         </ul>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <DownloadCvButton
+            href="/Riflan_Mohamed_CV_AI_Engineer.pdf"
+            fileName="Riflan_Mohamed_CV_AI_Engineer.pdf"
+            className="hidden md:inline-flex"
+          />
+          {/* Redundant with the CONTACT nav link, so it yields space first. */}
           <a
             href="#contact"
-            className="hidden rounded-full bg-yellow-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black transition-colors hover:bg-yellow-400 md:inline-flex"
+            className="hidden rounded-full bg-yellow-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black transition-colors hover:bg-yellow-400 lg:inline-flex"
           >
             Let&apos;s talk
           </a>

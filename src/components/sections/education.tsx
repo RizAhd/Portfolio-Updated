@@ -1,17 +1,10 @@
-import {
-  CardTransformed,
-  CardsContainer,
-  ContainerScroll,
-} from '@/components/ui/animated-cards-stack';
+import { Timeline, type TimelineEntry } from '@/components/ui/timeline';
 import { education } from '@/data/portfolio';
 
 const ICONS = ['🎓', '🤖', '🗣️'];
 
-export const Education = () => (
-  <section
-    id="education"
-    className="w-full overflow-x-clip bg-background px-4 pt-16 sm:px-6 sm:pt-20 md:px-12"
-  >
+const heading = (
+  <div className="mx-auto max-w-7xl px-4 py-20 md:px-8 lg:px-10">
     <div className="mx-auto max-w-2xl text-center">
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-600 sm:text-sm">
         Background
@@ -20,44 +13,33 @@ export const Education = () => (
         Education<span className="text-yellow-500">.</span>
       </h2>
       <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-foreground/60 sm:text-base">
-        Scroll to flip through where I&apos;ve studied.
+        Scroll to trace the path — each stop is where I studied.
       </p>
     </div>
+  </div>
+);
 
-    <ContainerScroll className="h-[105vh]">
-      <div className="sticky top-0 flex h-svh w-full items-center justify-center">
-        <CardsContainer className="mx-auto h-80 w-[min(92vw,440px)]">
-          {education.map((edu, i) => (
-            <CardTransformed
-              key={edu.qualification}
-              arrayLength={education.length}
-              index={i + 1}
-              role="article"
-              aria-label={edu.qualification}
-              className="items-start justify-between gap-4 border-border bg-card text-card-foreground shadow-2xl shadow-black/10 p-6! sm:p-8!"
-            >
-              <div className="flex w-full items-start justify-between gap-3">
-                <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-yellow-500/15 text-3xl">
-                  {ICONS[i % ICONS.length]}
-                </div>
-                <span className="pt-1 text-right text-xs font-bold uppercase tracking-widest text-yellow-600 sm:text-sm">
-                  {edu.period}
-                </span>
-              </div>
-
-              <div className="w-full">
-                <h3 className="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">
-                  {edu.qualification}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-                  {edu.institution}
-                </p>
-              </div>
-            </CardTransformed>
-          ))}
-        </CardsContainer>
+const entries: TimelineEntry[] = education.map((edu, i) => ({
+  title: edu.period,
+  content: (
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-black/5 sm:p-8">
+      <div className="flex size-14 items-center justify-center rounded-xl bg-yellow-500/15 text-3xl">
+        {ICONS[i % ICONS.length]}
       </div>
-    </ContainerScroll>
+
+      <h3 className="mt-5 text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">
+        {edu.qualification}
+      </h3>
+      <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+        {edu.institution}
+      </p>
+    </div>
+  ),
+}));
+
+export const Education = () => (
+  <section id="education" className="w-full overflow-x-clip bg-background">
+    <Timeline data={entries} heading={heading} />
   </section>
 );
 // Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/
