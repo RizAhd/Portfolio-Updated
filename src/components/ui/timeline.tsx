@@ -48,11 +48,13 @@ export const Timeline = ({ data, heading }: TimelineProps) => {
             key={index}
             className="flex justify-start pt-10 md:gap-10 md:pt-40"
           >
-            <div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
+            {/* Only sticky from md up: below that the column holds nothing but
+                the dot, so sticking it detaches the marker from its entry. */}
+            <div className="relative z-40 flex max-w-xs flex-col items-center self-start md:sticky md:top-40 md:w-full md:max-w-[14rem] md:flex-row lg:max-w-sm">
               <div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-background md:left-3">
                 <div className="h-4 w-4 rounded-full border border-yellow-500/40 bg-yellow-500/20 p-2" />
               </div>
-              <h3 className="hidden text-xl font-bold text-muted-foreground md:block md:pl-20 md:text-5xl">
+              <h3 className="hidden whitespace-nowrap text-xl font-bold text-muted-foreground md:block md:pl-14 md:text-3xl lg:pl-20 lg:text-5xl">
                 {item.title}
               </h3>
             </div>
