@@ -168,6 +168,77 @@ html.lenis body {
   background: transparent;
 }
 
+/* Card fan carousel (src/components/ui/card-fan-carousel.tsx).
+   The component positions ".fan-card" purely through GSAP transforms, so the
+   cards must be absolutely centred inside ".fan-layout" with no transform of
+   their own (a CSS translate would be overwritten by GSAP's x/y). Centring is
+   therefore done with negative margins. Card width drives height via a fixed
+   3:2 ratio, matching the normalised certificate artwork. */
+.fan-layout {
+  --fan-card-w: clamp(13rem, 15vw, 20rem);
+  /* The fan's y-offsets only push cards downwards, so the cluster sits below
+     the container's centre line. Lift it back up for optical centring. */
+  --fan-shift: 3.5rem;
+  height: 24rem;
+}
+.fan-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--fan-card-w);
+  height: calc(var(--fan-card-w) / 1.5);
+  margin-left: calc(var(--fan-card-w) / -2);
+  margin-top: calc(var(--fan-card-w) / -3 - var(--fan-shift));
+  border-radius: 0.875rem;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.28);
+  opacity: 0;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Between 1024px and 1279px the component still uses its full-width position
+   table (x-offsets alone span 60rem), which overruns the viewport. Scale the
+   whole fan rather than altering the component's own geometry. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .fan-layout {
+    transform: scale(0.82);
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fan-layout {
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 1023px) {
+  .fan-layout {
+    --fan-card-w: 11rem;
+    --fan-shift: 3rem;
+    height: 18rem;
+  }
+}
+@media (max-width: 767px) {
+  .fan-layout {
+    --fan-card-w: 10rem;
+    height: 17rem;
+  }
+}
+@media (max-width: 639px) {
+  .fan-layout {
+    --fan-card-w: 8.5rem;
+    height: 16rem;
+  }
+}
+@media (max-width: 479px) {
+  .fan-layout {
+    --fan-card-w: 7.5rem;
+    height: 15rem;
+  }
+}
+
 @keyframes infinite-slider-x {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }

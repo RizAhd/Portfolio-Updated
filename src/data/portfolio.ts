@@ -30,6 +30,14 @@ export interface LanguageItem {
   percent: number;
 }
 
+export interface CertificationItem {
+  title: string;
+  issuer: string;
+  /** Omitted when the certificate itself carries no issue date. */
+  date?: string;
+  image: string;
+}
+
 export const profile = {
   name: 'Riflan Mohamed',
   title: 'Software Engineer & AI Developer',
@@ -225,9 +233,71 @@ export const languages: LanguageItem[] = [
   { name: 'Sinhala', level: 'Conversational', percent: 80 },
 ];
 
+// Transcribed from the source certificates in /public/certificates.
+// Newest first; entries without a `date` carry no issue date on the artwork.
+export const certifications: CertificationItem[] = [
+  {
+    title: 'AI Engineering Bootcamp',
+    issuer: 'STEMLink',
+    date: 'Aug 2026',
+    image: '/certificates/1.jpg',
+  },
+  {
+    title: 'AWS Cloud Practitioner (CLF-C02)',
+    issuer: 'DataCamp',
+    date: 'Aug 2026',
+    image: '/certificates/2.jpg',
+  },
+  {
+    title: 'AI Engineer for Developers Associate',
+    issuer: 'DataCamp',
+    date: 'Aug 2026',
+    image: '/certificates/3.jpg',
+  },
+  {
+    title: 'The AI Filmmaking Pipeline',
+    issuer: 'Higgsfield Academy',
+    date: 'Jul 2026',
+    image: '/certificates/4.jpg',
+  },
+  {
+    title: 'Claude Code 101',
+    issuer: 'Anthropic',
+    image: '/certificates/6.jpg',
+  },
+  {
+    title: 'Claude 101',
+    issuer: 'Anthropic',
+    image: '/certificates/7.jpg',
+  },
+  {
+    title: 'n8n Course Level 1',
+    issuer: 'n8n',
+    image: '/certificates/5.jpg',
+  },
+  {
+    title: 'Intermediate Machine Learning',
+    issuer: 'Kaggle',
+    date: 'Dec 2025',
+    image: '/certificates/8.jpg',
+  },
+  {
+    title: 'Intro to Machine Learning',
+    issuer: 'Kaggle',
+    date: 'Dec 2025',
+    image: '/certificates/9.jpg',
+  },
+  {
+    title: 'OCI Foundations Associate',
+    issuer: 'Oracle',
+    date: '2024',
+    image: '/certificates/10.jpg',
+  },
+];
+
 export const stats = [
   { value: '8', label: 'Languages' },
   { value: '12', label: 'Projects' },
-  { value: '3', label: 'Certifications' },
+  { value: '10', label: 'Certifications' },
 ];
 // Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/

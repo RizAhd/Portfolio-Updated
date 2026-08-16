@@ -23,6 +23,11 @@ const Resume = lazy(() =>
 const Education = lazy(() =>
   import('@/components/sections/education').then((m) => ({ default: m.Education }))
 )
+const Certifications = lazy(() =>
+  import('@/components/sections/certifications').then((m) => ({
+    default: m.Certifications,
+  }))
+)
 const AskMe = lazy(() =>
   import('@/components/sections/ask-me').then((m) => ({ default: m.AskMe }))
 )
@@ -50,6 +55,7 @@ function App() {
         <Skills />
         <Resume />
         <Education />
+        <Certifications />
         <AskMe />
         <Contact />
       </Suspense>
