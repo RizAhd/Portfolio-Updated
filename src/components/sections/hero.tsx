@@ -1,42 +1,184 @@
+import { useEffect, useState } from 'react';
 import SculptureHero from '@/components/ui/liquid-sculpture-hero';
 import { profile } from '@/data/portfolio';
 import type { Theme } from '@/hooks/use-theme';
+
+const HEAD_FONT = "'Geist Variable', 'Helvetica Neue', Arial, sans-serif";
+const ACCENT_FONT = "'Instrument Serif', 'Times New Roman', serif";
+
+const PALETTE = {
+  light: { bg: '#ffffff', text: '#141414', accent: '#a16207' },
+  dark: { bg: '#0a0a0a', text: '#ecebe4', accent: '#eab308' },
+} as const;
+
+type Palette = (typeof PALETTE)[Theme];
+
+/** 1×1 transparent pixel, shown until the name has been drawn. */
+const BLANK =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
+interface NameImages {
+  wideLight: string;
+  wideDark: string;
+  stackedLight: string;
+  stackedDark: string;
+}
+
+interface Run {
+  text: string;
+  font: string;
+  /** letter-spacing in px */
+  spacing: number;
+  color: string;
+}
+
+/**
+ * Draws the name the way the old headline set it — first name upright, surname
+ * in the gold italic accent — on a transparent canvas the particle engine can
+ * sample. "wide" is one line; "stacked" puts the surname under it for phones.
+ */
+function drawName(layout: 'wide' | 'stacked', palette: Palette): Promise<string> {
+  const [first, ...rest] = profile.name.split(' ');
+  const size = layout === 'wide' ? 440 : 300;
+  const runs: Run[] = [
+    { text: first, font: `500 ${size}px ${HEAD_FONT}`, spacing: -0.045 * size, color: palette.text },
+    { text: rest.join(' '), font: `italic 400 ${size}px ${ACCENT_FONT}`, spacing: -0.02 * size, color: palette.accent },
+  ];
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return Promise.reject(new Error('2D canvas unavailable'));
+
+  const metrics = runs.map((run) => {
+    ctx.font = run.font;
+    ctx.letterSpacing = `${run.spacing}px`;
+    const m = ctx.measureText(run.text);
+    return {
+      advance: m.width,
+      left: m.actualBoundingBoxLeft,
+      right: m.actualBoundingBoxRight,
+      ascent: m.actualBoundingBoxAscent,
+      descent: m.actualBoundingBoxDescent,
+    };
+  });
+
+  // Pen positions (baseline origin) for each run.
+  const pens =
+    layout === 'wide'
+      ? [
+          { x: 0, y: 0 },
+          { x: metrics[0].advance + 0.24 * size, y: 0 },
+        ]
+      : metrics.map((m, i) => ({ x: -(m.right - m.left) / 2, y: i * 0.92 * size }));
+
+  const minX = Math.min(...pens.map((p, i) => p.x - metrics[i].left));
+  const maxX = Math.max(...pens.map((p, i) => p.x + metrics[i].right));
+  const minY = Math.min(...pens.map((p, i) => p.y - metrics[i].ascent));
+  const maxY = Math.max(...pens.map((p, i) => p.y + metrics[i].descent));
+  const pad = Math.round(0.08 * size);
+
+  canvas.width = Math.ceil(maxX - minX) + pad * 2;
+  canvas.height = Math.ceil(maxY - minY) + pad * 2;
+  // Resizing resets the context, so styles are applied per run while drawing.
+  runs.forEach((run, i) => {
+    ctx.font = run.font;
+    ctx.letterSpacing = `${run.spacing}px`;
+    ctx.fillStyle = run.color;
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(run.text, pens[i].x - minX + pad, pens[i].y - minY + pad);
+  });
+
+  return new Promise((resolve, reject) =>
+    canvas.toBlob((blob) => (blob ? resolve(URL.createObjectURL(blob)) : reject(new Error('toBlob failed'))))
+  );
+}
+
+/** Renders the name images once the web fonts are ready. */
+function useNameImages(): NameImages | null {
+  const [images, setImages] = useState<NameImages | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    let urls: string[] = [];
+    const fontsReady = Promise.all([
+      document.fonts.load(`500 100px ${HEAD_FONT}`),
+      document.fonts.load(`italic 400 100px ${ACCENT_FONT}`),
+    ]).catch(() => undefined);
+
+    fontsReady
+      .then(() =>
+        Promise.all([
+          drawName('wide', PALETTE.light),
+          drawName('wide', PALETTE.dark),
+          drawName('stacked', PALETTE.light),
+          drawName('stacked', PALETTE.dark),
+        ])
+      )
+      .then((list) => {
+        urls = list;
+        if (cancelled) {
+          list.forEach((url) => URL.revokeObjectURL(url));
+          return;
+        }
+        const [wideLight, wideDark, stackedLight, stackedDark] = list;
+        setImages({ wideLight, wideDark, stackedLight, stackedDark });
+      })
+      .catch(() => {
+        // Leaves the hero without the name sculpture; the copy below still renders.
+      });
+
+    return () => {
+      cancelled = true;
+      urls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, []);
+
+  return images;
+}
 
 interface HeroProps {
   theme: Theme;
 }
 
-// Portrait rebuilt from GPU particles; the cursor turns it liquid.
-export const Hero = ({ theme }: HeroProps) => (
-  <SculptureHero
-    id="home"
-    theme={theme}
-    // The site's fixed <Navbar /> already covers navigation and the theme toggle.
-    showNav={false}
-    topInset={88}
-    showCredit={false}
-    src={profile.cutout}
-    imageAlt={`Portrait of ${profile.name}`}
-    eyebrow={profile.tagline}
-    headline={'Riflan\nMohamed'}
-    headlineAccent="Mohamed"
-    body={profile.shortBio}
-    primaryCta={{ label: 'View my work', href: '#projects' }}
-    secondaryCta={{ label: 'Get in touch', href: '#contact' }}
-    hint="Move across the portrait"
-    hintTouch="Touch the portrait"
-    backdropText="RIFLAN"
-    background="#ffffff"
-    darkBackground="#0a0a0a"
-    textColor="#141414"
-    darkTextColor="#ecebe4"
-    accentColor="#a16207"
-    darkAccentColor="#eab308"
-    sculptureScale={1.3}
-    mobileSculptureScale={1.2}
-    sculptureY={6}
-    particleDensity={0.35}
-    ambientIntensity={0.2}
-    liquid={0.6}
-  />
-);
+// The name is rebuilt from GPU particles; the cursor turns it liquid.
+export const Hero = ({ theme }: HeroProps) => {
+  const images = useNameImages();
+
+  return (
+    <SculptureHero
+      id="home"
+      theme={theme}
+      // The site's fixed <Navbar /> already covers navigation and the theme toggle.
+      showNav={false}
+      topInset={88}
+      showCredit={false}
+      loadFonts={false}
+      headingFont={HEAD_FONT}
+      bodyFont={HEAD_FONT}
+      accentFont={ACCENT_FONT}
+      src={images?.wideLight ?? BLANK}
+      darkSrc={images?.wideDark ?? BLANK}
+      mobileSrc={images?.stackedLight ?? BLANK}
+      mobileDarkSrc={images?.stackedDark ?? BLANK}
+      imageAlt={profile.name}
+      eyebrow={`${profile.location} — ${profile.status}`}
+      headline={'Software &\nAI Engineer.'}
+      headlineAccent="AI Engineer."
+      body={profile.shortBio}
+      primaryCta={{ label: 'View my work', href: '#projects' }}
+      secondaryCta={{ label: 'Get in touch', href: '#contact' }}
+      hint="Move across my name"
+      hintTouch="Touch my name"
+      backdropText=""
+      background={PALETTE.light.bg}
+      darkBackground={PALETTE.dark.bg}
+      textColor={PALETTE.light.text}
+      darkTextColor={PALETTE.dark.text}
+      accentColor={PALETTE.light.accent}
+      darkAccentColor={PALETTE.dark.accent}
+      sculptureMaxWidth={0.92}
+      particleDensity={1.4}
+      ambientIntensity={0.3}
+    />
+  );
+};

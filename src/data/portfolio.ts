@@ -45,8 +45,6 @@ export const profile = {
   status: 'Available for Work',
   year: '2026',
   photo: '/riflan.png',
-  /** Transparent cut-out of `photo`, used by the particle hero. */
-  cutout: '/riflan-cutout.webp',
   location: 'Sri Lanka',
   shortBio:
     'I build scalable, data-driven applications and intelligent AI solutions — blending full-stack engineering with machine learning and real-time systems.',

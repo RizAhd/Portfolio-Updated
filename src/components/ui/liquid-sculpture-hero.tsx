@@ -323,7 +323,8 @@ void main(){
   disp += ambientField(uv, uTime)*10.0*uAmbient;
   vec2 suv = uv + disp/size;
   vec4 tx = texture(uImg, suv);
-  vec3 col = tx.rgb;
+  // the texture is premultiplied; recover the straight colour
+  vec3 col = tx.a > 0.0001 ? tx.rgb/tx.a : vec3(0.0);
   vec2 e = smoothstep(vec2(0.0), vec2(0.004,0.01), suv) * smoothstep(vec2(1.0), vec2(0.996,0.99), suv);
   // cut-out images carry their own alpha; flat-background images are keyed by colour
   float key = uAlphaMode > 0.5 ? tx.a : smoothstep(0.012, 0.05, length(col-uImgBg));
@@ -567,7 +568,10 @@ class LiquidEngine {
     this.imgTex = gl.createTexture()
     gl.bindTexture(gl.TEXTURE_2D, this.imgTex)
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
+    // premultiplied, so filtering never blends the black of transparent texels into the edges
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false)
     gl.generateMipmap(gl.TEXTURE_2D)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
@@ -1072,6 +1076,9 @@ export interface SculptureHeroProps {
   /** Offset in % of the hero width / height. */
   sculptureX?: number
   sculptureY?: number
+  /** Widest the sculpture may get, as a fraction of the hero width (e.g. 0.9 keeps
+   *  text fully on screen). Unset, it may bleed off the sides on small screens. */
+  sculptureMaxWidth?: number
 
   interactive?: boolean
   /** 0 – 2 */
@@ -1158,7 +1165,7 @@ function computeRect(
   h: number,
   aspect: number,
   band: { top: number; bottom: number },
-  p: { scale: number; mobileScale: number; x: number; y: number }
+  p: { scale: number; mobileScale: number; x: number; y: number; maxWidth?: number }
 ): Rect {
   const bandH = Math.max(80, band.bottom - band.top)
   let rw: number
@@ -1178,6 +1185,7 @@ function computeRect(
     maxH = bandH * 1.2 * p.mobileScale
   }
   if (rw / aspect > maxH) rw = maxH * aspect
+  if (p.maxWidth) rw = Math.min(rw, w * p.maxWidth)
   const rh = rw / aspect
   const cx = w * (0.5 + p.x / 100)
   const cy = (band.top + band.bottom) / 2 + h * (p.y / 100)
@@ -1376,6 +1384,7 @@ export default function SculptureHero(props: SculptureHeroProps) {
     mobileSculptureScale = 1,
     sculptureX = 0,
     sculptureY = 0,
+    sculptureMaxWidth,
     interactive = true,
     strength = 1,
     radius = 140,
@@ -1487,6 +1496,7 @@ export default function SculptureHero(props: SculptureHeroProps) {
         mobileScale: mobileSculptureScale,
         x: sculptureX,
         y: sculptureY,
+        maxWidth: sculptureMaxWidth,
       })
       rectRef.current = rect
 
