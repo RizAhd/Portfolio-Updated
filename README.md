@@ -35,7 +35,7 @@ My personal portfolio — a fast, animated, fully responsive single-page site th
 - **"Ask me" section** with a chat-style prompt input.
 - **Curved slide-in mobile menu** with an animated SVG edge and a close control.
 - **Light / dark theme** across every section, respecting system preference.
-- **Fully responsive** from 320px phones to large desktops, with a "best viewed on desktop" notice for small devices.
+- **Fully responsive** from 320px phones to large desktops.
 - **Smooth scrolling** (Lenis) and reduced-motion awareness.
 
 ## 🛠️ Tech Stack
