@@ -13,10 +13,6 @@ const PALETTE = {
 
 type Palette = (typeof PALETTE)[Theme];
 
-/** 1×1 transparent pixel, shown until the name has been drawn. */
-const BLANK =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
 interface NameImages {
   wideLight: string;
   wideDark: string;
@@ -93,39 +89,43 @@ function drawName(layout: 'wide' | 'stacked', palette: Palette): Promise<string>
   );
 }
 
-/** Renders the name images once the web fonts are ready. */
-function useNameImages(): NameImages | null {
-  const [images, setImages] = useState<NameImages | null>(null);
+const VARIANTS: [keyof NameImages, 'wide' | 'stacked', Theme][] = [
+  ['wideLight', 'wide', 'light'],
+  ['wideDark', 'wide', 'dark'],
+  ['stackedLight', 'stacked', 'light'],
+  ['stackedDark', 'stacked', 'dark'],
+];
+
+/**
+ * Renders the name images once the web fonts are ready. Each variant is handed
+ * over as soon as it is encoded, so the one on screen doesn't wait for the rest.
+ */
+function useNameImages(): Partial<NameImages> {
+  const [images, setImages] = useState<Partial<NameImages>>({});
 
   useEffect(() => {
     let cancelled = false;
-    let urls: string[] = [];
+    const urls: string[] = [];
     const fontsReady = Promise.all([
       document.fonts.load(`500 100px ${HEAD_FONT}`),
       document.fonts.load(`italic 400 100px ${ACCENT_FONT}`),
     ]).catch(() => undefined);
 
-    fontsReady
-      .then(() =>
-        Promise.all([
-          drawName('wide', PALETTE.light),
-          drawName('wide', PALETTE.dark),
-          drawName('stacked', PALETTE.light),
-          drawName('stacked', PALETTE.dark),
-        ])
-      )
-      .then((list) => {
-        urls = list;
-        if (cancelled) {
-          list.forEach((url) => URL.revokeObjectURL(url));
-          return;
-        }
-        const [wideLight, wideDark, stackedLight, stackedDark] = list;
-        setImages({ wideLight, wideDark, stackedLight, stackedDark });
-      })
-      .catch(() => {
-        // Leaves the hero without the name sculpture; the copy below still renders.
-      });
+    for (const [key, layout, theme] of VARIANTS) {
+      fontsReady
+        .then(() => drawName(layout, PALETTE[theme]))
+        .then((url) => {
+          if (cancelled) {
+            URL.revokeObjectURL(url);
+            return;
+          }
+          urls.push(url);
+          setImages((prev) => ({ ...prev, [key]: url }));
+        })
+        .catch(() => {
+          // That variant stays empty; the copy below still renders.
+        });
+    }
 
     return () => {
       cancelled = true;
@@ -156,10 +156,11 @@ export const Hero = ({ theme }: HeroProps) => {
       headingFont={HEAD_FONT}
       bodyFont={HEAD_FONT}
       accentFont={ACCENT_FONT}
-      src={images?.wideLight ?? BLANK}
-      darkSrc={images?.wideDark ?? BLANK}
-      mobileSrc={images?.stackedLight ?? BLANK}
-      mobileDarkSrc={images?.stackedDark ?? BLANK}
+      // null = still being drawn; the hero waits instead of showing a stand-in
+      src={images.wideLight ?? null}
+      darkSrc={images.wideDark ?? null}
+      mobileSrc={images.stackedLight ?? null}
+      mobileDarkSrc={images.stackedDark ?? null}
       imageAlt={profile.name}
       eyebrow={`${profile.location} — ${profile.status}`}
       headline={'Software &\nAI Engineer.'}
@@ -176,6 +177,11 @@ export const Hero = ({ theme }: HeroProps) => {
       darkTextColor={PALETTE.dark.text}
       accentColor={PALETTE.light.accent}
       darkAccentColor={PALETTE.dark.accent}
+      // Short screens scroll rather than squeeze the name into the copy.
+      height="max(100svh, 620px)"
+      // The defaults let a sculpture overshoot its band by 10–20%; text must fit it.
+      sculptureScale={0.9}
+      mobileSculptureScale={0.82}
       sculptureMaxWidth={0.92}
       particleDensity={1.4}
       ambientIntensity={0.3}

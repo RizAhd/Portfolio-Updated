@@ -1023,13 +1023,14 @@ export interface SculptureHeroLink {
 }
 
 export interface SculptureHeroProps {
-  /** Sculpture image (light theme). Must be CORS-enabled when hosted on another domain. */
-  src?: string
+  /** Sculpture image (light theme). Must be CORS-enabled when hosted on another domain.
+   *  `null` means "not ready yet": nothing is drawn until a real image arrives. */
+  src?: string | null
   /** Optional image for the dark theme. */
-  darkSrc?: string
+  darkSrc?: string | null
   /** Optional image for phones (portrait layouts), light and dark. */
-  mobileSrc?: string
-  mobileDarkSrc?: string
+  mobileSrc?: string | null
+  mobileDarkSrc?: string | null
   imageAlt?: string
   /** Only for images without transparency: the flat background colour inside the image. */
   imageBackground?: string
@@ -1199,11 +1200,11 @@ function computeRect(
 const CSS = `
 .sh-root{position:relative;width:100%;height:var(--sh-h);overflow:hidden;isolation:isolate;container-type:size;transition:background-color .6s ease,color .6s ease;
   background:var(--sh-bg);color:var(--sh-fg);font-family:var(--sh-body);-webkit-font-smoothing:antialiased;
-  touch-action:pan-y;display:flex;flex-direction:column;box-sizing:border-box}
+  touch-action:pan-y pinch-zoom;display:flex;flex-direction:column;box-sizing:border-box}
 .sh-root *,.sh-root *::before,.sh-root *::after{box-sizing:border-box}
 .sh-stage{position:absolute;inset:0;z-index:0;pointer-events:none}
 .sh-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .5s ease}
-.sh-fallback{position:absolute;display:block;max-width:none;user-select:none;-webkit-user-drag:none;transition:opacity .5s ease}
+.sh-fallback{position:absolute;display:block;max-width:none;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:opacity .5s ease}
 .sh-root[data-gl="pending"] .sh-fallback{opacity:0}
 .sh-root[data-gl="on"] .sh-canvas{opacity:1}
 .sh-root[data-gl="on"] .sh-fallback{opacity:0}
@@ -1229,7 +1230,7 @@ const CSS = `
   padding:7px 14px 7px 12px;border-radius:999px;color:color-mix(in srgb,var(--sh-fg) 62%,transparent);
   background:color-mix(in srgb,var(--sh-bg) 78%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .sh-hint::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:sh-pulse 2.4s ease-in-out infinite}
-.sh-root[data-touched="1"] .sh-hint{opacity:0}
+.sh-root[data-touched="1"] .sh-hint,.sh-root:not([data-gl="on"]) .sh-hint{opacity:0}
 @keyframes sh-pulse{0%,100%{transform:scale(.6);opacity:.45}50%{transform:scale(1);opacity:1}}
 .sh-spacer{flex:1 1 auto;min-height:0}
 .sh-content{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);align-items:end;
@@ -1348,6 +1349,17 @@ function matches(query: string) {
 
 /** Time the static image and canvas take to fade out before a new image is swapped in. */
 const SWAP_MS = 250
+/** Visible time with an image but no frame before the static image is shown instead. */
+const PRESENT_TIMEOUT_MS = 4000
+/** Below this hero width the mobile images are used. */
+const NARROW = 640
+/** Space between the sculpture and the hint, and between the hint and the copy. */
+const HINT_GAP = 14
+
+/** `fallback` only when `value` was not given at all. */
+function orElse<T, F>(value: T | undefined, fallback: F): T | F {
+  return value === undefined ? fallback : value
+}
 
 export default function SculptureHero(props: SculptureHeroProps) {
   const {
@@ -1409,10 +1421,11 @@ export default function SculptureHero(props: SculptureHeroProps) {
   } = props
 
   // A custom image only falls back to the bundled sculpture for slots it has no answer for.
+  // (`null` is an answer — "wait" — so only `undefined` falls through.)
   const custom = props.src !== undefined
-  const darkSrc = props.darkSrc ?? (custom ? src : DEFAULTS.darkSrc)
-  const mobileSrc = props.mobileSrc ?? (custom ? undefined : DEFAULTS.mobileSrc)
-  const mobileDarkSrc = props.mobileDarkSrc ?? props.mobileSrc ?? (custom ? undefined : DEFAULTS.mobileDarkSrc)
+  const darkSrc = orElse(props.darkSrc, custom ? src : DEFAULTS.darkSrc)
+  const mobileSrc = orElse(props.mobileSrc, custom ? undefined : DEFAULTS.mobileSrc)
+  const mobileDarkSrc = orElse(props.mobileDarkSrc, orElse(props.mobileSrc, custom ? undefined : DEFAULTS.mobileDarkSrc))
 
   // Uncontrolled after load, but follows the prop when the host page changes it.
   const [theme, setTheme] = React.useState(themeProp)
@@ -1423,12 +1436,13 @@ export default function SculptureHero(props: SculptureHeroProps) {
   }
   const dark = theme === "dark"
 
-  const [narrow, setNarrow] = React.useState(false)
+  // The hero is full-width, so the viewport is a good first guess until it is measured.
+  const [narrow, setNarrow] = React.useState(() => typeof window !== "undefined" && window.innerWidth < NARROW)
   const [coarse] = React.useState(() => matches("(pointer: coarse)"))
   const [reducedMotion, setReducedMotion] = React.useState(() => matches("(prefers-reduced-motion: reduce)"))
 
-  const lightImg = narrow && mobileSrc ? mobileSrc : src
-  const darkImg = narrow && mobileDarkSrc ? mobileDarkSrc : darkSrc
+  const lightImg = narrow && mobileSrc !== undefined ? mobileSrc : src
+  const darkImg = narrow && mobileDarkSrc !== undefined ? mobileDarkSrc : darkSrc
   const currentSrc = dark ? darkImg : lightImg
 
   const bg = dark ? darkBackground : lightBackground
@@ -1446,6 +1460,10 @@ export default function SculptureHero(props: SculptureHeroProps) {
   const aspectRef = React.useRef(2.5)
   const rectRef = React.useRef<Rect>({ x: 0, y: 0, w: 0, h: 0 })
   const layoutRef = React.useRef<() => void>(() => {})
+  /** When the hero last became visible (on screen, tab shown); null while hidden. */
+  const visibleSinceRef = React.useRef<number | null>(null)
+  /** When the first real image reached the engine. */
+  const appliedAtRef = React.useRef<number | null>(null)
 
   const opts = React.useMemo<EngineOptions>(
     () => ({
@@ -1491,7 +1509,11 @@ export default function SculptureHero(props: SculptureHeroProps) {
       const top = showNav && nav ? nav.getBoundingClientRect().bottom - box.top : topInset
       const content = contentRef.current
       const bottom = content ? content.getBoundingClientRect().top - box.top : h
-      const rect = computeRect(w, h, aspectRef.current, { top, bottom }, {
+      // keep room for the hint under the sculpture, so it never lands on it
+      const hintEl = hintRef.current
+      const hintH = hintEl ? hintEl.offsetHeight : 0
+      const hintSpace = hintEl ? HINT_GAP + hintH + HINT_GAP : 0
+      const rect = computeRect(w, h, aspectRef.current, { top, bottom: bottom - hintSpace }, {
         scale: sculptureScale,
         mobileScale: mobileSculptureScale,
         x: sculptureX,
@@ -1513,10 +1535,12 @@ export default function SculptureHero(props: SculptureHeroProps) {
         word.style.fontSize = `${Math.min((w * 0.94) / (len * 0.6), h * 0.62)}px`
         word.style.top = `${rect.y + rect.h / 2}px`
       }
-      const hintEl = hintRef.current
       if (hintEl) {
+        const hintTop = rect.y + rect.h + HINT_GAP
         hintEl.style.left = `${clamp(rect.x + rect.w / 2, 90, Math.max(90, w - 90))}px`
-        hintEl.style.top = `${clamp(rect.y + rect.h + 14, top + 8, Math.max(top + 8, bottom - 30))}px`
+        hintEl.style.top = `${hintTop}px`
+        // too cramped (very short screens): drop the hint rather than cover the copy
+        hintEl.style.visibility = hintTop + hintH <= bottom ? "" : "hidden"
       }
       engineRef.current?.resize(w, h, rect)
     }
@@ -1550,12 +1574,19 @@ export default function SculptureHero(props: SculptureHeroProps) {
       root.dataset.gl = "off"
     }
     layoutRef.current()
-    // nothing presented yet (blocked GPU, background tab…): show the static image
-    const timer = window.setTimeout(() => {
-      if (root.dataset.gl === "pending") root.dataset.gl = "off"
-    }, 4000)
+    // Nothing presented although an image has been ready and the hero visible for a
+    // while (blocked or very slow GPU): show the static image. Time spent off-screen
+    // or in a background tab doesn't count — the engine is simply paused then.
+    const watchdog = window.setInterval(() => {
+      if (root.dataset.gl !== "pending") {
+        window.clearInterval(watchdog)
+        return
+      }
+      const since = Math.max(visibleSinceRef.current ?? Infinity, appliedAtRef.current ?? Infinity)
+      if (performance.now() - since > PRESENT_TIMEOUT_MS) root.dataset.gl = "off"
+    }, 500)
     return () => {
-      window.clearTimeout(timer)
+      window.clearInterval(watchdog)
       engine?.destroy()
       engineRef.current = null
       canvas.remove()
@@ -1566,7 +1597,7 @@ export default function SculptureHero(props: SculptureHeroProps) {
   // Image: decode, then hand it to the engine. Theme / breakpoint swaps fade through.
   React.useEffect(() => {
     const root = rootRef.current
-    if (!root) return
+    if (!root || !currentSrc) return
     let cancelled = false
     let timer = 0
     const swapping = !!engineRef.current?.lastImage
@@ -1583,6 +1614,7 @@ export default function SculptureHero(props: SculptureHeroProps) {
       if (engine) {
         try {
           engine.setImage(img)
+          appliedAtRef.current ??= performance.now()
         } catch {
           root.dataset.gl = "off"
         }
@@ -1629,7 +1661,9 @@ export default function SculptureHero(props: SculptureHeroProps) {
       const y = e.clientY - box.top
       engine?.pointer(type, x, y, touch)
       const r = rectRef.current
-      if (root.dataset.touched !== "1" && x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h) {
+      // only once the live sculpture is actually there to be touched
+      const live = root.dataset.gl === "on" && !root.dataset.swap
+      if (live && root.dataset.touched !== "1" && x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h) {
         root.dataset.touched = "1"
       }
     }
@@ -1656,7 +1690,11 @@ export default function SculptureHero(props: SculptureHeroProps) {
     const root = rootRef.current
     if (!root) return
     let inView = true
-    const sync = () => engineRef.current?.setVisible(inView && !document.hidden)
+    const sync = () => {
+      const visible = inView && !document.hidden
+      visibleSinceRef.current = visible ? (visibleSinceRef.current ?? performance.now()) : null
+      engineRef.current?.setVisible(visible)
+    }
     const io = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting
       sync()
@@ -1674,7 +1712,7 @@ export default function SculptureHero(props: SculptureHeroProps) {
     const root = rootRef.current
     if (!root) return
     const ro = new ResizeObserver(() => {
-      setNarrow(root.clientWidth < 640)
+      setNarrow(root.clientWidth < NARROW)
       layoutRef.current()
     })
     ro.observe(root)
@@ -1733,15 +1771,17 @@ export default function SculptureHero(props: SculptureHeroProps) {
             {backdropText}
           </div>
         ) : null}
-        <img
-          ref={imgRef}
-          className="sh-fallback"
-          src={currentSrc}
-          alt={imageAlt}
-          crossOrigin="anonymous"
-          decoding="async"
-          draggable={false}
-        />
+        {currentSrc ? (
+          <img
+            ref={imgRef}
+            className="sh-fallback"
+            src={currentSrc}
+            alt={imageAlt}
+            crossOrigin="anonymous"
+            decoding="async"
+            draggable={false}
+          />
+        ) : null}
       </div>
 
       {showNav ? (

@@ -28,7 +28,7 @@ My personal portfolio — a fast, animated, fully responsive single-page site th
 
 ## ✨ Features
 
-- **Liquid particle hero** — my portrait rebuilt from GPU-simulated particles (WebGL2) that turn liquid under the cursor and settle back, with a static-image fallback.
+- **Liquid particle hero** — my name rebuilt from GPU-simulated particles (WebGL2) that turn liquid under the cursor and settle back, with a static-image fallback.
 - **Interactive cursor** — a gooey pixel-trail that follows the pointer (desktop).
 - **Scroll-driven sections** — a stacking project showcase, a stacking education-cards reveal, and scroll-scale transitions.
 - **Typewriter quote band** cycling famous quotes.
