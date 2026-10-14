@@ -44,9 +44,9 @@ export function MobileNotice() {
           Best viewed on desktop
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          This portfolio is crafted with rich animations and a cinematic video
-          hero made for larger screens. For the full experience, open it on a PC
-          or laptop.
+          This portfolio is crafted with rich animations and an interactive
+          particle hero made for larger screens. For the full experience, open
+          it on a PC or laptop.
         </p>
       </div>
 

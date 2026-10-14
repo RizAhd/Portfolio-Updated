@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Navbar } from '@/components/navbar'
 import { CursorPixelTrail } from '@/components/ui/cursor-pixel-trail'
 import { MobileNotice } from '@/components/ui/mobile-notice'
-import { PrismaHero } from '@/components/ui/prisma-hero'
+import { Hero } from '@/components/sections/hero'
 import { TechMarquee } from '@/components/sections/tech-marquee'
 import { About } from '@/components/sections/about'
 import { useTheme } from '@/hooks/use-theme'
@@ -46,7 +46,7 @@ function App() {
       <MobileNotice />
       <CursorPixelTrail />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
-      <PrismaHero />
+      <Hero theme={theme} />
       <TechMarquee />
       <About />
       <Suspense fallback={<SectionFallback />}>
