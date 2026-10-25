@@ -1,63 +1,40 @@
-import { lazy, Suspense } from 'react'
-import { Navbar } from '@/components/navbar'
-import { CursorPixelTrail } from '@/components/ui/cursor-pixel-trail'
-import { Hero } from '@/components/sections/hero'
-import { TechMarquee } from '@/components/sections/tech-marquee'
-import { About } from '@/components/sections/about'
-import { useTheme } from '@/hooks/use-theme'
+import { MotionConfig } from 'framer-motion'
+import { About } from '@/components/site/about'
+import { Certifications } from '@/components/site/certifications'
+import { Contact } from '@/components/site/contact'
+import { Faq } from '@/components/site/faq'
+import { Footer } from '@/components/site/footer'
+import { Hero } from '@/components/site/hero'
+import { Journey } from '@/components/site/journey'
+import { Nav } from '@/components/site/nav'
+import { Process } from '@/components/site/process'
+import { Projects } from '@/components/site/projects'
+import { Services } from '@/components/site/services'
+import { ThemeSwitch } from '@/components/site/theme-switch'
 import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
-
-const Projects = lazy(() =>
-  import('@/components/sections/projects').then((m) => ({ default: m.Projects }))
-)
-const Quote = lazy(() =>
-  import('@/components/sections/quote').then((m) => ({ default: m.Quote }))
-)
-const Skills = lazy(() =>
-  import('@/components/sections/skills').then((m) => ({ default: m.Skills }))
-)
-const Resume = lazy(() =>
-  import('@/components/sections/resume').then((m) => ({ default: m.Resume }))
-)
-const Education = lazy(() =>
-  import('@/components/sections/education').then((m) => ({ default: m.Education }))
-)
-const Certifications = lazy(() =>
-  import('@/components/sections/certifications').then((m) => ({
-    default: m.Certifications,
-  }))
-)
-const AskMe = lazy(() =>
-  import('@/components/sections/ask-me').then((m) => ({ default: m.AskMe }))
-)
-const Contact = lazy(() =>
-  import('@/components/sections/contact').then((m) => ({ default: m.Contact }))
-)
-
-const SectionFallback = () => <div aria-hidden className="min-h-screen w-full" />
+import { useTheme } from '@/hooks/use-theme'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
   useSmoothScroll()
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-background text-foreground antialiased">
-      <CursorPixelTrail />
-      <Navbar theme={theme} onToggleTheme={toggleTheme} />
-      <Hero theme={theme} />
-      <TechMarquee />
-      <About />
-      <Suspense fallback={<SectionFallback />}>
+    <MotionConfig reducedMotion="user">
+      <Nav />
+      <main className="relative z-10 overflow-x-clip">
+        <Hero />
+        <Services />
+        <About />
         <Projects />
-        <Quote />
-        <Skills />
-        <Resume />
-        <Education />
         <Certifications />
-        <AskMe />
+        <Journey />
+        <Process />
+        <Faq />
         <Contact />
-      </Suspense>
-    </main>
+      </main>
+      <Footer />
+      <ThemeSwitch theme={theme} onToggle={toggleTheme} />
+    </MotionConfig>
   )
 }
 

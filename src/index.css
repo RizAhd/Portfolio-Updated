@@ -1,140 +1,109 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/plus-jakarta-sans";
-/* Hero: the name is drawn in these faces before it becomes particles. */
-@import "@fontsource-variable/geist";
-@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/antonio";
 
 @custom-variant dark (&:is(.dark *));
 
+/* Light: indigo on white. Dark: lime on near-black with film grain. */
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --page: #ffffff;
+  --ink: #303030;
+  --ink-soft: #5c5c5c;
+  --muted-ink: #8f8f8f;
+  --line: #dadada;
+  --soft: #f5f5f5;
+  --brand: #5e67e6;
+  --brand-ink: #ffffff;
+  --inverse: #303030;
+  --inverse-ink: #ffffff;
+  --nav: rgb(255 255 255 / 0.9);
+
+  /* shadcn names, kept so shared primitives pick up the same palette */
+  --background: var(--page);
+  --foreground: var(--ink);
+  --border: var(--line);
+  --ring: var(--brand);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --page: #0f0f0f;
+  --ink: #ffffff;
+  --ink-soft: #cfcfcf;
+  --muted-ink: #b5b5b5;
+  --line: #333333;
+  --soft: #1b1b1b;
+  --brand: #d0ff71;
+  --brand-ink: #1a1a1a;
+  --inverse: #ffffff;
+  --inverse-ink: #303030;
+  --nav: rgb(15 15 15 / 0.9);
 }
 
 @theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted-ink: var(--muted-ink);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-inverse: var(--inverse);
+  --color-inverse-ink: var(--inverse-ink);
+  --color-nav: var(--nav);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Antonio Variable', 'Arial Narrow', sans-serif;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --font-heading: var(--font-sans);
-  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 @layer base {
   * {
-    border-color: var(--border);
-    outline-color: var(--ring);
-    @apply border-border outline-ring/50;
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    @apply bg-background text-foreground;
+    @apply border-line outline-ring/50;
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
   }
+  body {
+    @apply bg-page text-ink antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  ::selection {
+    background: var(--brand);
+    color: var(--brand-ink);
+  }
+}
+
+/* Condensed uppercase display type used for every heading. */
+@utility font-display-caps {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+/* Film grain over the dark theme. */
+.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
 
 html.lenis,
@@ -151,111 +120,8 @@ html.lenis body {
   overflow: hidden;
 }
 
-.noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--border);
-  border-radius: 9999px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Card fan carousel (src/components/ui/card-fan-carousel.tsx).
-   The component positions ".fan-card" purely through GSAP transforms, so the
-   cards must be absolutely centred inside ".fan-layout" with no transform of
-   their own (a CSS translate would be overwritten by GSAP's x/y). Centring is
-   therefore done with negative margins. Card width drives height via a fixed
-   3:2 ratio, matching the normalised certificate artwork. */
-.fan-layout {
-  --fan-card-w: clamp(13rem, 15vw, 20rem);
-  /* The fan's y-offsets only push cards downwards, so the cluster sits below
-     the container's centre line. Lift it back up for optical centring. */
-  --fan-shift: 3.5rem;
-  height: 24rem;
-}
-.fan-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--fan-card-w);
-  height: calc(var(--fan-card-w) / 1.5);
-  margin-left: calc(var(--fan-card-w) / -2);
-  margin-top: calc(var(--fan-card-w) / -3 - var(--fan-shift));
-  border-radius: 0.875rem;
-  overflow: hidden;
-  background-color: #fff;
-  border: 1px solid var(--border);
-  box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.28);
-  opacity: 0;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* Between 1024px and 1279px the component still uses its full-width position
-   table (x-offsets alone span 60rem), which overruns the viewport. Scale the
-   whole fan rather than altering the component's own geometry. */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .fan-layout {
-    transform: scale(0.82);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .fan-layout {
-    transform: scale(0.85);
-  }
-}
-
-@media (max-width: 1023px) {
-  .fan-layout {
-    --fan-card-w: 11rem;
-    --fan-shift: 3rem;
-    height: 18rem;
-  }
-}
-@media (max-width: 767px) {
-  .fan-layout {
-    --fan-card-w: 10rem;
-    height: 17rem;
-  }
-}
-@media (max-width: 639px) {
-  .fan-layout {
-    --fan-card-w: 8.5rem;
-    height: 16rem;
-  }
-}
-@media (max-width: 479px) {
-  .fan-layout {
-    --fan-card-w: 7.5rem;
-    height: 15rem;
-  }
-}
-
-@keyframes infinite-slider-x {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }
-}
-@keyframes infinite-slider-x-reverse {
-  from { transform: translateX(calc(-50% - (var(--slider-gap, 0px) / 2))); }
-  to { transform: translateX(0); }
-}
-@keyframes infinite-slider-y {
-  from { transform: translateY(0); }
-  to { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
-}
-@keyframes infinite-slider-y-reverse {
-  from { transform: translateY(calc(-50% - (var(--slider-gap, 0px) / 2))); }
-  to { transform: translateY(0); }
-}
-/* Built by N.M. Riflan Mohamed · GitHub: https://github.com/RizAhd · LinkedIn: https://www.linkedin.com/in/riflan/ */

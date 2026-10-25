@@ -22,21 +22,19 @@
 
 ## Overview
 
-My personal portfolio — a fast, animated, fully responsive single-page site that showcases my work in full-stack engineering and applied AI. Built from scratch with React 19 + TypeScript + Vite and Tailwind CSS v4, with motion handled by Framer Motion, GSAP and Three.js, and buttery scrolling via Lenis.
+My personal portfolio — a fast, animated, fully responsive single-page site that showcases my work in full-stack engineering and applied AI. Built from scratch with React 19 + TypeScript + Vite and Tailwind CSS v4, with motion handled by the `framer-motion` library and buttery scrolling via Lenis.
 
 **Live:** [rizlan.me](https://rizlan.me)
 
 ## ✨ Features
 
-- **Liquid particle hero** — my name rebuilt from GPU-simulated particles (WebGL2) that turn liquid under the cursor and settle back, with a static-image fallback.
-- **Interactive cursor** — a gooey pixel-trail that follows the pointer (desktop).
-- **Scroll-driven sections** — a stacking project showcase, a stacking education-cards reveal, and scroll-scale transitions.
-- **Typewriter quote band** cycling famous quotes.
-- **"Ask me" section** with a chat-style prompt input.
-- **Curved slide-in mobile menu** with an animated SVG edge and a close control.
-- **Light / dark theme** across every section, respecting system preference.
-- **Fully responsive** from 320px phones to large desktops.
-- **Smooth scrolling** (Lenis) and reduced-motion awareness.
+- **Editorial hero** — my portrait between oversized condensed type, with a playful "Hi" badge.
+- **Services, about and journey** sections with count-up stats, an interactive service list and my experience and education.
+- **Stacking featured-project cards** that pin as you scroll, plus an expandable list of every project.
+- **Certifications bento grid** with a full-size certificate viewer.
+- **"How I build" process grid**, FAQ accordion and a contact form that opens your email app with the message ready.
+- **Light / dark theme** (indigo / lime) with a film-grain dark mode, respecting system preference.
+- **Fully responsive** from 320px phones to large desktops, with smooth scrolling (Lenis) and reduced-motion support.
 
 ## 🛠️ Tech Stack
 
@@ -44,8 +42,8 @@ My personal portfolio — a fast, animated, fully responsive single-page site th
 |---|---|
 | **Core** | React 19, TypeScript, Vite |
 | **Styling** | Tailwind CSS v4, shadcn-style components, `class-variance-authority` |
-| **Animation** | Framer Motion, GSAP, Three.js, Lenis (smooth scroll) |
-| **UI / Icons** | Radix UI, Lucide, custom brand icons |
+| **Animation** | framer-motion, Lenis (smooth scroll) |
+| **UI / Icons** | Lucide, Devicon, custom brand icons |
 | **Tooling** | ESLint, TypeScript strict mode |
 
 ## 🚀 Getting Started
