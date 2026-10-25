@@ -357,19 +357,97 @@ const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons';
 
 export interface Tool {
   name: string;
-  icon: string;
-  note: string;
+  /** Logo URL; tools without a public logo get a lettered tile. */
+  icon?: string;
 }
 
-export const techStack: Tool[] = [
-  { name: 'Python', icon: `${DEVICON}/python/python-original.svg`, note: 'My go-to for AI, ML and back-end work. Loki, Medi Guide and the research assistant all run on it.' },
-  { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg`, note: 'Types end to end across React front-ends, Node APIs and React Native apps.' },
-  { name: 'React & React Native', icon: `${DEVICON}/react/react-original.svg`, note: 'One mental model for the web and mobile: this site, Qiera and Cinemax.' },
-  { name: 'Java', icon: `${DEVICON}/java/java-original.svg`, note: 'Servlets, Hibernate and desktop systems, like Booksy and the cinema reservation system.' },
-  { name: 'Flask', icon: `${DEVICON}/flask/flask-original.svg`, note: 'Lightweight Python APIs that put AI models behind a clean endpoint.' },
-  { name: 'MySQL', icon: `${DEVICON}/mysql/mysql-original.svg`, note: 'Relational data modelling for chat, booking and productivity apps.' },
-  { name: 'Firebase', icon: `${DEVICON}/firebase/firebase-original.svg`, note: 'Auth and real-time data for mobile apps like Replate.' },
-  { name: 'n8n', icon: 'https://cdn.simpleicons.org/n8n', note: 'AI automation workflows I build every day as an automation engineer.' },
+export interface ToolGroup {
+  category: string;
+  tools: Tool[];
+}
+
+const SI = 'https://cdn.simpleicons.org';
+const dev = (slug: string, variant = 'original') => `${DEVICON}/${slug}/${slug}-${variant}.svg`;
+
+export const techGroups: ToolGroup[] = [
+  {
+    category: 'Languages',
+    tools: [
+      { name: 'Python', icon: dev('python') },
+      { name: 'Java', icon: dev('java') },
+      { name: 'JavaScript', icon: dev('javascript') },
+      { name: 'TypeScript', icon: dev('typescript') },
+      { name: 'PHP', icon: dev('php') },
+      { name: 'Kotlin', icon: dev('kotlin') },
+      { name: 'HTML5', icon: dev('html5') },
+      { name: 'CSS3', icon: dev('css3') },
+    ],
+  },
+  {
+    category: 'Frontend & Mobile',
+    tools: [
+      { name: 'React', icon: dev('react') },
+      { name: 'React Native', icon: dev('react') },
+      { name: 'Expo', icon: dev('expo') },
+      { name: 'Tailwind CSS', icon: dev('tailwindcss') },
+      { name: 'NativeWind' },
+      { name: 'Android Studio', icon: dev('androidstudio') },
+    ],
+  },
+  {
+    category: 'Backend & Real-Time',
+    tools: [
+      { name: 'Node.js', icon: dev('nodejs') },
+      { name: 'Express', icon: dev('express') },
+      { name: 'Flask', icon: dev('flask') },
+      { name: 'Hibernate', icon: dev('hibernate') },
+      { name: 'Socket.IO', icon: dev('socketio') },
+      { name: 'aiohttp', icon: `${SI}/aiohttp` },
+      { name: 'WebSocket' },
+      { name: 'REST APIs' },
+    ],
+  },
+  {
+    category: 'AI & Machine Learning',
+    tools: [
+      { name: 'OpenAI' },
+      { name: 'Claude', icon: `${SI}/claude` },
+      { name: 'MCP', icon: `${SI}/modelcontextprotocol` },
+      { name: 'LiveKit', icon: `${SI}/livekit/151413` },
+      { name: 'Pinecone' },
+      { name: 'scikit-learn', icon: dev('scikitlearn') },
+      { name: 'Pandas', icon: dev('pandas') },
+      { name: 'NumPy', icon: dev('numpy') },
+      { name: 'Matplotlib', icon: dev('matplotlib') },
+      { name: 'Seaborn' },
+      { name: 'Jupyter', icon: dev('jupyter') },
+      { name: 'Kaggle', icon: dev('kaggle') },
+    ],
+  },
+  {
+    category: 'Data & Cloud',
+    tools: [
+      { name: 'MySQL', icon: dev('mysql') },
+      { name: 'Firebase', icon: dev('firebase') },
+      { name: 'Appwrite', icon: dev('appwrite') },
+      { name: 'AWS', icon: dev('amazonwebservices', 'original-wordmark') },
+      { name: 'Oracle Cloud', icon: dev('oracle') },
+    ],
+  },
+  {
+    category: 'Automation & Tools',
+    tools: [
+      { name: 'n8n', icon: `${SI}/n8n` },
+      { name: 'Zapier', icon: `${SI}/zapier` },
+      { name: 'Make', icon: `${SI}/make` },
+      { name: 'Git', icon: dev('git') },
+      { name: 'GitHub', icon: dev('github') },
+      { name: 'Postman', icon: dev('postman') },
+      { name: 'VS Code', icon: dev('vscode') },
+      { name: 'NetBeans', icon: dev('netbeans') },
+      { name: 'Gradle', icon: dev('gradle') },
+    ],
+  },
 ];
 
 export interface ProcessStep {

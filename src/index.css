@@ -123,6 +123,36 @@
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05);
 }
 
+/* Tech-stack orbit: rings turn, logos counter-turn to stay upright. */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.orbit-ring {
+  animation: orbit-spin var(--orbit-speed, 40s) linear infinite;
+}
+.orbit-ring.reverse,
+.orbit-ring .orbit-item {
+  animation-direction: reverse;
+}
+.orbit-ring.reverse .orbit-item {
+  animation-direction: normal;
+}
+.orbit-item {
+  animation: orbit-spin var(--orbit-speed, 40s) linear infinite;
+}
+.orbit:hover .orbit-ring,
+.orbit:hover .orbit-item {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-item {
+    animation: none;
+  }
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
