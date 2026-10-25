@@ -146,10 +146,11 @@
 .orbit:hover .orbit-item {
   animation-play-state: paused;
 }
+/* Reduced motion: keep it turning, just three times slower. */
 @media (prefers-reduced-motion: reduce) {
   .orbit-ring,
   .orbit-item {
-    animation: none;
+    animation-duration: calc(var(--orbit-speed, 40s) * 3);
   }
 }
 
