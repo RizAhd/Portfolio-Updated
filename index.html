@@ -12,11 +12,8 @@
     <script>
       (function () {
         try {
-          var saved = localStorage.getItem('theme');
-          var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-          var theme = saved === 'light' || saved === 'dark'
-            ? saved
-            : prefersLight ? 'light' : 'dark';
+          // Light by default; dark only when the visitor picked it with the switch.
+          var theme = localStorage.getItem('theme-choice') === 'dark' ? 'dark' : 'light';
           var root = document.documentElement;
           if (theme === 'dark') root.classList.add('dark');
           root.style.colorScheme = theme;

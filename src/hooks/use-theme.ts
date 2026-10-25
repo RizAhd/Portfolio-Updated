@@ -2,15 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 export type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'theme';
+/** Only an explicit choice from the switch is stored; everyone else gets the light theme. */
+const STORAGE_KEY = 'theme-choice';
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark';
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved === 'light' || saved === 'dark') return saved;
-  return window.matchMedia('(prefers-color-scheme: light)').matches
-    ? 'light'
-    : 'dark';
+  try {
+    return localStorage.getItem(STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+  } catch {
+    return 'light';
+  }
 }
 
 export function useTheme() {
@@ -20,11 +20,18 @@ export function useTheme() {
     const root = document.documentElement;
     root.classList.toggle('dark', theme === 'dark');
     root.style.colorScheme = theme;
-    localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem(STORAGE_KEY, next);
+      } catch {
+        // Storage blocked: the choice just lasts for this visit.
+      }
+      return next;
+    });
   }, []);
 
   return { theme, setTheme, toggleTheme };
