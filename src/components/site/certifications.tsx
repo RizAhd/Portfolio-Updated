@@ -81,7 +81,7 @@ interface StatCardProps {
 const StatCard = ({ tone, caption, value, label }: StatCardProps) => (
   <div
     className={`flex h-full min-h-60 flex-col justify-between rounded-2xl p-6 ${
-      tone === 'brand' ? 'bg-brand text-brand-ink' : 'bg-inverse text-inverse-ink'
+      tone === 'brand' ? 'bg-brand text-brand-ink' : 'bg-panel text-panel-ink'
     }`}
   >
     <p className="max-w-[16rem] text-[15px] leading-snug">{caption}</p>

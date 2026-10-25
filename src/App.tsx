@@ -7,6 +7,7 @@ import { Footer } from '@/components/site/footer'
 import { Hero } from '@/components/site/hero'
 import { Journey } from '@/components/site/journey'
 import { Nav } from '@/components/site/nav'
+import { PortraitStage } from '@/components/site/portrait'
 import { Process } from '@/components/site/process'
 import { Projects } from '@/components/site/projects'
 import { Services } from '@/components/site/services'
@@ -20,11 +21,14 @@ function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <Nav />
+      <Nav theme={theme} onToggleTheme={toggleTheme} />
       <main className="relative z-10 overflow-x-clip">
-        <Hero />
-        <Services />
-        <About />
+        {/* the portrait stays pinned beside these three, as in the original layout */}
+        <PortraitStage>
+          <Hero />
+          <Services />
+          <About />
+        </PortraitStage>
         <Projects />
         <Certifications />
         <Journey />

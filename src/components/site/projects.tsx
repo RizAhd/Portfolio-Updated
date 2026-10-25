@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type PointerEvent } from 'react';
 import { GithubIcon } from '@/components/brand-icons';
 import { projects, type Project } from '@/data/portfolio';
 import { Container, PillButton, SectionHeader, Tag } from './primitives';
@@ -65,16 +65,44 @@ export const Projects = () => {
 
 const FeaturedCard = ({ project, index }: { project: Project; index: number }) => {
   const art = ART[index % ART.length];
+  // a round arrow button trails the cursor across the card (centred when idle)
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const ax = useSpring(mx, { stiffness: 180, damping: 20, mass: 0.6 });
+  const ay = useSpring(my, { stiffness: 180, damping: 20, mass: 0.6 });
+  const track = (e: PointerEvent<HTMLAnchorElement>) => {
+    if (e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set(e.clientX - r.left - r.width / 2);
+    my.set(e.clientY - r.top - r.height / 2);
+  };
+  const reset = () => {
+    mx.set(0);
+    my.set(0);
+  };
+
   return (
     <div className="sticky mb-10 md:mb-16" style={{ top: `${88 + index * 16}px` }}>
-      <motion.article
+      <motion.a
+        href={project.repo}
+        target="_blank"
+        rel="noreferrer"
+        onPointerMove={track}
+        onPointerLeave={reset}
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.9, ease: EASE }}
-        className="relative isolate flex h-[min(38rem,78svh)] min-h-[26rem] items-center justify-center overflow-hidden rounded-3xl px-6 text-center shadow-2xl shadow-black/20"
+        className="group relative isolate flex h-[min(38rem,78svh)] min-h-[26rem] items-center justify-center overflow-hidden rounded-3xl px-6 text-center shadow-2xl shadow-black/20"
         style={{ backgroundColor: art.base }}
       >
+        <motion.span
+          aria-hidden="true"
+          style={{ x: ax, y: ay }}
+          className="pointer-events-none absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 hidden size-14 place-items-center rounded-full bg-brand text-brand-ink opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 md:grid"
+        >
+          <ArrowUpRight className="size-6" />
+        </motion.span>
         {/* colour field */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <div
@@ -106,17 +134,12 @@ const FeaturedCard = ({ project, index }: { project: Project; index: number }) =
               </li>
             ))}
           </ul>
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#303030] transition-transform hover:-translate-y-0.5"
-          >
+          <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#303030] transition-transform group-hover:-translate-y-0.5">
             <GithubIcon className="size-4" />
             View on GitHub
-          </a>
+          </span>
         </div>
-      </motion.article>
+      </motion.a>
     </div>
   );
 };

@@ -13,10 +13,8 @@ export const Footer = () => (
           </a>
         </div>
         <div>
-          <p className="text-sm opacity-80">Based in :</p>
-          <p className="mt-1 text-lg font-semibold">
-            {profile.location} · {profile.status}
-          </p>
+          <p className="text-sm opacity-80">Role :</p>
+          <p className="mt-1 text-lg font-semibold">Software Engineer & AI Engineer</p>
         </div>
         <div className="sm:justify-self-end">
           <p className="text-sm opacity-80">Social :</p>

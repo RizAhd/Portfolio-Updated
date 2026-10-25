@@ -1,13 +1,24 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { contact, navLinks, profile } from '@/data/portfolio';
+import type { Theme } from '@/hooks/use-theme';
 import { EASE } from './motion';
 
 const CV = { href: '/Riflan_Mohamed_CV_AI_Engineer.pdf', file: 'Riflan_Mohamed_CV_AI_Engineer.pdf' };
 
-/** Floating pill navigation; collapses to an "available for work" pill on phones. */
-export const Nav = () => {
+/** Floating pill navigation; folds into an "available for work" pill once you scroll (always, on phones). */
+interface NavProps {
+  theme: Theme;
+  onToggleTheme: () => void;
+}
+
+export const Nav = ({ theme, onToggleTheme }: NavProps) => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [peek, setPeek] = useState(false);
+  const compact = scrolled && !peek;
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 80));
 
   useEffect(() => {
     if (!open) return;
@@ -18,32 +29,64 @@ export const Nav = () => {
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-5">
-      {/* Desktop */}
+      {/* Desktop: full menu at the top; after scrolling it folds into an "available" pill that reopens on hover */}
       <motion.nav
+        layout
         aria-label="Primary"
+        onMouseEnter={() => setPeek(true)}
+        onMouseLeave={() => setPeek(false)}
+        onFocus={() => setPeek(true)}
+        onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setPeek(false)}
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: EASE }}
-        className="hidden items-center gap-1 rounded-full border border-line bg-nav p-1.5 shadow-lg shadow-black/5 backdrop-blur-xl md:flex"
+        transition={{ duration: 0.6, ease: EASE, layout: { duration: 0.45, ease: EASE } }}
+        style={{ borderRadius: 999 }}
+        className="hidden items-center gap-1 overflow-hidden border border-line bg-nav p-1.5 shadow-lg shadow-black/5 backdrop-blur-xl md:flex"
       >
-        <a href="#home" className="mr-3 shrink-0" aria-label={`${profile.name} — home`}>
+        <motion.a layout="position" href="#home" className="shrink-0" aria-label={`${profile.name} — home`}>
           <img src="/riflan-avatar.webp" alt="" className="size-9 rounded-full object-cover" width={36} height={36} />
-        </a>
-        {navLinks.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="rounded-full px-3 py-2 text-sm text-ink-soft transition-colors hover:text-ink"
-          >
-            {link.label}
-          </a>
-        ))}
-        <a
-          href="#contact"
-          className="ml-4 rounded-full bg-inverse px-6 py-2.5 text-sm font-medium text-inverse-ink transition-transform hover:-translate-y-px"
-        >
-          Contact
-        </a>
+        </motion.a>
+        <AnimatePresence mode="popLayout" initial={false}>
+          {compact ? (
+            <motion.a
+              key="status"
+              href="#contact"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2 pr-4 pl-3 text-sm whitespace-nowrap text-ink-soft"
+            >
+              {profile.status}
+              <span className="size-2 rounded-full bg-emerald-500" aria-hidden="true" />
+            </motion.a>
+          ) : (
+            <motion.div
+              key="links"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="ml-3 flex items-center gap-1"
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-full px-3 py-2 text-sm whitespace-nowrap text-ink-soft transition-colors hover:text-ink"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                className="ml-4 rounded-full bg-inverse px-6 py-2.5 text-sm font-medium whitespace-nowrap text-inverse-ink transition-transform hover:-translate-y-px"
+              >
+                Contact
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Phones */}
@@ -96,6 +139,20 @@ export const Nav = () => {
                   {link.label}
                 </a>
               ))}
+              <button
+                type="button"
+                role="switch"
+                aria-checked={theme === 'dark'}
+                onClick={onToggleTheme}
+                className="mt-1 flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm text-ink-soft hover:bg-soft"
+              >
+                Dark theme
+                <span className="h-6 w-11 rounded-full bg-brand p-1">
+                  <span
+                    className={`block size-4 rounded-full bg-brand-ink transition-transform duration-300 ${theme === 'dark' ? 'translate-x-5' : ''}`}
+                  />
+                </span>
+              </button>
               <div className="mt-2 flex gap-2 border-t border-line px-1 pt-3">
                 <a
                   href={CV.href}

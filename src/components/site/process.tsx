@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
-import { processSteps, profile } from '@/data/portfolio';
+import { processSteps } from '@/data/portfolio';
 import { Container, SectionHeader } from './primitives';
 import { EASE } from './motion';
 
 type Tone = 'inverse' | 'brand' | 'soft';
 
 const TONES: Record<Tone, string> = {
-  inverse: 'bg-inverse text-inverse-ink',
+  inverse: 'bg-panel text-panel-ink',
   brand: 'bg-brand text-brand-ink',
   soft: 'bg-soft text-ink',
 };
@@ -58,20 +58,45 @@ const TerminalTile = () => (
   </div>
 );
 
-const PhotoTile = () => (
-  <div className="h-full min-h-64 overflow-hidden rounded-2xl bg-soft">
-    <img
-      src={profile.photo}
-      alt={`Portrait of ${profile.name}`}
-      loading="lazy"
-      className="size-full object-cover object-[50%_20%]"
-    />
+const ROADMAP = [
+  { label: 'Problem & users defined', done: true },
+  { label: 'Scope and milestones agreed', done: true },
+  { label: 'Data model & API contract', done: true },
+  { label: 'Sprint 1 — core flow', done: false },
+  { label: 'Sprint 2 — AI features', done: false },
+];
+
+/** A small planning board, the artefact the first step produces. */
+const RoadmapTile = () => (
+  <div className="flex h-full min-h-64 flex-col rounded-2xl border border-line bg-page p-6">
+    <div className="flex items-center justify-between">
+      <span className="text-xs font-medium tracking-wide text-muted-ink uppercase">Project roadmap</span>
+      <span className="rounded-full bg-brand px-2.5 py-0.5 text-[11px] font-medium text-brand-ink">3 / 5</span>
+    </div>
+    <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-line">
+      <div className="h-full w-3/5 rounded-full bg-brand" />
+    </div>
+    <ul className="mt-5 space-y-3 text-sm">
+      {ROADMAP.map((item) => (
+        <li key={item.label} className="flex items-center gap-3">
+          <span
+            className={`grid size-5 shrink-0 place-items-center rounded-full border text-[11px] ${
+              item.done ? 'border-brand bg-brand text-brand-ink' : 'border-line text-transparent'
+            }`}
+            aria-hidden="true"
+          >
+            ✓
+          </span>
+          <span className={item.done ? 'text-ink-soft line-through decoration-line' : 'text-ink'}>{item.label}</span>
+        </li>
+      ))}
+    </ul>
   </div>
 );
 
 const cells: { node: ReactNode; className?: string }[] = [
   { node: <StepCard index={0} tone="inverse" /> },
-  { node: <PhotoTile /> },
+  { node: <RoadmapTile /> },
   { node: <StepCard index={1} tone="brand" /> },
   { node: <CodeTile /> },
   { node: <StepCard index={2} tone="soft" />, className: 'sm:col-span-2' },

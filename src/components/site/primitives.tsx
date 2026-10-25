@@ -87,7 +87,7 @@ export const CountUp = ({ value, suffix = '' }: { value: number; suffix?: string
 };
 
 /** The round "Hi" badge that sits on the portrait cards. */
-export const HiBadge = ({ className }: { className?: string }) => (
+export const HiBadge = ({ className, children = 'Hi' }: { className?: string; children?: ReactNode }) => (
   <motion.span
     aria-hidden="true"
     className={cn(
@@ -100,6 +100,6 @@ export const HiBadge = ({ className }: { className?: string }) => (
     whileHover={{ rotate: [0, -12, 10, -6, 0], transition: { duration: 0.6 } }}
     transition={{ type: 'spring', stiffness: 260, damping: 16, delay: 0.5 }}
   >
-    Hi
+    {children}
   </motion.span>
 );
