@@ -11,14 +11,14 @@ const stats = [
   { value: programmingLanguages, label: 'Languages I Code In', suffix: '+' },
 ];
 
-/** Left half only: on desktop the pinned portrait card occupies the right half. */
+/** Right half only: on desktop the pinned portrait card occupies the left half. */
 export const About = () => (
   <section id="about" className="scroll-mt-24 py-24 md:py-32">
     <Container>
-      <div className="lg:w-1/2 lg:pr-8">
+      <div className="lg:ml-auto lg:w-1/2 lg:pl-8">
         <SectionHeader
           title="About me"
-          intro="Hi, I'm Riflan — a software engineer and AI engineer building scalable, data-driven applications and intelligent AI solutions."
+          intro="Hi, I'm Riflan, a software engineer and AI engineer building scalable, data-driven applications and intelligent AI solutions."
         />
         <Reveal delay={0.1}>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">

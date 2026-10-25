@@ -48,18 +48,19 @@ export const profile = {
   tagline: 'Software Engineer · AI Engineer',
   status: 'Available for Work',
   year: '2026',
-  photo: '/riflan.png',
+  photo: '/riflan-portrait.webp',
   location: 'Sri Lanka',
   shortBio:
-    'I build scalable, data-driven applications and intelligent AI solutions — blending full-stack engineering with machine learning and real-time systems.',
+    'I build scalable, data-driven applications and intelligent AI solutions, blending full-stack engineering with machine learning and real-time systems.',
   about:
-    "Aspiring Software Engineering Intern and AI enthusiast with strong expertise in Java, JavaScript, PHP, and Python, complemented by experience in React, React Native, and full-stack development. I specialize in building scalable, data-driven applications, developing AI solutions using Flask, OpenAI, and Pinecone, and implementing real-time systems with WebSockets. I'm familiar with databases, REST APIs, Git/GitHub, and modern development tooling. I also build AI automation workflows with n8n, Zapier & Make — and bring a strong problem-solving mindset with an eagerness to contribute to impactful projects in AI, Machine Learning, and innovative technologies.",
+    "Aspiring Software Engineering Intern and AI enthusiast with strong expertise in Java, JavaScript, PHP, and Python, complemented by experience in React, React Native, and full-stack development. I specialize in building scalable, data-driven applications, developing AI solutions using Flask, OpenAI, and Pinecone, and implementing real-time systems with WebSockets. I'm familiar with databases, REST APIs, Git/GitHub, and modern development tooling. I also build AI automation workflows with n8n, Zapier & Make, and bring a strong problem-solving mindset with an eagerness to contribute to impactful projects in AI, Machine Learning, and innovative technologies.",
 } as const;
 
 export const contact = {
   email: 'rizlanahmd4545@gmail.com',
   github: 'https://github.com/RizAhd',
   linkedin: 'https://www.linkedin.com/in/riflan/',
+  whatsapp: 'https://wa.me/94784342391',
 } as const;
 
 export const navLinks = [
@@ -74,9 +75,9 @@ export const projects: Project[] = [
     no: '01',
     tag: 'AI Assistant',
     featured: true,
-    title: 'Loki — AI Voice Assistant',
+    title: 'Loki: AI Voice Assistant',
     description:
-      'Hands-free, wake-word voice assistant for Windows — speech is transcribed, reasoned over by Claude with live MCP tool access, and spoken back, all driving a real-time browser waveform. Multilingual (English, Sinhala, Tamil).',
+      'Hands-free, wake-word voice assistant for Windows. Speech is transcribed, reasoned over by Claude with live MCP tool access, and spoken back, all driving a real-time browser waveform. Multilingual (English, Sinhala, Tamil).',
     stack: ['Python', 'Claude', 'MCP', 'LiveKit', 'OpenAI', 'FastMCP', 'WebSocket', 'aiohttp'],
     repo: 'https://github.com/RizAhd/Loki-AI-Personal-Assitant',
   },
@@ -84,9 +85,9 @@ export const projects: Project[] = [
     no: '02',
     tag: 'Mobile App',
     featured: true,
-    title: 'Replate — Food Rescue App',
+    title: 'Replate: Food Rescue App',
     description:
-      'Complete full-stack, Firebase-connected food-rescue platform — connecting surplus food with people in need.',
+      'Complete full-stack, Firebase-connected food-rescue platform connecting surplus food with people in need.',
     stack: ['Kotlin', 'Java', 'JavaScript', 'Firebase', 'Android Studio', 'Gradle'],
     repo: 'https://github.com/RizAhd/Replate',
   },
@@ -94,7 +95,7 @@ export const projects: Project[] = [
     no: '03',
     tag: 'Full-Stack',
     featured: true,
-    title: 'PingMe — Real-Time Chat',
+    title: 'PingMe: Real-Time Chat',
     description:
       'Full-stack real-time chat application with authentication and WebSocket messaging across web & mobile.',
     stack: ['TypeScript', 'Java', 'WebSocket', 'Node.js', 'Express', 'Expo', 'MySQL', 'REST API'],
@@ -115,23 +116,23 @@ export const projects: Project[] = [
     featured: true,
     title: 'Medi Guide Chatbot',
     description:
-      'AI medical assistant — symptom checking, real-time conversational guidance, and personalized recommendations.',
+      'AI medical assistant for symptom checking, real-time conversational guidance, and personalized recommendations.',
     stack: ['Python', 'Flask', 'OpenAI', 'NLP', 'Pinecone'],
     repo: 'https://github.com/RizAhd/Medi-Guide-Chat-Bot',
   },
   {
     no: '06',
     tag: 'Mobile App',
-    title: 'Qiera — Real Estate App',
+    title: 'Qiera: Real Estate App',
     description:
-      'Real-estate mobile application — property search, listings, profiles, and a polished responsive UI.',
+      'Real-estate mobile application with property search, listings, profiles, and a polished responsive UI.',
     stack: ['React Native', 'TypeScript', 'JavaScript', 'Appwrite'],
     repo: 'https://github.com/RizAhd/Qiera',
   },
   {
     no: '07',
     tag: 'Mobile App',
-    title: 'Cinemax — Movie App',
+    title: 'Cinemax: Movie App',
     description:
       'Movie-discovery app with TMDB data, real-time features, and a sleek native UI with gradients & blur.',
     stack: ['React Native', 'TypeScript', 'Expo Router', 'NativeWind', 'Socket.io', 'TMDB API', 'Appwrite'],
@@ -142,14 +143,14 @@ export const projects: Project[] = [
     tag: 'Machine Learning',
     title: 'Heart Disease Prediction',
     description:
-      'Machine-learning model predicting heart-disease risk — built as a Diploma in ML & AI project.',
+      'Machine-learning model predicting heart-disease risk, built as a Diploma in ML & AI project.',
     stack: ['Python', 'Jupyter', 'Pandas', 'scikit-learn', 'ML'],
     repo: 'https://github.com/RizAhd/Heart-Disease-Prediction',
   },
   {
     no: '09',
     tag: 'Web App',
-    title: 'Booksy — Java Web App',
+    title: 'Booksy: Java Web App',
     description:
       'Java web application with Servlets & Hibernate, a MySQL backend, and PayHere payment integration.',
     stack: ['Java', 'Servlets', 'Hibernate', 'MySQL', 'PayHere', 'HTML', 'CSS'],
@@ -160,14 +161,14 @@ export const projects: Project[] = [
     tag: 'Website',
     title: 'Bluemoon Private Limited',
     description:
-      'Corporate website for Bluemoon Private Limited — clean, responsive marketing front-end.',
+      'Corporate website for Bluemoon Private Limited: a clean, responsive marketing front-end.',
     stack: ['HTML', 'CSS', 'JavaScript'],
     repo: 'https://github.com/RizAhd/Bluemoon-Private-limited-Website',
   },
   {
     no: '11',
     tag: 'Full-Stack',
-    title: 'Momento — To-Do App',
+    title: 'Momento: To-Do App',
     description: 'Full-stack productivity to-do application with a relational backend.',
     stack: ['Java', 'JavaScript', 'React Native', 'MySQL', 'CSS'],
     repo: 'https://github.com/RizAhd/momento-todo-app',
@@ -177,7 +178,7 @@ export const projects: Project[] = [
     tag: 'Desktop App',
     title: 'Z Gen Cinema Reservation',
     description:
-      'Cinema reservation system — movie scheduling, cashier handling, and ticketing. Contributed as a junior developer.',
+      'Cinema reservation system with movie scheduling, cashier handling, and ticketing. Contributed as a junior developer.',
     stack: ['Java', 'MySQL', 'Jasper Reports'],
     repo: 'https://github.com/RizAhd/Cinema-Reservation-System',
   },
@@ -216,12 +217,12 @@ export const skillGroups: SkillGroup[] = [
 
 export const experience: ExperienceItem[] = [
   {
-    role: 'AI Automation Engineer — Intern',
+    role: 'AI Automation Engineer Intern',
     company: 'Innov8Smart',
     period: 'Feb 2026 – Present',
     points: [
       'Building AI-powered automation workflows using n8n, Zapier, and Make to streamline repetitive business processes.',
-      'Automating marketing operations — lead capture, email/social campaigns, and CRM sync — with AI-driven content and decisioning.',
+      'Automating marketing operations (lead capture, email/social campaigns and CRM sync) with AI-driven content and decisioning.',
       'Integrating AI tools and APIs (LLMs, OpenAI) into workflows for smart routing, summarization, and data enrichment.',
       'Researching and evaluating AI tools and automation platforms to design efficient, scalable solutions for the team.',
     ],
@@ -329,7 +330,7 @@ export const services: Service[] = [
   {
     title: 'AI & Machine Learning',
     description:
-      'RAG chatbots, NLP assistants and predictive models — from data prep in Pandas to production answers grounded in your own sources.',
+      'RAG chatbots, NLP assistants and predictive models, from data prep in Pandas to production answers grounded in your own sources.',
     tools: ['Python', 'OpenAI', 'Pinecone', 'Flask', 'scikit-learn', 'Pandas'],
   },
   {
@@ -347,7 +348,7 @@ export const services: Service[] = [
   {
     title: 'AI Automation',
     description:
-      'Workflows that take repetitive work off your team — lead capture, CRM sync, AI summarisation and smart routing.',
+      'Workflows that take repetitive work off your team: lead capture, CRM sync, AI summarisation and smart routing.',
     tools: ['n8n', 'Zapier', 'Make', 'OpenAI', 'API Orchestration'],
   },
 ];
@@ -361,10 +362,10 @@ export interface Tool {
 }
 
 export const techStack: Tool[] = [
-  { name: 'Python', icon: `${DEVICON}/python/python-original.svg`, note: 'My go-to for AI, ML and back-end work — Loki, Medi Guide and the research assistant all run on it.' },
+  { name: 'Python', icon: `${DEVICON}/python/python-original.svg`, note: 'My go-to for AI, ML and back-end work. Loki, Medi Guide and the research assistant all run on it.' },
   { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg`, note: 'Types end to end across React front-ends, Node APIs and React Native apps.' },
-  { name: 'React & React Native', icon: `${DEVICON}/react/react-original.svg`, note: 'One mental model for the web and mobile — this site, Qiera and Cinemax.' },
-  { name: 'Java', icon: `${DEVICON}/java/java-original.svg`, note: 'Servlets, Hibernate and desktop systems — Booksy and the cinema reservation system.' },
+  { name: 'React & React Native', icon: `${DEVICON}/react/react-original.svg`, note: 'One mental model for the web and mobile: this site, Qiera and Cinemax.' },
+  { name: 'Java', icon: `${DEVICON}/java/java-original.svg`, note: 'Servlets, Hibernate and desktop systems, like Booksy and the cinema reservation system.' },
   { name: 'Flask', icon: `${DEVICON}/flask/flask-original.svg`, note: 'Lightweight Python APIs that put AI models behind a clean endpoint.' },
   { name: 'MySQL', icon: `${DEVICON}/mysql/mysql-original.svg`, note: 'Relational data modelling for chat, booking and productivity apps.' },
   { name: 'Firebase', icon: `${DEVICON}/firebase/firebase-original.svg`, note: 'Auth and real-time data for mobile apps like Replate.' },
@@ -390,7 +391,7 @@ export const processSteps: ProcessStep[] = [
   {
     title: 'Build',
     description:
-      'Clean, typed code across front-end, back-end and AI — shipped in small increments you can see working.',
+      'Clean, typed code across front-end, back-end and AI, shipped in small increments you can see working.',
   },
   {
     title: 'Test & Optimise',
@@ -428,12 +429,12 @@ export const faqs: FaqItem[] = [
   {
     question: 'How do you approach a new project?',
     answer:
-      'Discover and plan, design and prototype, build in small increments, test and optimise, then ship and support — the process is laid out in more detail above.',
+      'Discover and plan, design and prototype, build in small increments, test and optimise, then ship and support. The process is laid out in more detail above.',
   },
   {
     question: 'Can I see your code?',
     answer:
-      'Yes — every project on this site links to its GitHub repository, and more of my work is on github.com/RizAhd.',
+      'Yes. Every project on this site links to its GitHub repository, and more of my work is on github.com/RizAhd.',
   },
   {
     question: 'How do we get started?',

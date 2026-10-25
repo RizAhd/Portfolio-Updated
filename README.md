@@ -1,6 +1,6 @@
 <div align="center">
 
-# Riflan Mohamed — Portfolio
+# Riflan Mohamed: Portfolio
 
 **Software Engineer & AI Developer** · Full-stack · Real-time systems
 
@@ -22,18 +22,18 @@
 
 ## Overview
 
-My personal portfolio — a fast, animated, fully responsive single-page site that showcases my work in full-stack engineering and applied AI. Built from scratch with React 19 + TypeScript + Vite and Tailwind CSS v4, with motion handled by the `framer-motion` library and buttery scrolling via Lenis.
+My personal portfolio: a fast, animated, fully responsive single-page site that showcases my work in full-stack engineering and applied AI. Built from scratch with React 19 + TypeScript + Vite and Tailwind CSS v4, with motion handled by the `framer-motion` library and buttery scrolling via Lenis.
 
 **Live:** [rizlan.me](https://rizlan.me)
 
 ## ✨ Features
 
-- **Editorial hero** — my portrait between oversized condensed type, with a playful "Hi" badge.
+- **Editorial hero**: my name as rising condensed type beside my portrait, with quick links to my work and CV.
 - **Services, about and journey** sections with count-up stats, an interactive service list and my experience and education.
-- **Stacking featured-project cards** that pin as you scroll, plus an expandable list of every project.
-- **Certifications bento grid** with a full-size certificate viewer.
-- **"How I build" process grid**, FAQ accordion and a contact form that opens your email app with the message ready.
-- **Light / dark theme** (indigo / lime) with a film-grain dark mode, respecting system preference.
+- **Stacking split project cards** that pin as you scroll, plus an expandable list of every project.
+- **Certifications grid** showing the latest four, with "see all" and a full-size certificate viewer.
+- **"How I build" process grid**, FAQ accordion, WhatsApp link and a contact form that opens your email app with the message ready.
+- **Light / dark theme** in royal blue on warm paper or warm black, switchable from the navbar and respecting system preference.
 - **Fully responsive** from 320px phones to large desktops, with smooth scrolling (Lenis) and reduced-motion support.
 
 ## 🛠️ Tech Stack
@@ -89,10 +89,10 @@ Deployed to **GitHub Pages** via GitHub Actions (`.github/workflows/deploy.yml`)
 
 ## 📫 Connect
 
-- 🌐 Portfolio — [rizlan.me](https://rizlan.me)
-- 💼 LinkedIn — [linkedin.com/in/riflan](https://www.linkedin.com/in/riflan/)
-- 🐙 GitHub — [github.com/RizAhd](https://github.com/RizAhd)
-- ✉️ Email — rizlanahmd4545@gmail.com
+- 🌐 Portfolio: [rizlan.me](https://rizlan.me)
+- 💼 LinkedIn: [linkedin.com/in/riflan](https://www.linkedin.com/in/riflan/)
+- 🐙 GitHub: [github.com/RizAhd](https://github.com/RizAhd)
+- ✉️ Email: rizlanahmd4545@gmail.com
 
 ---
 

@@ -1,5 +1,6 @@
-import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
+import { GithubIcon, LinkedinIcon, WhatsappIcon } from '@/components/brand-icons';
 import { contact, profile } from '@/data/portfolio';
+import { Logo } from './logo';
 import { Container } from './primitives';
 
 export const Footer = () => (
@@ -37,6 +38,15 @@ export const Footer = () => (
             >
               <LinkedinIcon className="size-4" />
             </a>
+            <a
+              href={contact.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+              className="grid size-10 place-items-center rounded-full border border-current/30 transition-colors hover:bg-brand-ink hover:text-brand"
+            >
+              <WhatsappIcon className="size-4" />
+            </a>
           </div>
         </div>
       </div>
@@ -46,7 +56,9 @@ export const Footer = () => (
           © {profile.year} {profile.name}. All rights reserved.
         </p>
         <a href="#home" className="flex items-center gap-2 hover:underline">
-          <img src="/riflan-avatar.webp" alt="" className="size-7 rounded-full object-cover" width={28} height={28} />
+          <span className="grid size-7 place-items-center rounded-full bg-brand-ink text-brand">
+            <Logo aria-hidden="true" className="h-3 w-auto" />
+          </span>
           Back to top
         </a>
       </div>

@@ -54,7 +54,7 @@ const TerminalTile = () => (
     <p className="text-[#7ee787]">✓ built in 8.4s</p>
     <p className="mt-2 text-white/45">$ git push origin main</p>
     <p className="text-white/70">main → main</p>
-    <p className="mt-2 text-[#7ee787]">● deployed — live</p>
+    <p className="mt-2 text-[#7ee787]">● deployed: live</p>
   </div>
 );
 
@@ -62,8 +62,8 @@ const ROADMAP = [
   { label: 'Problem & users defined', done: true },
   { label: 'Scope and milestones agreed', done: true },
   { label: 'Data model & API contract', done: true },
-  { label: 'Sprint 1 — core flow', done: false },
-  { label: 'Sprint 2 — AI features', done: false },
+  { label: 'Sprint 1: core flow', done: false },
+  { label: 'Sprint 2: AI features', done: false },
 ];
 
 /** A small planning board, the artefact the first step produces. */

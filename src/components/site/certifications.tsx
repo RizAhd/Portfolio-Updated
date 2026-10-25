@@ -2,22 +2,28 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { certifications, type CertificationItem } from '@/data/portfolio';
-import { Container, CountUp, SectionHeader } from './primitives';
+import { Container, CountUp, PillButton, SectionHeader } from './primitives';
 import { EASE } from './motion';
 
 const thisYear = certifications.filter((c) => c.date?.includes('2026')).length;
 const issuers = new Set(certifications.map((c) => c.issuer)).size;
 
+/** Shown before "See all": the four newest certificates around the two stat cards. */
+const FEATURED = 4;
+
 export const Certifications = () => {
   const [open, setOpen] = useState<CertificationItem | null>(null);
-  const [a, b, ...others] = certifications;
+  const [showAll, setShowAll] = useState(false);
+  const [a, b, c, d] = certifications;
+  const more = certifications.slice(FEATURED);
 
   const cells: ReactNode[] = [
     <CertCard key={a.title} cert={a} onOpen={setOpen} />,
     <CertCard key={b.title} cert={b} onOpen={setOpen} />,
     <StatCard key="total" tone="inverse" caption={`Certified by ${issuers} organisations across AI, cloud and automation`} value={certifications.length} label="Certifications" />,
-    <StatCard key="year" tone="brand" caption="Still learning — the latest is from August 2026" value={thisYear} label="Earned this year" />,
-    ...others.map((cert) => <CertCard key={cert.title} cert={cert} onOpen={setOpen} />),
+    <StatCard key="year" tone="brand" caption="Still learning: the latest is from August 2026" value={thisYear} label="Earned this year" />,
+    <CertCard key={c.title} cert={c} onOpen={setOpen} />,
+    <CertCard key={d.title} cert={d} onOpen={setOpen} />,
   ];
 
   return (
@@ -25,7 +31,7 @@ export const Certifications = () => {
       <Container>
         <SectionHeader
           title="Certified & always learning"
-          intro="Courses and certifications that keep my skills current — from machine learning and cloud to AI engineering and automation."
+          intro="Courses and certifications that keep my skills current, from machine learning and cloud to AI engineering and automation."
         />
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cells.map((cell, i) => (
@@ -40,6 +46,31 @@ export const Certifications = () => {
             </motion.li>
           ))}
         </ul>
+
+        <AnimatePresence initial={false}>
+          {showAll ? (
+            <motion.ul
+              id="more-certifications"
+              className="grid gap-4 overflow-hidden pt-4 sm:grid-cols-2 lg:grid-cols-3"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              {more.map((cert) => (
+                <li key={cert.title}>
+                  <CertCard cert={cert} onOpen={setOpen} />
+                </li>
+              ))}
+            </motion.ul>
+          ) : null}
+        </AnimatePresence>
+
+        <div className="mt-10 flex justify-center">
+          <PillButton onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} aria-controls="more-certifications">
+            {showAll ? 'Show fewer' : `See all ${certifications.length} certifications`}
+          </PillButton>
+        </div>
       </Container>
 
       <Lightbox cert={open} onClose={() => setOpen(null)} />
@@ -126,7 +157,7 @@ const Lightbox = ({ cert, onClose }: { cert: CertificationItem | null; onClose: 
           >
             <img src={cert.image} alt={`${cert.title} certificate`} className="w-full rounded-2xl bg-white shadow-2xl" />
             <figcaption className="mt-4 text-center text-sm text-white/85">
-              {cert.title} — {cert.issuer}
+              {cert.title}, {cert.issuer}
               {cert.date ? `, ${cert.date}` : ''}
             </figcaption>
             <button

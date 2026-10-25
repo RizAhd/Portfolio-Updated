@@ -1,17 +1,20 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { contact, navLinks, profile } from '@/data/portfolio';
+import { WhatsappIcon } from '@/components/brand-icons';
 import type { Theme } from '@/hooks/use-theme';
+import { Logo } from './logo';
+import { ThemeSwitch } from './theme-switch';
 import { EASE } from './motion';
 
 const CV = { href: '/Riflan_Mohamed_CV_AI_Engineer.pdf', file: 'Riflan_Mohamed_CV_AI_Engineer.pdf' };
 
-/** Floating pill navigation; folds into an "available for work" pill once you scroll (always, on phones). */
 interface NavProps {
   theme: Theme;
   onToggleTheme: () => void;
 }
 
+/** Floating pill navigation; folds into an "available for work" pill once you scroll (always, on phones). */
 export const Nav = ({ theme, onToggleTheme }: NavProps) => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -43,8 +46,10 @@ export const Nav = ({ theme, onToggleTheme }: NavProps) => {
         style={{ borderRadius: 999 }}
         className="hidden items-center gap-1 overflow-hidden border border-line bg-nav p-1.5 shadow-lg shadow-black/5 backdrop-blur-xl md:flex"
       >
-        <motion.a layout="position" href="#home" className="shrink-0" aria-label={`${profile.name} — home`}>
-          <img src="/riflan-avatar.webp" alt="" className="size-9 rounded-full object-cover" width={36} height={36} />
+        <motion.a layout="position" href="#home" className="shrink-0" aria-label={`${profile.name}, home`}>
+          <span className="grid size-9 place-items-center rounded-full bg-inverse text-inverse-ink">
+            <Logo aria-hidden="true" className="h-4 w-auto" />
+          </span>
         </motion.a>
         <AnimatePresence mode="popLayout" initial={false}>
           {compact ? (
@@ -87,18 +92,25 @@ export const Nav = ({ theme, onToggleTheme }: NavProps) => {
             </motion.div>
           )}
         </AnimatePresence>
+        <motion.span layout="position" className="ml-1 flex items-center pr-1.5">
+          <ThemeSwitch theme={theme} onToggle={onToggleTheme} />
+        </motion.span>
       </motion.nav>
 
       {/* Phones */}
       <div className="w-full max-w-sm md:hidden">
-        <div className="flex items-center gap-3 rounded-full border border-line bg-nav p-1.5 pl-1.5 shadow-lg shadow-black/5 backdrop-blur-xl">
-          <a href="#home" aria-label={`${profile.name} — home`} onClick={() => setOpen(false)}>
-            <img src="/riflan-avatar.webp" alt="" className="size-10 rounded-full object-cover" width={40} height={40} />
+        <div className="flex items-center gap-2.5 rounded-full border border-line bg-nav p-1.5 shadow-lg shadow-black/5 backdrop-blur-xl">
+          <a href="#home" aria-label={`${profile.name}, home`} onClick={() => setOpen(false)}>
+            <span className="grid size-10 place-items-center rounded-full bg-inverse text-inverse-ink">
+              <Logo aria-hidden="true" className="h-[18px] w-auto" />
+            </span>
           </a>
-          <span className="flex flex-1 items-center gap-2 text-[15px] text-ink-soft">
-            {profile.status}
-            <span className="size-2 rounded-full bg-emerald-500" aria-hidden="true" />
+          <span className="flex min-w-0 flex-1 items-center gap-2 text-[15px] whitespace-nowrap text-ink-soft">
+            <span className="min-[360px]:hidden">Available</span>
+            <span className="hidden min-[360px]:inline">{profile.status}</span>
+            <span className="size-2 shrink-0 rounded-full bg-emerald-500" aria-hidden="true" />
           </span>
+          <ThemeSwitch theme={theme} onToggle={onToggleTheme} />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -139,20 +151,6 @@ export const Nav = ({ theme, onToggleTheme }: NavProps) => {
                   {link.label}
                 </a>
               ))}
-              <button
-                type="button"
-                role="switch"
-                aria-checked={theme === 'dark'}
-                onClick={onToggleTheme}
-                className="mt-1 flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm text-ink-soft hover:bg-soft"
-              >
-                Dark theme
-                <span className="h-6 w-11 rounded-full bg-brand p-1">
-                  <span
-                    className={`block size-4 rounded-full bg-brand-ink transition-transform duration-300 ${theme === 'dark' ? 'translate-x-5' : ''}`}
-                  />
-                </span>
-              </button>
               <div className="mt-2 flex gap-2 border-t border-line px-1 pt-3">
                 <a
                   href={CV.href}
@@ -162,10 +160,13 @@ export const Nav = ({ theme, onToggleTheme }: NavProps) => {
                   Download CV
                 </a>
                 <a
-                  href={`mailto:${contact.email}`}
-                  className="flex-1 rounded-full border border-line px-4 py-2.5 text-center text-sm text-ink"
+                  href={contact.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-ink"
                 >
-                  Email me
+                  <WhatsappIcon className="size-4" />
+                  WhatsApp
                 </a>
               </div>
             </motion.nav>

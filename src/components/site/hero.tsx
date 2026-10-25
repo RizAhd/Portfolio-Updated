@@ -1,61 +1,88 @@
 import { motion } from 'framer-motion';
+import { ArrowDownRight, Download } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { profile } from '@/data/portfolio';
 import { EASE } from './motion';
 import { PortraitCard } from './portrait';
 
-const WORD = 'font-display-caps text-[clamp(3.5rem,9vw,8.75rem)] font-bold leading-[0.92] text-ink lg:leading-[0.85]';
-const NAME = 'font-display-caps text-2xl font-semibold text-ink sm:text-3xl';
+const SIZE = 'text-[clamp(4rem,10.5vw,9.5rem)]';
 
-/** The two words start tucked in against the card and slide outward as they appear. */
-const slide = (from: number, delay: number) => ({
-  initial: { opacity: 0, x: from },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 1.4, delay, ease: EASE },
+/**
+ * Each headline line rises out of its own mask. The mask is a full 1em tall so round
+ * letters keep their overshoot (a shorter one shaved the bottoms of S, O and G);
+ * lines after the first tuck up into the empty space above the caps instead.
+ */
+const Line = ({ children, delay, first = false }: { children: ReactNode; delay: number; first?: boolean }) => (
+  <span
+    className={`block overflow-hidden font-display-caps font-bold ${SIZE} ${first ? '' : '-mt-[0.07em]'}`}
+    style={{ lineHeight: 1 }}
+  >
+    <motion.span
+      className="block"
+      initial={{ y: '105%' }}
+      animate={{ y: '0%' }}
+      transition={{ duration: 1.1, delay, ease: EASE }}
+    >
+      {children}
+    </motion.span>
+  </span>
+);
+
+const fade = (delay: number) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: EASE },
 });
 
 export const Hero = () => (
-  <section id="home" className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-28 pb-24">
-    <h1 className="sr-only">
-      {profile.name} — Software Engineer & AI Engineer
-    </h1>
-    <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-8 px-5 lg:flex-row lg:items-start lg:justify-center lg:gap-6 lg:gap-8">
-      {/* Left word */}
-      <motion.div
-        className="relative z-10 order-2 flex flex-col items-center lg:order-1 lg:items-start lg:pt-[clamp(5rem,10vw,9rem)]"
-        {...slide(160, 0.55)}
-      >
-        <p className={`${NAME} lg:mb-3`}>{profile.name}</p>
-        <span aria-hidden="true" className={`${WORD} hidden lg:block`}>
-          Software
-        </span>
-      </motion.div>
+  <section id="home" className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20">
+    <div className="mx-auto grid w-full max-w-[1120px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10">
+      <div className="relative z-10">
+        <motion.p {...fade(0.1)} className="flex items-center gap-3 font-display-caps text-2xl font-semibold text-ink sm:text-3xl">
+          <span className="h-px w-10 bg-brand" aria-hidden="true" />
+          {profile.name}
+        </motion.p>
 
-      {/* Portrait slot: the card itself on phones; on desktop the pinned card in PortraitStage sits here. */}
-      <div data-portrait-anchor className="order-1 w-[min(72vw,20rem)] shrink-0 lg:order-2 lg:w-[clamp(15rem,23vw,21.25rem)]">
+        <h1 className="mt-5 text-ink" aria-label={`${profile.name}, Software and AI Engineer`}>
+          <Line delay={0.2} first>
+            Software
+          </Line>
+          <Line delay={0.32}>
+            <span className="text-transparent [-webkit-text-stroke:2px_var(--ink)]">+</span>{' '}
+            <span className="text-brand">AI</span>
+          </Line>
+          <Line delay={0.44}>Engineer</Line>
+        </h1>
+
+        <motion.p {...fade(0.75)} className="mt-6 max-w-md text-base leading-relaxed text-ink-soft sm:text-lg">
+          I build scalable, data-driven applications and intelligent AI products, from idea to production.
+        </motion.p>
+
+        <motion.div {...fade(0.9)} className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#projects"
+            className="inline-flex h-12 items-center gap-2 rounded-full bg-inverse px-6 text-sm font-medium text-inverse-ink transition-transform hover:-translate-y-0.5"
+          >
+            View my work
+            <ArrowDownRight className="size-4" />
+          </a>
+          <a
+            href="/Riflan_Mohamed_CV_AI_Engineer.pdf"
+            download="Riflan_Mohamed_CV_AI_Engineer.pdf"
+            className="inline-flex h-12 items-center gap-2 rounded-full border border-ink/20 px-6 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand"
+          >
+            <Download className="size-4" />
+            Download CV
+          </a>
+        </motion.div>
+      </div>
+
+      {/* Portrait slot: the card itself on phones and tablets; on desktop the pinned card in PortraitStage sits here. */}
+      <div data-portrait-anchor className="mx-auto w-[min(74vw,20rem)] lg:mx-0 lg:w-[clamp(17rem,25vw,22rem)]">
         <div className="lg:invisible">
           <PortraitCard />
         </div>
       </div>
-
-      {/* Right word */}
-      <motion.div
-        className="relative z-10 order-3 flex flex-col items-center text-center lg:items-end lg:pt-[clamp(5rem,10vw,9rem)] lg:text-right"
-        {...slide(-160, 0.65)}
-      >
-        {/* invisible twin of the name label, so both words share a baseline */}
-        <p aria-hidden="true" className={`${NAME} invisible mb-3 hidden lg:block`}>
-          {profile.name}
-        </p>
-        <span aria-hidden="true" className={`${WORD} lg:hidden`}>
-          Software
-        </span>
-        <span aria-hidden="true" className={WORD}>
-          Engineer
-        </span>
-        <p className="mt-4 max-w-[19rem] text-base leading-snug text-ink-soft sm:text-lg">
-          I&apos;m a software engineer and AI engineer.
-        </p>
-      </motion.div>
     </div>
   </section>
 );

@@ -1,7 +1,8 @@
 import { ChevronDown } from 'lucide-react';
+import { WhatsappIcon } from '@/components/brand-icons';
 import { useState, type FormEvent } from 'react';
 import { contact, profile, services } from '@/data/portfolio';
-import { Container, HiBadge, PillButton, Reveal, SectionHeader } from './primitives';
+import { Container, PillButton, Reveal, SectionHeader } from './primitives';
 
 const field =
   'w-full rounded-full border border-transparent bg-soft px-5 text-sm text-ink placeholder:text-muted-ink outline-none transition-colors focus:border-brand';
@@ -18,8 +19,8 @@ export const Contact = () => {
     const email = String(data.get('email') ?? '').trim();
     const service = String(data.get('service') ?? '');
     const message = String(data.get('message') ?? '').trim();
-    const subject = `Project enquiry${service ? ` — ${service}` : ''} (from ${name})`;
-    const body = `${message}\n\n— ${name}\n${email}`;
+    const subject = `Project enquiry${service ? `: ${service}` : ''} (from ${name})`;
+    const body = `${message}\n\nFrom ${name}\n${email}`;
     window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
@@ -30,19 +31,18 @@ export const Contact = () => {
         <Reveal className="relative mx-auto w-[min(70vw,20rem)] md:w-[min(100%,21rem)]">
           <div className="aspect-[5/7] overflow-hidden rounded-2xl bg-soft shadow-2xl shadow-black/10">
             <img
-              src="/riflan-portrait.webp"
+              src={profile.photo}
               alt={`Portrait of ${profile.name}`}
               loading="lazy"
               className="size-full object-cover object-[50%_22%]"
             />
           </div>
-          <HiBadge className="-bottom-8 -left-8 sm:-bottom-10 sm:-left-14" />
         </Reveal>
 
         <div>
           <SectionHeader
             title="Let's work together"
-            intro="Let's build something impactful together — whether it's an AI product, a web or mobile app, or your next big idea."
+            intro="Let's build something impactful together, whether it's an AI product, a web or mobile app, or your next big idea."
           />
           <Reveal delay={0.1}>
             <form onSubmit={onSubmit} className="mt-10 space-y-5">
@@ -101,9 +101,21 @@ export const Contact = () => {
               </div>
               <div className="flex flex-wrap items-center gap-4 pt-1">
                 <PillButton type="submit">Submit</PillButton>
-                <p className="text-sm text-muted-ink" aria-live="polite">
-                  {sent ? 'Your email app should now open with the message ready to send.' : `Or email ${contact.email}`}
-                </p>
+                {sent ? (
+                  <p className="text-sm text-muted-ink" aria-live="polite">
+                    Your email app should now open with the message ready to send.
+                  </p>
+                ) : (
+                  <a
+                    href={contact.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-brand"
+                  >
+                    <WhatsappIcon className="size-4" />
+                    Or chat on WhatsApp
+                  </a>
+                )}
               </div>
             </form>
           </Reveal>

@@ -13,7 +13,7 @@ export const Faq = () => {
       <Container className="grid gap-12 md:grid-cols-[2fr_3fr] md:gap-16">
         <SectionHeader
           title="Frequently asked questions"
-          intro="Answers to the questions I hear most. Can't find yours? Reach out — I'm happy to help."
+          intro="Answers to the questions I hear most. Can't find yours? Reach out, I'm happy to help."
           className="md:sticky md:top-28 md:self-start"
         />
         <ul>

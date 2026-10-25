@@ -54,13 +54,6 @@ export const PillButton = ({ className, type = 'button', ...props }: ComponentPr
   <button type={type} className={cn(pillClass, 'cursor-pointer', className)} {...props} />
 );
 
-/** Category label used on project cards. */
-export const Tag = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <span className={cn('inline-flex rounded-full bg-brand px-3 py-1 text-xs font-medium text-brand-ink', className)}>
-    {children}
-  </span>
-);
-
 /** Counts from 0 to `value` the first time it scrolls into view. */
 export const CountUp = ({ value, suffix = '' }: { value: number; suffix?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -85,21 +78,3 @@ export const CountUp = ({ value, suffix = '' }: { value: number; suffix?: string
     </span>
   );
 };
-
-/** The round "Hi" badge that sits on the portrait cards. */
-export const HiBadge = ({ className, children = 'Hi' }: { className?: string; children?: ReactNode }) => (
-  <motion.span
-    aria-hidden="true"
-    className={cn(
-      'absolute grid size-24 place-items-center rounded-full bg-brand text-4xl text-brand-ink shadow-xl shadow-black/10 sm:size-[7.5rem] sm:text-[2.6rem]',
-      className
-    )}
-    initial={{ scale: 0, rotate: -20 }}
-    whileInView={{ scale: 1, rotate: 0 }}
-    viewport={{ once: true }}
-    whileHover={{ rotate: [0, -12, 10, -6, 0], transition: { duration: 0.6 } }}
-    transition={{ type: 'spring', stiffness: 260, damping: 16, delay: 0.5 }}
-  >
-    {children}
-  </motion.span>
-);

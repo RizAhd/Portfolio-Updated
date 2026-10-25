@@ -11,7 +11,6 @@ import { PortraitStage } from '@/components/site/portrait'
 import { Process } from '@/components/site/process'
 import { Projects } from '@/components/site/projects'
 import { Services } from '@/components/site/services'
-import { ThemeSwitch } from '@/components/site/theme-switch'
 import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
 import { useTheme } from '@/hooks/use-theme'
 
@@ -37,7 +36,6 @@ function App() {
         <Contact />
       </main>
       <Footer />
-      <ThemeSwitch theme={theme} onToggle={toggleTheme} />
     </MotionConfig>
   )
 }

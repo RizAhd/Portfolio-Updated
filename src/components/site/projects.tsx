@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useState, type PointerEvent } from 'react';
 import { GithubIcon } from '@/components/brand-icons';
 import { projects, type Project } from '@/data/portfolio';
-import { Container, PillButton, SectionHeader, Tag } from './primitives';
+import { Container, PillButton, SectionHeader } from './primitives';
 import { EASE } from './motion';
 
 const featured = projects.filter((p) => p.featured);
@@ -25,7 +25,7 @@ export const Projects = () => {
       <Container>
         <SectionHeader
           title="Featured projects"
-          intro="These selected projects show how I blend engineering with AI — solving real problems with clean, reliable software."
+          intro="These selected projects show how I blend engineering with AI, solving real problems with clean, reliable software."
         />
 
         <div className="mt-12">
@@ -63,14 +63,18 @@ export const Projects = () => {
   );
 };
 
+/**
+ * Split card: copy on a soft panel, artwork on the other side (alternating),
+ * stacking as you scroll. A round arrow trails the cursor over the artwork.
+ */
 const FeaturedCard = ({ project, index }: { project: Project; index: number }) => {
   const art = ART[index % ART.length];
-  // a round arrow button trails the cursor across the card (centred when idle)
+  const flip = index % 2 === 1;
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const ax = useSpring(mx, { stiffness: 180, damping: 20, mass: 0.6 });
   const ay = useSpring(my, { stiffness: 180, damping: 20, mass: 0.6 });
-  const track = (e: PointerEvent<HTMLAnchorElement>) => {
+  const track = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== 'mouse') return;
     const r = e.currentTarget.getBoundingClientRect();
     mx.set(e.clientX - r.left - r.width / 2);
@@ -82,61 +86,61 @@ const FeaturedCard = ({ project, index }: { project: Project; index: number }) =
   };
 
   return (
-    <div className="sticky mb-10 md:mb-16" style={{ top: `${88 + index * 16}px` }}>
+    <div className="mb-8 md:mb-12 lg:sticky" style={{ top: `${88 + index * 18}px` }}>
       <motion.a
         href={project.repo}
         target="_blank"
         rel="noreferrer"
-        onPointerMove={track}
-        onPointerLeave={reset}
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.9, ease: EASE }}
-        className="group relative isolate flex h-[min(38rem,78svh)] min-h-[26rem] items-center justify-center overflow-hidden rounded-3xl px-6 text-center shadow-2xl shadow-black/20"
-        style={{ backgroundColor: art.base }}
+        className="group grid overflow-hidden rounded-3xl border border-line bg-soft shadow-xl shadow-black/10 lg:h-[min(30rem,72svh)] lg:grid-cols-2"
       >
-        <motion.span
+        {/* artwork */}
+        <div
           aria-hidden="true"
-          style={{ x: ax, y: ay }}
-          className="pointer-events-none absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 hidden size-14 place-items-center rounded-full bg-brand text-brand-ink opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 md:grid"
+          onPointerMove={track}
+          onPointerLeave={reset}
+          className={`relative isolate h-44 overflow-hidden sm:h-56 lg:h-full ${flip ? 'lg:order-2' : ''}`}
+          style={{ backgroundColor: art.base }}
         >
-          <ArrowUpRight className="size-6" />
-        </motion.span>
-        {/* colour field */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div
-            className="absolute -left-[10%] -top-[20%] size-[70%] rounded-full opacity-70 blur-[90px]"
-            style={{ background: art.a }}
-          />
-          <div
-            className="absolute -bottom-[25%] -right-[5%] size-[65%] rounded-full opacity-60 blur-[100px]"
-            style={{ background: art.b }}
-          />
-          <div
-            className="absolute left-[35%] top-[40%] size-[40%] rounded-full opacity-50 blur-[80px]"
-            style={{ background: art.c }}
-          />
-          <div className="absolute inset-0 bg-black/35" />
-          <span className="absolute -bottom-[0.18em] right-[0.04em] select-none font-display-caps text-[clamp(10rem,30vw,24rem)] font-bold leading-none text-white/[0.07]">
+          <div className="absolute top-[-20%] left-[-10%] size-[75%] rounded-full opacity-70 blur-[80px]" style={{ background: art.a }} />
+          <div className="absolute right-[-10%] bottom-[-25%] size-[70%] rounded-full opacity-60 blur-[90px]" style={{ background: art.b }} />
+          <div className="absolute top-[35%] left-[30%] size-[45%] rounded-full opacity-50 blur-[70px]" style={{ background: art.c }} />
+          <div className="absolute inset-0 bg-black/25" />
+          <span className="absolute inset-0 grid place-items-center font-display-caps text-[clamp(8rem,22vw,17rem)] leading-none font-bold text-transparent select-none [-webkit-text-stroke:2px_rgb(255_255_255/0.35)]">
             {project.no}
           </span>
+          <span className="absolute top-5 left-5 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white backdrop-blur">
+            {project.tag}
+          </span>
+          <motion.span
+            style={{ x: ax, y: ay }}
+            className="pointer-events-none absolute top-1/2 left-1/2 -mt-7 -ml-7 hidden size-14 place-items-center rounded-full bg-brand text-brand-ink opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 md:grid"
+          >
+            <ArrowUpRight className="size-6" />
+          </motion.span>
         </div>
 
-        <div className="flex max-w-2xl flex-col items-center">
-          <Tag>{project.tag}</Tag>
-          <h3 className="mt-5 font-display-caps text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white">{project.title}</h3>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">{project.description}</p>
-          <ul className="mt-6 flex max-w-xl flex-wrap justify-center gap-2" aria-label="Tech stack">
+        {/* copy */}
+        <div className="flex flex-col justify-center p-7 sm:p-10">
+          <span className="font-display-caps text-sm text-muted-ink">
+            Project {project.no} / {String(projects.length).padStart(2, '0')}
+          </span>
+          <h3 className="mt-3 font-display-caps text-[clamp(2.1rem,4vw,3.25rem)] font-bold text-ink">{project.title}</h3>
+          <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{project.description}</p>
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tech stack">
             {project.stack.map((tech) => (
-              <li key={tech} className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
+              <li key={tech} className="rounded-full border border-line bg-page px-3 py-1 text-xs text-ink-soft">
                 {tech}
               </li>
             ))}
           </ul>
-          <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#303030] transition-transform group-hover:-translate-y-0.5">
+          <span className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-inverse px-5 py-2.5 text-sm font-medium text-inverse-ink transition-transform group-hover:-translate-y-0.5">
             <GithubIcon className="size-4" />
             View on GitHub
+            <ArrowUpRight className="size-4" />
           </span>
         </div>
       </motion.a>

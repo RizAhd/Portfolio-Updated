@@ -5,17 +5,17 @@ import { services } from '@/data/portfolio';
 import { Container, SectionHeader } from './primitives';
 import { EASE } from './motion';
 
-/** Left half only: on desktop the pinned portrait card occupies the right half. */
+/** Right half only: on desktop the pinned portrait card occupies the left half. */
 export const Services = () => {
   const [active, setActive] = useState(0);
 
   return (
     <section id="services" className="scroll-mt-24 py-24 md:py-32">
       <Container>
-        <div className="lg:w-1/2 lg:pr-8">
+        <div className="lg:ml-auto lg:w-1/2 lg:pl-8">
           <SectionHeader
             title="What I can do for you"
-            intro="As a software engineer, I turn ideas into working products — intelligent, fast and built to last."
+            intro="As a software engineer, I turn ideas into working products: intelligent, fast and built to last."
           />
           <ul className="mt-10">
             {services.map((service, i) => {

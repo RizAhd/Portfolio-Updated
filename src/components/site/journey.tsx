@@ -21,7 +21,7 @@ export const Journey = () => (
       <div>
         <SectionHeader
           title="Discover my journey"
-          intro="From curious builder to software engineer — my path blends formal study with hands-on work in AI and automation."
+          intro="From curious builder to software engineer, my path blends formal study with hands-on work in AI and automation."
         />
         <ol className="mt-10">
           {milestones.map((m, i) => (
@@ -43,7 +43,7 @@ export const Journey = () => (
       <div>
         <SectionHeader
           title="My tech stack"
-          intro="I build with intention — each tool here earns its place in the projects I ship."
+          intro="I build with intention. Each tool here earns its place in the projects I ship."
         />
         <ul className="mt-10">
           {techStack.map((tool, i) => (
